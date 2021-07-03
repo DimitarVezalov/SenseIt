@@ -8,7 +8,6 @@
     using SenseIt.Data.Models;
     using SenseIt.Data.Repositories;
     using SenseIt.Data.Seeding;
-    using SenseIt.Services.Data;
     using SenseIt.Services.Mapping;
     using SenseIt.Services.Messaging;
     using SenseIt.Web.ViewModels;
@@ -64,7 +63,6 @@
 
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
-            services.AddTransient<ISettingsService, SettingsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

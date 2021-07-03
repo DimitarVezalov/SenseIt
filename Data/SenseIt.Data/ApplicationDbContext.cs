@@ -6,11 +6,10 @@
     using System.Threading;
     using System.Threading.Tasks;
 
-    using SenseIt.Data.Common.Models;
-    using SenseIt.Data.Models;
-
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
+    using SenseIt.Data.Common.Models;
+    using SenseIt.Data.Models;
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
@@ -24,7 +23,11 @@
         {
         }
 
-        public DbSet<Setting> Settings { get; set; }
+        public DbSet<Service> Services { get; set; }
+
+        public DbSet<Category> Categories { get; set; }
+
+        public DbSet<Product> Products { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 
