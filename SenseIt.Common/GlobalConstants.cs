@@ -4,8 +4,18 @@
     {
         public const string SystemName = "SenseIt";
 
-        public const string AdministratorRoleName = "Administrator";
-        public const string UserRoleName = "User";
-        public const string EmployeeRoleName = "Employee";
+        public static class Role
+        {
+            public const string AdministratorRoleName = "Administrator";
+            public const string UserRoleName = "User";
+            public const string EmployeeRoleName = "Employee";
+        }
+
+        public static class Admin
+        {
+            public const string AdminEmail = "Admin1@gmail.com";
+            public const string AdminPassword = "Admin1";
+            public const string AdminUsername = "Admin";
+        }
     }
 }

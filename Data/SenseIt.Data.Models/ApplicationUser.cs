@@ -7,6 +7,7 @@ namespace SenseIt.Data.Models
     using SenseIt.Data.Common.Models;
 
     using Microsoft.AspNetCore.Identity;
+    using System.Threading.Tasks;
 
     public class ApplicationUser : IdentityUser, IAuditInfo, IDeletableEntity
     {
@@ -33,5 +34,10 @@ namespace SenseIt.Data.Models
         public virtual ICollection<IdentityUserClaim<string>> Claims { get; set; }
 
         public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
+
+        public static implicit operator Task<object>(ApplicationUser v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -1,0 +1,99 @@
+﻿@model List<SenseIt.Services.Data.Admin.Models.AdminProductsListingViewModel>;
+@{
+    var counter = 1;
+}
+<div class="tab-content">
+    <h1 class="text-center font-weight-light">Products Management</h1>
+    <hr />
+    <div class="row">
+        <div class="btn-group mb-2 col-6 offset-3" role="group">
+            <a asp-area="Administration" asp-controller="Products" asp-action="Update" asp-route-Id="" class="btn btn-secondary">Hair & Hair Style</a>
+            <a asp-area="Administration" asp-controller="Products" asp-action="Update" asp-route-Id="" class="btn btn-secondary">Body Care</a>
+            <a asp-area="Administration" asp-controller="Products" asp-action="Update" asp-route-Id="" class="btn btn-secondary">Manicure</a>
+            <a asp-area="Administration" asp-controller="Products" asp-action="Update" asp-route-Id="" class="btn btn-secondary">Pedicure</a>
+        </div>
+    </div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col" class="text-center">#</th>
+                <th scope="col" class="text-center">Name</th>
+                <th scope="col" class="text-center">Description</th>
+                <th scope="col" class="text-center">Category</th>
+                <th scope="col" class="text-center">Price</th>
+                <th scope="col" class="text-center">Edit</th>
+                <th scope="col" class="text-center">Delete</th>
+                <th scope="col" class="text-center">Restock</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model)
+            {
+                var description = product.Description.Length > 20 ? product.Description.Substring(0, 20) + "..." : product.Description;
+
+                if (product.InStockQuantity < 100)
+                {
+                    <tr class="table-danger">
+                        <th scope="row" class="text-center">@counter</th>
+                        <td class="text-center">@product.Name</td>
+                        <td class="text-center">@description</td>
+                        <td class="text-center">@product.CategoryName</td>
+                        <td class="text-center">@product.Price.ToString("F2")</td>
+                        <td class="text-center">
+                            <a asp-area="Administration" asp-controller="Products" asp-action="Update" asp-route-Id="@product.Id" class="btn btn-outline-primary mx-1">Update</a>
+                        </td>
+                        <td class="text-center">
+                            <a asp-area="Administration" asp-controller="Products" asp-action="Delete" asp-route-Id="@product.Id" class="btn btn-outline-danger mx-1 bi bi-trash">Delete</a>
+                        </td>
+                        <td class="text-center">
+                            <a asp-area="Administration" asp-controller="Products" asp-action="Restock" asp-route-Id="@product.Id" class="btn btn-outline-success mx-1">Restock</a>
+                        </td>
+                    </tr>
+                }
+                else if (product.InStockQuantity < 200)
+                {
+                    <tr class="table-warning">
+                        <th scope="row" class="text-center">@counter</th>
+                        <td class="text-center">@product.Name</td>
+                        <td class="text-center">@description</td>
+                        <td class="text-center">@product.CategoryName</td>
+                        <td class="text-center">@product.Price.ToString("F2")</td>
+                        <td class="text-center">
+                            <a asp-area="Administration" asp-controller="Products" asp-action="Update" asp-route-Id="@product.Id" class="btn btn-outline-primary mx-1">Update</a>
+                        </td>
+                        <td class="text-center">
+                            <a asp-area="Administration" asp-controller="Products" asp-action="Delete" asp-route-Id="@product.Id" class="btn btn-outline-danger mx-1">Delete</a>
+                        </td>
+                        <td class="text-center">
+                            <a asp-area="Administration" asp-controller="Products" asp-action="Restock" asp-route-Id="@product.Id" class="btn btn-outline-success mx-1">Restock</a>
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    <tr>
+                        <th scope="row" class="text-center">@counter</th>
+                        <td class="text-center">@product.Name</td>
+                        <td class="text-center">@description</td>
+                        <td class="text-center">@product.CategoryName</td>
+                        <td class="text-center">@product.Price.ToString("F2")</td>
+                        <td class="text-center">
+                            <a asp-area="Administration" asp-controller="Products" asp-action="Update" asp-route-Id="@product.Id" class="btn btn-outline-primary mx-1">Update</a>
+                        </td>
+                        <td class="text-center">
+                            <a asp-area="Administration" asp-controller="Products" asp-action="Delete" asp-route-Id="@product.Id" class="btn btn-outline-danger mx-1">Delete</a>
+                        </td>
+                    </tr>
+                }
+
+                counter++;
+            }
+        </tbody>
+    </table>
+    <hr />
+    <div class="container-fluid">
+        <div class="text-center">
+            <a asp-area="Administration" asp-controller="Products" asp-action="Add" class="btn btn-lg btn-outline-primary mx-1">Add New Product</a>
+        </div>
+    </div>
+</div>
