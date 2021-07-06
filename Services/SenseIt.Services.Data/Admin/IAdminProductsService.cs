@@ -7,8 +7,16 @@
 
     public interface IAdminProductsService
     {
-        Task CreateAsync(CreateProductInputModel model);
+        Task<int> CreateAsync(CreateProductInputModel model);
 
         Task<IEnumerable<AdminProductsListingViewModel>> GetAllProductsAsync();
+
+        Task<bool> Restock(int? productId);
+
+        Task<bool> Delete(int? productId);
+
+        Task<AdminProductDetailsViewModel> GetDetailsModel(int? id);
+
+        Task<bool> Update(int? id, AdminProductUpdateModel model);
     }
 }

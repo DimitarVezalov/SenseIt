@@ -1,4 +1,12 @@
-﻿@model SenseIt.Services.Data.Admin.Models.CreateProductInputModel;
+﻿@using SenseIt.Services.Data.Admin;
+
+@model SenseIt.Services.Data.Admin.Models.CreateProductInputModel;
+
+@inject IAdminCategoriesService adminCategoriesService;
+
+@{ 
+    var categories = await adminCategoriesService.GetCategoryNames();
+}
 
 
 <div>
@@ -7,25 +15,30 @@
 
 <form method="post">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <div class="input-group pb-3">
+    <div class="input-group pb-5">
         <span class="input-group-text">Name</span>
         <input type="text" asp-for="Name" class="form-control">
         <span asp-validation-for="Name"></span>
     </div>
 
-    <div class="input-group pb-3">
-        <input type="text" asp-for="Category" class="form-control">
-        <span class="input-group-text">Category</span>
-        <span asp-validation-for="Category"></span>
+    <div class="input-group pb-5">
+        <select class="form-select" asp-for="Category">
+            <option selected>Choose...</option>
+            @foreach (var category in categories)
+            {
+                <option>@category</option>
+            }
+        </select>
+        <label class="input-group-text" for="inputGroupSelect02">Category</label>
     </div>
 
-    <div class="input-group pb-3">
+    <div class="input-group pb-5">
         <span class="input-group-text">Image Ur</span>
         <input type="text" asp-for="ImageUrl" class="form-control">
         <span asp-validation-for="ImageUrl"></span>
     </div>
 
-    <div class="input-group pb-3">
+    <div class="input-group pb-5">
         <span class="input-group-text">$</span>
         <input type="number" asp-for="Price" class="form-control">
         <span asp-validation-for="Price"></span>
@@ -34,7 +47,7 @@
         <span asp-validation-for="InStockQuantity"></span>
     </div>
 
-    <div class="input-group pb-3">
+    <div class="input-group pb-5">
         <span class="input-group-text">Description</span>
         <textarea rows="4" asp-for="Description" class="form-control"></textarea>
         <span asp-validation-for="Description"></span>

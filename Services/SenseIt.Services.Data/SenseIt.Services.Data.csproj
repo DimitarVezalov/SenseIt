@@ -21,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\SenseIt.Data.Common\SenseIt.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\SenseIt.Data.Models\SenseIt.Data.Models.csproj" />
+    <ProjectReference Include="..\..\SenseIt.Common\SenseIt.Common.csproj" />
     <ProjectReference Include="..\SenseIt.Services.Mapping\SenseIt.Services.Mapping.csproj" />
   </ItemGroup>
 

@@ -2,7 +2,9 @@
 {
     public static class GlobalConstants
     {
-        public const string SystemName = "SenseIt";
+        public const string SystemName = "Sense It";
+
+        public const int ProductRestockQuantity = 1000;
 
         public static class Role
         {

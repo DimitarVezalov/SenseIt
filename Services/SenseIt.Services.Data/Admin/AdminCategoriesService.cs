@@ -1,14 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SenseIt.Data.Common.Repositories;
-using SenseIt.Data.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SenseIt.Services.Data.Admin
+﻿namespace SenseIt.Services.Data.Admin
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    using Microsoft.EntityFrameworkCore;
+    using SenseIt.Data.Common.Repositories;
+    using SenseIt.Data.Models;
+
     public class AdminCategoriesService : IAdminCategoriesService
     {
         private readonly IDeletableEntityRepository<Category> categoryRepository;
@@ -18,12 +17,12 @@ namespace SenseIt.Services.Data.Admin
             this.categoryRepository = categoryRepository;
         }
 
-        public int GetCategoryIdByName(string name)
+        public async Task<int> GetCategoryIdByName(string name)
         {
-            var categoryId = this.categoryRepository.All()
+            var categoryId = await this.categoryRepository.All()
                 .Where(c => c.Name == name)
                 .Select(c => c.Id)
-                .FirstOrDefault();
+                .FirstOrDefaultAsync();
 
             return categoryId;
         }

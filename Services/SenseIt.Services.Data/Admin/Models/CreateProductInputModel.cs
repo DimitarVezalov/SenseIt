@@ -1,7 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace SenseIt.Services.Data.Admin.Models
+﻿namespace SenseIt.Services.Data.Admin.Models
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class CreateProductInputModel
     {
         [Required]
@@ -11,7 +11,7 @@ namespace SenseIt.Services.Data.Admin.Models
 
         [Required]
         [MinLength(5)]
-        [MaxLength(100)]
+        [MaxLength(800)]
         public string Description { get; set; }
 
         [Required]
