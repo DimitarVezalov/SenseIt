@@ -7,11 +7,11 @@
 
     using SenseIt.Data.Models;
 
-    public class CategoriesSeeder : ISeeder
+    public class ProductCategoriesSeeder : ISeeder
     {
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {
-            if (dbContext.Categories.Any())
+            if (dbContext.ProductCategories.Any())
             {
                 return;
             }
@@ -19,20 +19,21 @@
             var categories = new List<string>
             {
                 "Hair & Hair Style",
-                "Body Care",
+                "Face & Body Care",
                 "Manicure",
                 "Pedicure",
+                "Face & Body Hair Removal",
             };
 
             foreach (var category in categories)
             {
-                var dbCategory = new Category
+                var dbCategory = new ProductCategory
                 {
                     Name = category,
                     CreatedOn = DateTime.UtcNow,
                 };
 
-                await dbContext.Categories.AddAsync(dbCategory);
+                await dbContext.ProductCategories.AddAsync(dbCategory);
             }
         }
     }

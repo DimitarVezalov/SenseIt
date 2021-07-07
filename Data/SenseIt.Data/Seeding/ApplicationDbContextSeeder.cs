@@ -26,7 +26,8 @@
                           {
                               new RolesSeeder(),
                               new AdminSeeder(),
-                              new CategoriesSeeder(),
+                              new ProductCategoriesSeeder(),
+                              new ServiceCategoriesSeeder(),
                               new ProductsSeeder(),
                           };
 
