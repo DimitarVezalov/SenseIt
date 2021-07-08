@@ -2,7 +2,7 @@
 
 @model SenseIt.Services.Data.Admin.Models.AdminProductUpdateModel;
 
-@inject IAdminCategoriesService adminCategoriesService;
+@inject IAdminProductCategoriesService adminCategoriesService;
 
 @{
     var categories = await adminCategoriesService.GetCategoryNames();
