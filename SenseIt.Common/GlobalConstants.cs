@@ -3,11 +3,11 @@
     public static class GlobalConstants
     {
         public const string SystemName = "Sense It";
+        public const string MissingCategoryValue = "Undefined";
 
-        public static class Product
+        public static class ProductConstants
         {
             public const int ProductRestockQuantity = 1000;
-            public const string ProductMissingCategoryValue = "Undefined";
         }
 
         public static class Role

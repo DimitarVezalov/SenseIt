@@ -39,7 +39,7 @@
                         <th scope="row" class="text-center">@counter</th>
                         <td class="text-center">@product.Name</td>
                         <td class="text-center">@description</td>
-                        @if (product.CategoryName == GlobalConstants.Product.ProductMissingCategoryValue)
+                        @if (product.CategoryName == GlobalConstants.MissingCategoryValue)
                         {
                             <td class="text-center text-danger">@product.CategoryName</td>
                         }
@@ -47,7 +47,7 @@
                         {
                             <td class="text-center">@product.CategoryName</td>
                         }
-                        <td class="text-center">@product.Price.ToString("F2")</td>
+                        <td class="text-center">@product.Price</td>
                         <td class="text-center">
                             <a asp-area="Administration" asp-controller="Products" asp-action="Details" asp-route-Id="@product.Id" class="btn btn-outline-primary mx-1">Details</a>
                         </td>
@@ -65,7 +65,7 @@
                         <th scope="row" class="text-center">@counter</th>
                         <td class="text-center">@product.Name</td>
                         <td class="text-center">@description</td>
-                        @if (product.CategoryName == GlobalConstants.Product.ProductMissingCategoryValue)
+                        @if (product.CategoryName == GlobalConstants.MissingCategoryValue)
                         {
                             <td class="text-center text-danger">@product.CategoryName</td>
                         }
@@ -73,7 +73,7 @@
                         {
                             <td class="text-center">@product.CategoryName</td>
                         }
-                        <td class="text-center">@product.Price.ToString("F2")</td>
+                        <td class="text-center">@product.Price</td>
                         <td class="text-center">
                             <a asp-area="Administration" asp-controller="Products" asp-action="Details" asp-route-Id="@product.Id" class="btn btn-outline-primary mx-1">Details</a>
                         </td>
@@ -91,7 +91,7 @@
                         <th scope="row" class="text-center">@counter</th>
                         <td class="text-center">@product.Name</td>
                         <td class="text-center">@description</td>
-                        @if (product.CategoryName == GlobalConstants.Product.ProductMissingCategoryValue)
+                        @if (product.CategoryName == GlobalConstants.MissingCategoryValue)
                         {
                             <td class="text-center text-danger">@product.CategoryName</td>
                         }
@@ -99,7 +99,7 @@
                         {
                             <td class="text-center">@product.CategoryName</td>
                         }
-                        <td class="text-center">@product.Price.ToString("F2")</td>
+                        <td class="text-center">@product.Price</td>
                         <td class="text-center">
                             <a asp-area="Administration" asp-controller="Products" asp-action="Details" asp-route-Id="@product.Id" class="btn btn-outline-primary mx-1">Details</a>
                         </td>

@@ -3,6 +3,7 @@
     using System;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+
     using SenseIt.Data.Common.Models;
 
     public class Service : BaseDeletableModel<int>
@@ -11,8 +12,7 @@
         [MaxLength(100)]
         public string Name { get; set; }
 
-        [RegularExpression(@"^(?:[01][0-9]|2[0-3]):[0-0][0-0]$", ErrorMessage = "Invalid time format and hh:mm values.")]
-        public TimeSpan Duration { get; set; }
+        public TimeSpan? Duration { get; set; }
 
         [ForeignKey(nameof(ServiceCategory))]
         public int CategoryId { get; set; }

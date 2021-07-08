@@ -10,7 +10,8 @@
     using SenseIt.Data.Models;
     using SenseIt.Services.Data.Admin.Models.Product;
 
-    using static SenseIt.Common.GlobalConstants.Product;
+    using static SenseIt.Common.GlobalConstants;
+    using static SenseIt.Common.GlobalConstants.ProductConstants;
 
     public class AdminProductsService : IAdminProductsService
     {
@@ -47,14 +48,15 @@
         public async Task<IEnumerable<AdminProductsListingViewModel>> GetAllProductsAsync()
         {
             var products = await this.productsRepository.AllWithDeleted()
+                .Where(x => !x.IsDeleted)
                 .Include(x => x.Category)
                 .Select(x => new AdminProductsListingViewModel
                 {
                     Id = x.Id,
                     Name = x.Name,
                     Description = x.Description,
-                    CategoryName = x.Category.IsDeleted ? ProductMissingCategoryValue : x.Category.Name,
-                    Price = x.Price,
+                    CategoryName = x.Category.IsDeleted ? MissingCategoryValue : x.Category.Name,
+                    Price = x.Price.ToString("F2"),
                     InStockQuantity = x.InStockQuantity,
                 })
                 .ToListAsync();

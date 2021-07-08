@@ -83,7 +83,7 @@
             return this.View(model);
         }
 
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
             return this.View();
         }
