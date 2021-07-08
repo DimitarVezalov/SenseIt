@@ -4,7 +4,11 @@
     {
         public const string SystemName = "Sense It";
 
-        public const int ProductRestockQuantity = 1000;
+        public static class Product
+        {
+            public const int ProductRestockQuantity = 1000;
+            public const string ProductMissingCategoryValue = "Undefined";
+        }
 
         public static class Role
         {

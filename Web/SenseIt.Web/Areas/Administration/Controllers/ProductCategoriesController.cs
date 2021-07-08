@@ -1,13 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using SenseIt.Services.Data.Admin;
-using SenseIt.Services.Data.Admin.Models.Categories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace SenseIt.Web.Areas.Administration.Controllers
+﻿namespace SenseIt.Web.Areas.Administration.Controllers
 {
+    using System.Threading.Tasks;
+
+    using Microsoft.AspNetCore.Mvc;
+    using SenseIt.Services.Data.Admin;
+    using SenseIt.Services.Data.Admin.Models.Categories;
+
     public class ProductCategoriesController : AdministrationController
     {
         private readonly IAdminProductCategoriesService productCategoriesService;
@@ -17,6 +15,24 @@ namespace SenseIt.Web.Areas.Administration.Controllers
             this.productCategoriesService = productCategoriesService;
         }
 
+        public IActionResult Add()
+        {
+            return this.View("AddEdit");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Add(CategoryInputModel input)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.RedirectToAction(nameof(this.Add));
+            }
+
+            var result = await this.productCategoriesService.CreateAsync(input.Name);
+
+            return this.RedirectToAction(nameof(this.All));
+        }
+
         public async Task<IActionResult> All()
         {
             var categories = await this.productCategoriesService.GetCategoriesList();
@@ -24,7 +40,18 @@ namespace SenseIt.Web.Areas.Administration.Controllers
             return this.View(categories);
         }
 
-        public async Task<IActionResult> Edit(int? id, ProductCategoryEditModel input)
+        public IActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return this.NotFound();
+            }
+
+            return this.View("AddEdit");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int? id, CategoryEditModel input)
         {
             if (id == null)
             {
@@ -36,16 +63,21 @@ namespace SenseIt.Web.Areas.Administration.Controllers
                 return this.RedirectToAction($"{nameof(this.Edit)}/{id}");
             }
 
-            var result = this.productCategoriesService.Edit(id, input);
+            var result = await this.productCategoriesService.Edit(id, input.Name);
 
             return this.RedirectToAction(nameof(this.All));
         }
 
         public async Task<IActionResult> Delete(int? id)
         {
-            var categories = await this.productCategoriesService.GetCategoriesList();
+            if (id == null)
+            {
+                return this.NotFound();
+            }
 
-            return this.View(categories);
+            var result = await this.productCategoriesService.Delete(id);
+
+            return this.RedirectToAction(nameof(this.All));
         }
     }
 }

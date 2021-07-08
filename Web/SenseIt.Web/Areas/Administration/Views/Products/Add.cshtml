@@ -1,8 +1,8 @@
 ﻿@using SenseIt.Services.Data.Admin;
 
-@model SenseIt.Services.Data.Admin.Models.CreateProductInputModel;
+@model SenseIt.Services.Data.Admin.Models.Product.CreateProductInputModel;
 
-@inject IAdminCategoriesService adminCategoriesService;
+@inject IAdminProductCategoriesService adminCategoriesService;
 
 @{ 
     var categories = await adminCategoriesService.GetCategoryNames();

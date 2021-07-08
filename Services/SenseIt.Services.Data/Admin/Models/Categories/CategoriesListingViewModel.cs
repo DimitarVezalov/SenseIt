@@ -1,6 +1,6 @@
 ﻿namespace SenseIt.Services.Data.Admin.Models.Categories
 {
-    public class ProductCategoriesListingViewModel
+    public class CategoriesListingViewModel
     {
         public int Id { get; set; }
 

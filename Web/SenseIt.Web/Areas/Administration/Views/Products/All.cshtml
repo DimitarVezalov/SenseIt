@@ -1,4 +1,5 @@
-﻿@model List<SenseIt.Services.Data.Admin.Models.AdminProductsListingViewModel>;
+﻿@model List<SenseIt.Services.Data.Admin.Models.Product.AdminProductsListingViewModel>;
+@using SenseIt.Common
 @{
     var counter = 1;
 }
@@ -31,13 +32,21 @@
             {
                 var description = product.Description.Length > 20 ? product.Description.Substring(0, 20) + "..." : product.Description;
 
+
                 if (product.InStockQuantity < 100)
                 {
                     <tr class="table-danger">
                         <th scope="row" class="text-center">@counter</th>
                         <td class="text-center">@product.Name</td>
                         <td class="text-center">@description</td>
-                        <td class="text-center">@product.CategoryName</td>
+                        @if (product.CategoryName == GlobalConstants.Product.ProductMissingCategoryValue)
+                        {
+                            <td class="text-center text-danger">@product.CategoryName</td>
+                        }
+                        else
+                        {
+                            <td class="text-center">@product.CategoryName</td>
+                        }
                         <td class="text-center">@product.Price.ToString("F2")</td>
                         <td class="text-center">
                             <a asp-area="Administration" asp-controller="Products" asp-action="Details" asp-route-Id="@product.Id" class="btn btn-outline-primary mx-1">Details</a>
@@ -56,7 +65,14 @@
                         <th scope="row" class="text-center">@counter</th>
                         <td class="text-center">@product.Name</td>
                         <td class="text-center">@description</td>
-                        <td class="text-center">@product.CategoryName</td>
+                        @if (product.CategoryName == GlobalConstants.Product.ProductMissingCategoryValue)
+                        {
+                            <td class="text-center text-danger">@product.CategoryName</td>
+                        }
+                        else
+                        {
+                            <td class="text-center">@product.CategoryName</td>
+                        }
                         <td class="text-center">@product.Price.ToString("F2")</td>
                         <td class="text-center">
                             <a asp-area="Administration" asp-controller="Products" asp-action="Details" asp-route-Id="@product.Id" class="btn btn-outline-primary mx-1">Details</a>
@@ -75,7 +91,14 @@
                         <th scope="row" class="text-center">@counter</th>
                         <td class="text-center">@product.Name</td>
                         <td class="text-center">@description</td>
-                        <td class="text-center">@product.CategoryName</td>
+                        @if (product.CategoryName == GlobalConstants.Product.ProductMissingCategoryValue)
+                        {
+                            <td class="text-center text-danger">@product.CategoryName</td>
+                        }
+                        else
+                        {
+                            <td class="text-center">@product.CategoryName</td>
+                        }
                         <td class="text-center">@product.Price.ToString("F2")</td>
                         <td class="text-center">
                             <a asp-area="Administration" asp-controller="Products" asp-action="Details" asp-route-Id="@product.Id" class="btn btn-outline-primary mx-1">Details</a>

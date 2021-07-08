@@ -10,18 +10,18 @@
     using SenseIt.Data.Models;
     using SenseIt.Services.Data.Admin.Models.Categories;
 
-    public class AdminProductCategoriesService : IAdminProductCategoriesService
+    public class AdminServiceCategoriesService : IAdminServiceCategoriesService
     {
-        private readonly IDeletableEntityRepository<ProductCategory> categoryRepository;
+        private readonly IDeletableEntityRepository<ServiceCategory> categoryRepository;
 
-        public AdminProductCategoriesService(IDeletableEntityRepository<ProductCategory> categoryRepository)
+        public AdminServiceCategoriesService(IDeletableEntityRepository<ServiceCategory> categoryRepository)
         {
             this.categoryRepository = categoryRepository;
         }
 
         public async Task<int> CreateAsync(string name)
         {
-            var category = new ProductCategory
+            var category = new ServiceCategory
             {
                 Name = name,
                 CreatedOn = DateTime.UtcNow,
@@ -60,7 +60,7 @@
                {
                    Id = c.Id,
                    Name = c.Name,
-                   ProductsCount = c.Products.Count,
+                   ProductsCount = c.Services.Count,
                })
                .ToListAsync();
 

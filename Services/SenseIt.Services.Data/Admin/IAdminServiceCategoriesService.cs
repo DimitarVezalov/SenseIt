@@ -5,7 +5,7 @@
 
     using SenseIt.Services.Data.Admin.Models.Categories;
 
-    public interface IAdminProductCategoriesService
+    public interface IAdminServiceCategoriesService
     {
         Task<int> CreateAsync(string name);
 
