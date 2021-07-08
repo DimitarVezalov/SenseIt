@@ -1,9 +1,16 @@
+<<<<<<< HEAD
 ﻿@model List<SenseIt.Services.Data.Admin.Models.Categories.CategoriesListingViewModel>;
+=======
+﻿@model List<SenseIt.Services.Data.Admin.Models.Categories.ProductCategoriesListingViewModel>;
+>>>>>>> 19e807e1cd0783dbe1df90bb29b306f95b5ab0fc
 @{
     var counter = 1;
 }
 <div class="tab-content">
+<<<<<<< HEAD
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+=======
+>>>>>>> 19e807e1cd0783dbe1df90bb29b306f95b5ab0fc
     <h1 class="text-center font-weight-light">Categories Management</h1>
     <hr />
     <table class="table table-hover">
@@ -11,8 +18,13 @@
             <tr>
                 <th scope="col" class="text-center">#</th>
                 <th scope="col" class="text-center">Name</th>
+<<<<<<< HEAD
                 <th scope="col" class="text-center">Products Count</th>
                 <th scope="col" class="text-center">Change Name</th>
+=======
+                <th scope="col" class="text-center">Description</th>
+                <th scope="col" class="text-center">Edit</th>
+>>>>>>> 19e807e1cd0783dbe1df90bb29b306f95b5ab0fc
                 <th scope="col" class="text-center">Delete</th>
             </tr>
         </thead>
@@ -24,10 +36,17 @@
                     <td class="text-center">@category.Name</td>
                     <td class="text-center">@category.ProductsCount</td>
                     <td class="text-center">
+<<<<<<< HEAD
                         <a asp-area="Administration" asp-controller="ProductCategories" asp-action="Edit" asp-route-Id="@category.Id" class="btn btn-outline-primary mx-1">Edit</a>
                     </td>
                     <td class="text-center">
                         <a asp-area="Administration" asp-controller="ProductCategories" asp-action="Delete" asp-route-Id="@category.Id" class="btn btn-outline-danger mx-1 bi bi-trash">Delete</a>
+=======
+                        <a asp-area="Administration" asp-controller="Products" asp-action="Edit" asp-route-Id="@category.Id" class="btn btn-outline-primary mx-1">Details</a>
+                    </td>
+                    <td class="text-center">
+                        <a asp-area="Administration" asp-controller="Products" asp-action="Delete" asp-route-Id="@category.Id" class="btn btn-outline-danger mx-1 bi bi-trash">Delete</a>
+>>>>>>> 19e807e1cd0783dbe1df90bb29b306f95b5ab0fc
                     </td>
                 </tr>
 
@@ -38,7 +57,11 @@
     <hr />
     <div class="container-fluid">
         <div class="text-center">
+<<<<<<< HEAD
             <a asp-area="Administration" asp-controller="ProductCategories" asp-action="Add" class="btn btn-lg btn-outline-primary mx-1">Add New Category</a>
+=======
+            <a asp-area="Administration" asp-controller="Products" asp-action="Add" class="btn btn-lg btn-outline-primary mx-1">Add New Product</a>
+>>>>>>> 19e807e1cd0783dbe1df90bb29b306f95b5ab0fc
         </div>
     </div>
 </div>

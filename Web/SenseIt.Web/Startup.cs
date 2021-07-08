@@ -67,7 +67,10 @@
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<IAdminProductsService, AdminProductsService>();
             services.AddTransient<IAdminProductCategoriesService, AdminProductCategoriesService>();
+<<<<<<< HEAD
             services.AddTransient<IAdminServiceCategoriesService, AdminServiceCategoriesService>();
+=======
+>>>>>>> 19e807e1cd0783dbe1df90bb29b306f95b5ab0fc
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

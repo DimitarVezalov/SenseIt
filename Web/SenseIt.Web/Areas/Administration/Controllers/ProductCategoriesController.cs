@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿namespace SenseIt.Web.Areas.Administration.Controllers
 {
     using System.Threading.Tasks;
@@ -6,6 +7,17 @@
     using SenseIt.Services.Data.Admin;
     using SenseIt.Services.Data.Admin.Models.Categories;
 
+=======
+﻿using Microsoft.AspNetCore.Mvc;
+using SenseIt.Services.Data.Admin;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace SenseIt.Web.Areas.Administration.Controllers
+{
+>>>>>>> 19e807e1cd0783dbe1df90bb29b306f95b5ab0fc
     public class ProductCategoriesController : AdministrationController
     {
         private readonly IAdminProductCategoriesService productCategoriesService;
@@ -15,6 +27,7 @@
             this.productCategoriesService = productCategoriesService;
         }
 
+<<<<<<< HEAD
         public IActionResult Add()
         {
             return this.View("AddEdit");
@@ -33,12 +46,15 @@
             return this.RedirectToAction(nameof(this.All));
         }
 
+=======
+>>>>>>> 19e807e1cd0783dbe1df90bb29b306f95b5ab0fc
         public async Task<IActionResult> All()
         {
             var categories = await this.productCategoriesService.GetCategoriesList();
 
             return this.View(categories);
         }
+<<<<<<< HEAD
 
         public IActionResult Edit(int? id)
         {
@@ -79,5 +95,7 @@
 
             return this.RedirectToAction(nameof(this.All));
         }
+=======
+>>>>>>> 19e807e1cd0783dbe1df90bb29b306f95b5ab0fc
     }
 }
