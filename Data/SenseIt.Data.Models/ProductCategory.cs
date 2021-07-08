@@ -1,16 +1,19 @@
 ﻿namespace SenseIt.Data.Models
 {
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
 
     using SenseIt.Data.Common.Models;
 
-    public class Category : BaseDeletableModel<int>
+    public class ProductCategory : BaseDeletableModel<int>
     {
-        public Category()
+        public ProductCategory()
         {
             this.Products = new HashSet<Product>();
         }
 
+        [Required]
+        [MaxLength(50)]
         public string Name { get; set; }
 
         public virtual ICollection<Product> Products { get; set; }

@@ -8,16 +8,16 @@
     using Microsoft.EntityFrameworkCore;
     using SenseIt.Data.Common.Repositories;
     using SenseIt.Data.Models;
-    using SenseIt.Services.Data.Admin.Models;
+    using SenseIt.Services.Data.Admin.Models.Product;
 
     using static SenseIt.Common.GlobalConstants;
 
     public class AdminProductsService : IAdminProductsService
     {
         private readonly IDeletableEntityRepository<Product> productsRepository;
-        private readonly IAdminCategoriesService adminCategoriesService;
+        private readonly IAdminProductCategoriesService adminCategoriesService;
 
-        public AdminProductsService(IDeletableEntityRepository<Product> productsRepository, IAdminCategoriesService adminCategoriesService)
+        public AdminProductsService(IDeletableEntityRepository<Product> productsRepository, IAdminProductCategoriesService adminCategoriesService)
         {
             this.productsRepository = productsRepository;
             this.adminCategoriesService = adminCategoriesService;
@@ -145,6 +145,6 @@
                 .FirstOrDefaultAsync();
 
             return product;
-        }      
+        }
     }
 }

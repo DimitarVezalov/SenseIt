@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    using SenseIt.Services.Data.Admin.Models;
+    using SenseIt.Services.Data.Admin.Models.Product;
 
     public interface IAdminProductsService
     {

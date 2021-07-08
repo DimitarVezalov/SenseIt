@@ -2,6 +2,7 @@
 {
     using SenseIt.Data.Common.Models;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public class Product : BaseDeletableModel<int>
     {
@@ -9,9 +10,10 @@
         [MaxLength(100)]
         public string Name { get; set; }
 
+        [ForeignKey(nameof(ProductCategory))]
         public int CategoryId { get; set; }
 
-        public virtual Category Category { get; set; }
+        public virtual ProductCategory Category { get; set; }
 
         [Required]
         public string ImageUrl { get; set; }

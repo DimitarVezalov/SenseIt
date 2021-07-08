@@ -1,4 +1,4 @@
-﻿namespace SenseIt.Services.Data.Admin.Models
+﻿namespace SenseIt.Services.Data.Admin.Models.Product
 {
     using SenseIt.Data.Models;
     using SenseIt.Services.Mapping;

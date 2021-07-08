@@ -25,7 +25,9 @@
 
         public DbSet<Service> Services { get; set; }
 
-        public DbSet<Category> Categories { get; set; }
+        public DbSet<ProductCategory> ProductCategories { get; set; }
+
+        public DbSet<ServiceCategory> ServiceCategories { get; set; }
 
         public DbSet<Product> Products { get; set; }
 

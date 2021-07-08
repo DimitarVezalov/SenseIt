@@ -1,8 +1,9 @@
-﻿namespace SenseIt.Services.Data.Admin.Models
+﻿namespace SenseIt.Services.Data.Admin.Models.Product
 {
+    using System;
     using System.ComponentModel.DataAnnotations;
 
-    public class CreateProductInputModel
+    public class AdminProductUpdateModel
     {
         [Required]
         [MinLength(5)]
@@ -22,8 +23,5 @@
 
         [Range(0.1, 1000.00)]
         public decimal Price { get; set; }
-
-        [Range(1, 1000)]
-        public int InStockQuantity { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace SenseIt.Services.Data.Admin.Models
+﻿namespace SenseIt.Services.Data.Admin.Models.Product
 {
     public class AdminProductDetailsViewModel
     {

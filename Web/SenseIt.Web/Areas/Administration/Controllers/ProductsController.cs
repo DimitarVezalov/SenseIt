@@ -4,14 +4,14 @@
 
     using Microsoft.AspNetCore.Mvc;
     using SenseIt.Services.Data.Admin;
-    using SenseIt.Services.Data.Admin.Models;
+    using SenseIt.Services.Data.Admin.Models.Product;
 
     public class ProductsController : AdministrationController
     {
         private readonly IAdminProductsService adminProductsService;
-        private readonly IAdminCategoriesService adminCategoriesService;
+        private readonly IAdminProductCategoriesService adminCategoriesService;
 
-        public ProductsController(IAdminProductsService adminProductsService, IAdminCategoriesService adminCategoriesService)
+        public ProductsController(IAdminProductsService adminProductsService, IAdminProductCategoriesService adminCategoriesService)
         {
             this.adminProductsService = adminProductsService;
             this.adminCategoriesService = adminCategoriesService;
