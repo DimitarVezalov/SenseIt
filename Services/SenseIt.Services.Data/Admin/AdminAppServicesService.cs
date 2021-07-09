@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -33,6 +34,7 @@
                 Description = model.Description,
                 Price = model.Price,
                 CategoryId = categoryId,
+                ImageUrl = model.ImageUrl,
                 CreatedOn = DateTime.UtcNow,
                 Duration = TimeSpan.Parse(model.Duration),
             };
@@ -53,7 +55,7 @@
                     Id = x.Id,
                     Name = x.Name,
                     Description = x.Description,
-                    Duration = x.Duration.ToString(),
+                    Duration = x.Duration.ToString().Substring(0, 5),
                     Category = x.Category.IsDeleted ? MissingCategoryValue : x.Category.Name,
                     Price = x.Price.ToString(),
                 })

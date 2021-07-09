@@ -1,8 +1,8 @@
 ﻿@using SenseIt.Services.Data.Admin;
 
-@model SenseIt.Services.Data.Admin.Models.Product.CreateProductInputModel;
+@model SenseIt.Services.Data.Admin.Models.AppServices.CreateServiceInputModel;
 
-@inject IAdminProductCategoriesService adminCategoriesService;
+@inject IAdminServiceCategoriesService adminCategoriesService;
 
 @{
     this.ViewData["Title"] = "Admin dashboard";
@@ -12,7 +12,7 @@
 
 
 <div>
-    <h2 class="text-center">Create Product</h2>
+    <h2 class="text-center">Create Service</h2>
 </div>
 
 <form method="post">
@@ -44,9 +44,9 @@
         <span class="input-group-text">$</span>
         <input type="number" asp-for="Price" class="form-control">
         <span asp-validation-for="Price"></span>
-        <span class="input-group-text">Qty</span>
-        <input type="number" asp-for="InStockQuantity" class="form-control">
-        <span asp-validation-for="InStockQuantity"></span>
+        <span class="input-group-text">Duration</span>
+        <input type="text" placeholder="HH:MM" aria-label="HH:MM" asp-for="Duration" class="form-control">
+        <span asp-validation-for="Duration"></span>
     </div>
 
     <div class="input-group pb-5">
@@ -64,4 +64,5 @@
         </div>
     </div>
 </form>
+
 
