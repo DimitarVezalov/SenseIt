@@ -71,6 +71,18 @@
             return this.RedirectToAction(nameof(this.All));
         }
 
+        public async Task<IActionResult> Undelete(int? id)
+        {
+            if (id == null)
+            {
+                return this.NotFound();
+            }
+
+            var isDeleted = await this.adminProductsService.Undelete(id);
+
+            return this.RedirectToAction(nameof(this.All));
+        }
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)

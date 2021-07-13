@@ -14,23 +14,33 @@
                 <th scope="col" class="text-center">Name</th>
                 <th scope="col" class="text-center">Products Count</th>
                 <th scope="col" class="text-center">Change Name</th>
-                <th scope="col" class="text-center">Delete</th>
+                <th scope="col" class="text-center">Delete/Undelete</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var category in Model)
             {
-                <tr class="table">
-                    <th scope="row" class="text-center">@counter</th>
-                    <td class="text-center">@category.Name</td>
-                    <td class="text-center">@category.ProductsCount</td>
+            <tr class="table">
+                <th scope="row" class="text-center">@counter</th>
+                <td class="text-center">@category.Name</td>
+                <td class="text-center">@category.ProductsCount</td>
+                <td class="text-center">
+                    <a asp-area="Administration" asp-controller="ProductCategories" asp-action="Edit" asp-route-Id="@category.Id" class="btn btn-outline-primary mx-1">Edit</a>
+                </td>
+                @if (category.IsDeleted)
+                {
                     <td class="text-center">
-                        <a asp-area="Administration" asp-controller="ProductCategories" asp-action="Edit" asp-route-Id="@category.Id" class="btn btn-outline-primary mx-1">Edit</a>
+                        <a asp-area="Administration" asp-controller="ProductCategories" asp-action="Undelete" asp-route-Id="@category.Id" class="btn btn-outline-success mx-1 bi bi-trash">Undelete</a>
                     </td>
+                }
+                else
+                {
                     <td class="text-center">
                         <a asp-area="Administration" asp-controller="ProductCategories" asp-action="Delete" asp-route-Id="@category.Id" class="btn btn-outline-danger mx-1 bi bi-trash">Delete</a>
                     </td>
-                </tr>
+                }
+
+            </tr>
 
                 counter++;
             }

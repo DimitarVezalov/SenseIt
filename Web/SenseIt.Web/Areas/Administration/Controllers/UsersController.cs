@@ -4,12 +4,12 @@
     using Microsoft.AspNetCore.Mvc;
     using SenseIt.Data.Models;
 
-    public class DashboardController : AdministrationController
+    public class UsersController : AdministrationController
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly RoleManager<ApplicationRole> roleManager;
 
-        public DashboardController(
+        public UsersController(
             UserManager<ApplicationUser> userManager,
             RoleManager<ApplicationRole> roleManager)
         {
@@ -17,9 +17,9 @@
             this.roleManager = roleManager;
         }
 
-        public IActionResult Index()
+        public IActionResult AddToRoleAsync(string userId)
         {
-            return this.View();
+            return View();
         }
     }
 }

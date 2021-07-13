@@ -48,7 +48,7 @@
         public async Task<IEnumerable<AdminProductsListingViewModel>> GetAllProductsAsync()
         {
             var products = await this.productsRepository.AllWithDeleted()
-                .Where(x => !x.IsDeleted)
+                //.Where(x => !x.IsDeleted)
                 .Include(x => x.Category)
                 .Select(x => new AdminProductsListingViewModel
                 {
@@ -58,6 +58,7 @@
                     CategoryName = x.Category.IsDeleted ? MissingCategoryValue : x.Category.Name,
                     Price = x.Price.ToString("F2"),
                     InStockQuantity = x.InStockQuantity,
+                    IsDeleted = x.IsDeleted,
                 })
                 .ToListAsync();
 
@@ -105,19 +106,31 @@
                 return null;
             }
 
-            var model = await this.productsRepository
+            var dbModel = await this.productsRepository
                 .All()
-                .Where(p => p.Id == id)
-                .Select(p => new AdminProductDetailsViewModel
-                {
-                    Id = p.Id,
-                    Name = p.Name,
-                    Category = p.Category.Name,
-                    Description = p.Description,
-                    ImageUrl = p.ImageUrl,
-                    Price = p.Price,
-                })
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            var model = new AdminProductDetailsViewModel
+            {
+                Id = dbModel.Id,
+                Description = dbModel.Description,
+                ImageUrl = dbModel.ImageUrl,
+                Name = dbModel.Name,
+                Price = dbModel.Price,
+                Category = dbModel.Category == null ? MissingCategoryValue : dbModel.Category.Name,
+            };
+                //.Where(p => p.Id == id)
+                //.Where(p => p.Category.IsDeleted || !p.Category.IsDeleted)
+                //.Select(p => new AdminProductDetailsViewModel
+                //{
+                //    Id = p.Id,
+                //    Name = p.Name,
+                //    Category = p.Category.IsDeleted ? MissingCategoryValue : p.Category.Name,
+                //    Description = p.Description,
+                //    ImageUrl = p.ImageUrl,
+                //    Price = p.Price,
+                //})
+                //.FirstOrDefaultAsync();
 
             return model;
         }
@@ -134,6 +147,24 @@
             product.CategoryId = categoryId;
 
             this.productsRepository.Update(product);
+            var result = await this.productsRepository.SaveChangesAsync();
+
+            return result > 0;
+        }
+
+        public async Task<bool> Undelete(int? productId)
+        {
+            if (productId == null)
+            {
+                return false;
+            }
+
+            var product = await this.productsRepository
+                .AllWithDeleted()
+                .FirstOrDefaultAsync(p => p.Id == productId);
+
+            this.productsRepository.Undelete(product);
+
             var result = await this.productsRepository.SaveChangesAsync();
 
             return result > 0;

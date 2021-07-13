@@ -11,6 +11,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.Extensions.Logging;
+    using SenseIt.Common;
     using SenseIt.Data.Models;
 
     [AllowAnonymous]
@@ -76,7 +77,6 @@
             returnUrl ??= this.Url.Content("~/");
 
             this.ExternalLogins = (await this._signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-        
             if (this.ModelState.IsValid)
             {
                 // This doesn't count login failures towards account lockout
@@ -85,12 +85,26 @@
                 if (result.Succeeded)
                 {
                     this._logger.LogInformation("User logged in.");
-                    return this.LocalRedirect(returnUrl);
+
+                    var user = await this._userManager.FindByNameAsync(this.Input.Username);
+
+                    var isAdmin = await this._userManager.IsInRoleAsync(user, GlobalConstants.Role.AdministratorRoleName);
+
+                    if (isAdmin)
+                    {
+                        return this.LocalRedirect(GlobalConstants.Admin.AdminDashboardIndex);
+                    }
+                    else
+                    {
+                        return this.LocalRedirect(returnUrl);
+                    }
                 }
+
                 if (result.RequiresTwoFactor)
                 {
                     return this.RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = this.Input.RememberMe });
                 }
+
                 if (result.IsLockedOut)
                 {
                     this._logger.LogWarning("User account locked out.");

@@ -1,8 +1,8 @@
 ﻿namespace SenseIt.Data.Configurations
 {
-    using SenseIt.Data.Models;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
+    using SenseIt.Data.Models;
 
     public class ApplicationUserConfiguration : IEntityTypeConfiguration<ApplicationUser>
     {

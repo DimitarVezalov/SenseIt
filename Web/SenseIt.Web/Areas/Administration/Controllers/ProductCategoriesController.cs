@@ -79,5 +79,17 @@ namespace SenseIt.Web.Areas.Administration.Controllers
 
             return this.RedirectToAction(nameof(this.All));
         }
+
+        public async Task<IActionResult> Undelete(int? id)
+        {
+            if (id == null)
+            {
+                return this.NotFound();
+            }
+
+            var result = await this.productCategoriesService.Undelete(id);
+
+            return this.RedirectToAction(nameof(this.All));
+        }
     }
 }

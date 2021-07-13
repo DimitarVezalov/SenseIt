@@ -18,5 +18,7 @@
         Task<bool> Edit(int? categoryId, string name);
 
         Task<bool> Delete(int? categoryId);
+
+        Task<bool> Undelete(int? categoryId);
     }
 }

@@ -15,6 +15,8 @@
 
         Task<bool> Delete(int? productId);
 
+        Task<bool> Undelete(int? productId);
+
         Task<AdminProductDetailsViewModel> GetDetailsModel(int? id);
 
         Task<bool> Update(int? id, AdminProductUpdateModel model);

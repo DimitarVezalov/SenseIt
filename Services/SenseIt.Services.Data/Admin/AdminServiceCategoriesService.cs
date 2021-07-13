@@ -55,12 +55,14 @@
 
         public async Task<IEnumerable<CategoriesListingViewModel>> GetCategoriesList()
         {
-            var categories = await this.categoryRepository.All()
+            var categories = await this.categoryRepository
+               .AllWithDeleted()
                .Select(c => new CategoriesListingViewModel
                {
                    Id = c.Id,
                    Name = c.Name,
                    ProductsCount = c.Services.Count,
+                   IsDeleted = c.IsDeleted,
                })
                .ToListAsync();
 
@@ -98,6 +100,24 @@
                 .FirstOrDefaultAsync(c => c.Id == categoryId);
 
             this.categoryRepository.Delete(category);
+
+            var result = await this.categoryRepository.SaveChangesAsync();
+
+            return result > 0;
+        }
+
+        public async Task<bool> Undelete(int? categoryId)
+        {
+            if (categoryId == null)
+            {
+                return false;
+            }
+
+            var category = await this.categoryRepository
+                .AllWithDeleted()
+                .FirstOrDefaultAsync(c => c.Id == categoryId);
+
+            this.categoryRepository.Undelete(category);
 
             var result = await this.categoryRepository.SaveChangesAsync();
 

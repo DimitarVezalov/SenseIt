@@ -42,8 +42,4 @@
     <ProjectReference Include="..\SenseIt.Web.Infrastructure\SenseIt.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\SenseIt.Web.ViewModels\SenseIt.Web.ViewModels.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Areas\Administration\Views\Dashboard\" />
-  </ItemGroup>
 </Project>
