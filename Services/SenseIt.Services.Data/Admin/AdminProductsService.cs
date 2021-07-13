@@ -107,7 +107,7 @@
             }
 
             var dbModel = await this.productsRepository
-                .All()
+                .AllWithDeleted()
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             var model = new AdminProductDetailsViewModel

@@ -90,9 +90,18 @@
                         <td class="text-center">
                             <a asp-area="Administration" asp-controller="Products" asp-action="Details" asp-route-Id="@product.Id" class="btn btn-outline-primary mx-1">Details</a>
                         </td>
-                        <td class="text-center">
-                            <a asp-area="Administration" asp-controller="Products" asp-action="Delete" asp-route-Id="@product.Id" class="btn btn-outline-danger mx-1">Delete</a>
-                        </td>
+                        @if (product.IsDeleted)
+                        {
+                            <td class="text-center">
+                                <a asp-area="Administration" asp-controller="Products" asp-action="Undelete" asp-route-Id="@product.Id" class="btn btn-outline-success mx-1 bi bi-trash">Undelete</a>
+                            </td>
+                        }
+                        else
+                        {
+                            <td class="text-center">
+                                <a asp-area="Administration" asp-controller="Products" asp-action="Delete" asp-route-Id="@product.Id" class="btn btn-outline-danger mx-1 bi bi-trash">Delete</a>
+                            </td>
+                        }
                         <td class="text-center">
                             <a asp-area="Administration" asp-controller="Products" asp-action="Restock" asp-route-Id="@product.Id" class="btn btn-outline-success mx-1">Restock</a>
                         </td>
@@ -116,9 +125,18 @@
                         <td class="text-center">
                             <a asp-area="Administration" asp-controller="Products" asp-action="Details" asp-route-Id="@product.Id" class="btn btn-outline-primary mx-1">Details</a>
                         </td>
-                        <td class="text-center">
-                            <a asp-area="Administration" asp-controller="Products" asp-action="Delete" asp-route-Id="@product.Id" class="btn btn-outline-danger mx-1">Delete</a>
-                        </td>
+                        @if (product.IsDeleted)
+                        {
+                            <td class="text-center">
+                                <a asp-area="Administration" asp-controller="Products" asp-action="Undelete" asp-route-Id="@product.Id" class="btn btn-outline-success mx-1 bi bi-trash">Undelete</a>
+                            </td>
+                        }
+                        else
+                        {
+                            <td class="text-center">
+                                <a asp-area="Administration" asp-controller="Products" asp-action="Delete" asp-route-Id="@product.Id" class="btn btn-outline-danger mx-1 bi bi-trash">Delete</a>
+                            </td>
+                        }
                         <td class="text-center">
                             <a asp-area="Administration" asp-controller="Products" asp-action="Restock" asp-route-Id="@product.Id" class="btn disabled btn-outline-success mx-1">Restock</a>
                         </td>

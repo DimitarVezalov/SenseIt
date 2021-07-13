@@ -33,7 +33,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(CreateServiceInputModel input)
+        public async Task<IActionResult> Add(CreateAppServiceInputModel input)
         {
             if (!this.ModelState.IsValid)
             {
@@ -41,6 +41,75 @@
             }
 
             var result = await this.adminAppServicesService.CreateAsync(input);
+
+            return this.RedirectToAction(nameof(this.All));
+        }
+
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return this.BadRequest();
+            }
+
+            var service = await this.adminAppServicesService.GetDetailsModel(id);
+
+            if (service == null)
+            {
+                return this.NotFound();
+            }
+
+            return this.View(service);
+        }
+
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return this.NotFound();
+            }
+
+            return this.View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int? id, EditAppServiceInputModel input)
+        {
+            if (id == null)
+            {
+                return this.NotFound();
+            }
+
+            if (!this.ModelState.IsValid)
+            {
+                return this.RedirectToAction($"{nameof(this.Edit)}/{id}");
+            }
+
+            var result = await this.adminAppServicesService.Update(id, input);
+
+            return this.RedirectToAction(nameof(this.All));
+        }
+
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return this.NotFound();
+            }
+
+            var result = await this.adminAppServicesService.Delete(id);
+
+            return this.RedirectToAction(nameof(this.All));
+        }
+
+        public async Task<IActionResult> Undelete(int? id)
+        {
+            if (id == null)
+            {
+                return this.NotFound();
+            }
+
+            var result = await this.adminAppServicesService.Undelete(id);
 
             return this.RedirectToAction(nameof(this.All));
         }

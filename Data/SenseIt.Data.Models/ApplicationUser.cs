@@ -3,11 +3,10 @@ namespace SenseIt.Data.Models
 {
     using System;
     using System.Collections.Generic;
-
-    using SenseIt.Data.Common.Models;
+    using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Identity;
-    using System.Threading.Tasks;
+    using SenseIt.Data.Common.Models;
 
     public class ApplicationUser : IdentityUser, IAuditInfo, IDeletableEntity
     {

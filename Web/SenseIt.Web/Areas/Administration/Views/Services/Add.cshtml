@@ -1,6 +1,6 @@
 ﻿@using SenseIt.Services.Data.Admin;
 
-@model SenseIt.Services.Data.Admin.Models.AppServices.CreateServiceInputModel;
+@model SenseIt.Services.Data.Admin.Models.AppServices.CreateAppServiceInputModel;
 
 @inject IAdminServiceCategoriesService adminCategoriesService;
 
@@ -20,7 +20,7 @@
     <div class="input-group pb-5">
         <span class="input-group-text">Name</span>
         <input type="text" asp-for="Name" class="form-control">
-        <span asp-validation-for="Name"></span>
+        <span asp-validation-for="Name" class="text-danger"></span>
     </div>
 
     <div class="input-group pb-5">
@@ -37,22 +37,22 @@
     <div class="input-group pb-5">
         <span class="input-group-text">Image Url</span>
         <input type="text" asp-for="ImageUrl" class="form-control">
-        <span asp-validation-for="ImageUrl"></span>
+        <span asp-validation-for="ImageUrl" class="text-danger"></span>
     </div>
 
     <div class="input-group pb-5">
         <span class="input-group-text">$</span>
         <input type="number" asp-for="Price" class="form-control">
-        <span asp-validation-for="Price"></span>
+        <span asp-validation-for="Price" class="text-danger"></span>
         <span class="input-group-text">Duration</span>
         <input type="text" placeholder="HH:MM" aria-label="HH:MM" asp-for="Duration" class="form-control">
-        <span asp-validation-for="Duration"></span>
+        <span asp-validation-for="Duration" class="text-danger"></span>
     </div>
 
     <div class="input-group pb-5">
         <span class="input-group-text">Description</span>
         <textarea rows="4" asp-for="Description" class="form-control"></textarea>
-        <span asp-validation-for="Description"></span>
+        <span asp-validation-for="Description" class="text-danger"></span>
     </div>
 
     <div class="row">

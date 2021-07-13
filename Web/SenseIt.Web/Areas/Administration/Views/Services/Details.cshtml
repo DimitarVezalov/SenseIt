@@ -1,0 +1,37 @@
+﻿@model SenseIt.Services.Data.Admin.Models.AppServices.AppServiceDetailsModel;
+
+@{
+    this.ViewData["Title"] = "Admin dashboard";
+}
+<div>
+    <h2 class="text-center">Details</h2>
+</div>
+<hr />
+<div class="container">
+    <div class="card mb-3" style="background-color: mistyrose">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="@Model.ImageUrl" style="height: 400px;" class="img-fluid rounded-start m-1" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title text-center pb-4">@Model.Name</h5>
+                    <hr />
+                    <p class="card-text text-center pb-4">@Model.Category</p>
+                    <hr />
+                    <p class="card-text text-center pb-4">@Model.Description</p>
+                    <hr />
+                    <p class="card-text text-center pb-4">Price: $@Model.Price</p>
+                    <hr />
+                    <p class="card-text text-center pb-4">Duration: @Model.DurationAsText</p>
+                    <p class="text-center">
+                        <a asp-area="Administration" asp-controller="Services" asp-action="Edit" asp-route-Id="@Model.Id" class="btn btn-outline-secondary">Edit Service Details</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+

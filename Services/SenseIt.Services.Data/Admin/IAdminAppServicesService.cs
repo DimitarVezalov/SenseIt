@@ -6,14 +6,16 @@ namespace SenseIt.Services.Data.Admin
 {
     public interface IAdminAppServicesService
     {
-        Task<int> CreateAsync(CreateServiceInputModel model);
+        Task<int> CreateAsync(CreateAppServiceInputModel model);
 
-        Task<IEnumerable<AdminServiceListingViewModel>> GetAllServicesAsync();
+        Task<IEnumerable<AdminAppServiceListingViewModel>> GetAllServicesAsync();
 
-        //Task<bool> Delete(int? productId);
+        Task<bool> Delete(int? serviceId);
 
-        //Task<AdminProductDetailsViewModel> GetDetailsModel(int? id);
+        Task<AppServiceDetailsModel> GetDetailsModel(int? id);
 
-        //Task<bool> Update(int? id, AdminProductUpdateModel model);
+        Task<bool> Update(int? id, EditAppServiceInputModel model);
+
+        Task<bool> Undelete(int? serviceId);
     }
 }

@@ -1,4 +1,4 @@
-﻿@model List<SenseIt.Services.Data.Admin.Models.AppServices.AdminServiceListingViewModel>;
+﻿@model List<SenseIt.Services.Data.Admin.Models.AppServices.AdminAppServiceListingViewModel>;
 @using SenseIt.Common
 @{
     this.ViewData["Title"] = "Admin dashboard";
@@ -25,35 +25,44 @@
                 <th scope="col" class="text-center">Duration</th>
                 <th scope="col" class="text-center">Price</th>
                 <th scope="col" class="text-center">Details</th>
-                <th scope="col" class="text-center">Delete</th>
+                <th scope="col" class="text-center">Delete/Undelete</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var product in Model)
+            @foreach (var service in Model)
             {
-                var description = product.Description.Length > 20 ? product.Description.Substring(0, 20) + "..." : product.Description;
+                var description = service.Description.Length > 20 ? service.Description.Substring(0, 20) + "..." : service.Description;
 
-                <tr>
-                    <th scope="row" class="text-center">@counter</th>
-                    <td class="text-center">@product.Name</td>
-                    <td class="text-center">@description</td>
-                    @if (product.Category == GlobalConstants.MissingCategoryValue)
-                    {
-                        <td class="text-center text-danger">@product.Category</td>
-                    }
-                    else
-                    {
-                        <td class="text-center">@product.Category</td>
-                    }
-                    <td class="text-center">@product.Duration</td>
-                    <td class="text-center">@product.Price $</td>
+            <tr>
+                <th scope="row" class="text-center">@counter</th>
+                <td class="text-center">@service.Name</td>
+                <td class="text-center">@description</td>
+                @if (service.Category == GlobalConstants.MissingCategoryValue)
+                {
+                    <td class="text-center text-danger">@service.Category</td>
+                }
+                else
+                {
+                    <td class="text-center">@service.Category</td>
+                }
+                <td class="text-center">@service.Duration</td>
+                <td class="text-center">@service.Price $</td>
+                <td class="text-center">
+                    <a asp-area="Administration" asp-controller="Services" asp-action="Details" asp-route-Id="@service.Id" class="btn btn-outline-primary mx-1">Details</a>
+                </td>
+                @if (service.IsDeleted)
+                {
                     <td class="text-center">
-                        <a asp-area="Administration" asp-controller="Services" asp-action="Details" asp-route-Id="@product.Id" class="btn btn-outline-primary mx-1">Details</a>
+                        <a asp-area="Administration" asp-controller="Services" asp-action="Undelete" asp-route-Id="@service.Id" class="btn btn-outline-success mx-1 bi bi-trash">Undelete</a>
                     </td>
+                }
+                else
+                {
                     <td class="text-center">
-                        <a asp-area="Administration" asp-controller="Services" asp-action="Delete" asp-route-Id="@product.Id" class="btn btn-outline-danger mx-1">Delete</a>
+                        <a asp-area="Administration" asp-controller="Services" asp-action="Delete" asp-route-Id="@service.Id" class="btn btn-outline-danger mx-1 bi bi-trash">Delete</a>
                     </td>
-                </tr>
+                }
+            </tr>
 
                 counter++;
             }

@@ -1,8 +1,8 @@
 ﻿@using SenseIt.Services.Data.Admin;
 
-@model SenseIt.Services.Data.Admin.Models.Product.CreateProductInputModel;
+@model SenseIt.Services.Data.Admin.Models.AppServices.EditAppServiceInputModel;
 
-@inject IAdminProductCategoriesService adminCategoriesService;
+@inject IAdminServiceCategoriesService adminCategoriesService;
 
 @{
     this.ViewData["Title"] = "Admin dashboard";
@@ -12,7 +12,7 @@
 
 
 <div>
-    <h2 class="text-center">Create Product</h2>
+    <h2 class="text-center">Edit Service</h2>
 </div>
 
 <form method="post">
@@ -44,9 +44,9 @@
         <span class="input-group-text">$</span>
         <input type="number" asp-for="Price" class="form-control">
         <span asp-validation-for="Price" class="text-danger"></span>
-        <span class="input-group-text">Qty</span>
-        <input type="number" asp-for="InStockQuantity" class="form-control">
-        <span asp-validation-for="InStockQuantity" class="text-danger"></span>
+        <span class="input-group-text">Duration</span>
+        <input type="text" placeholder="HH:MM" aria-label="HH:MM" asp-for="Duration" class="form-control">
+        <span asp-validation-for="Duration" class="text-danger"></span>
     </div>
 
     <div class="input-group pb-5">
@@ -57,11 +57,13 @@
 
     <div class="row">
         <div class="col-6">
-            <input type="submit" class="btn btn-lg btn-info form-control" value="Create" />
+            <input type="submit" class="btn btn-lg btn-info form-control" value="Edit Service Details" />
         </div>
         <div class="col-6">
             <a asp-action="All" class="btn btn-lg btn-secondary form-control">Back to List</a>
         </div>
     </div>
 </form>
+
+
 
