@@ -5,6 +5,8 @@
 
     using SenseIt.Data.Common.Models;
 
+    using static SenseIt.Common.GlobalConstants.CategoryConstants;
+
     public class ProductCategory : BaseDeletableModel<int>
     {
         public ProductCategory()
@@ -13,7 +15,7 @@
         }
 
         [Required]
-        [MaxLength(50)]
+        [MaxLength(CategoryNameMaxLength)]
         public string Name { get; set; }
 
         public virtual ICollection<Product> Products { get; set; }

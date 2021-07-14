@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\SenseIt.Common\SenseIt.Common.csproj" />
     <ProjectReference Include="..\SenseIt.Data.Common\SenseIt.Data.Common.csproj" />
   </ItemGroup>
   

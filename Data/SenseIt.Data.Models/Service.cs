@@ -6,10 +6,12 @@
 
     using SenseIt.Data.Common.Models;
 
+    using static SenseIt.Common.GlobalConstants.ServiceConstants;
+
     public class Service : BaseDeletableModel<int>
     {
         [Required]
-        [MaxLength(100)]
+        [MaxLength(ServiceNameMaxLength)]
         public string Name { get; set; }
 
         public TimeSpan? Duration { get; set; }
@@ -20,7 +22,7 @@
         public virtual ServiceCategory Category { get; set; }
 
         [Required]
-        [MaxLength(800)]
+        [MaxLength(ServiceDescriptionMaxLength)]
         public string Description { get; set; }
 
         [Required]

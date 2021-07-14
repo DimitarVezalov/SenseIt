@@ -3,16 +3,18 @@
     using System;
     using System.ComponentModel.DataAnnotations;
 
+    using static SenseIt.Common.GlobalConstants.ProductConstants;
+
     public class AdminProductUpdateModel
     {
         [Required]
-        [MinLength(5)]
-        [MaxLength(100)]
+        [MinLength(ProductNameMinLength)]
+        [MaxLength(ProductNameMaxLength)]
         public string Name { get; set; }
 
         [Required]
-        [MinLength(5)]
-        [MaxLength(800)]
+        [MinLength(ProductDescriptionMinLength)]
+        [MaxLength(ProductDescriptionMaxLength)]
         public string Description { get; set; }
 
         [Required]

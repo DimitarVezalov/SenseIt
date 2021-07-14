@@ -2,19 +2,21 @@
 {
     using System.ComponentModel.DataAnnotations;
 
+    using static SenseIt.Common.GlobalConstants.ServiceConstants;
+
     public class CreateAppServiceInputModel
     {
         [Required]
-        [MinLength(5)]
-        [MaxLength(100)]
+        [MinLength(ServiceNameMinLength)]
+        [MaxLength(ServiceNameMaxLength)]
         public string Name { get; set; }
 
         [Required]
-        [MinLength(5)]
-        [MaxLength(800)]
+        [MinLength(ServiceDescriptionMinLength)]
+        [MaxLength(ServiceDescriptionMaxLength)]
         public string Description { get; set; }
 
-        [RegularExpression(@"^(?:[01][0-9]|2[0-3]):[0-5][0-9]$", ErrorMessage = "Invalid time format and hh:mm values.")]
+        [RegularExpression(ServiceDurationRegex, ErrorMessage = ServiceDurationExMessagge)]
         public string Duration { get; set; }
 
         [Required]

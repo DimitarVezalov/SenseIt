@@ -7,7 +7,28 @@
 
         public static class ProductConstants
         {
+            public const int ProductNameMinLength = 5;
+            public const int ProductNameMaxLength = 100;
+            public const int ProductDescriptionMinLength = 5;
+            public const int ProductDescriptionMaxLength = 800;
             public const int ProductRestockQuantity = 1000;
+        }
+
+        public static class ServiceConstants
+        {
+            public const int ServiceNameMinLength = 5;
+            public const int ServiceNameMaxLength = 100;
+            public const int ServiceDescriptionMinLength = 5;
+            public const int ServiceDescriptionMaxLength = 800;
+
+            public const string ServiceDurationRegex = @"^(?:[01][0-9]|2[0-3]):[0-5][0-9]$";
+            public const string ServiceDurationExMessagge = "Invalid time format and hh:mm values.";
+        }
+
+        public static class CategoryConstants
+        {
+            public const int CategoryNameMinLength = 5;
+            public const int CategoryNameMaxLength = 50;
         }
 
         public static class Role

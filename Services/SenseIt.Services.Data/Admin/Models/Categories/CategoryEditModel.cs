@@ -2,10 +2,12 @@
 {
     using System.ComponentModel.DataAnnotations;
 
+    using static SenseIt.Common.GlobalConstants.CategoryConstants;
+
     public class CategoryEditModel
     {
         [Required]
-        [MaxLength(50)]
+        [MaxLength(CategoryNameMaxLength)]
         public string Name { get; set; }
     }
 }
