@@ -22,6 +22,8 @@
                 ("Body Lotion", "Nice and Smooth", "https://images.bloomingdalesassets.com/is/image/BLM/products/4/optimized/10666204_fpx.tif?op_sharpen=1&wid=700&fit=fit,1&$filtersm$", 10.99m, 2),
                 ("Nail Polish", "Beautiful Color", "https://static.beautytocare.com/media/catalog/product/cache/global/image/650x650/85e4522595efc69f496374d01ef2bf13/o/p/opi-nail-lacquer-opi-by-popular-vote-15ml.jpg", 15.99m, 3),
                 ("Pedicure Nail Brush", "Cleanyyy...", "https://alexnld.com/wp-content/uploads/2019/11/TBD0173463001D.jpg", 7.99m, 4),
+                ("Pedicure Nail Brush", "Cleanyyy...", "https://alexnld.com/wp-content/uploads/2019/11/TBD0173463001D.jpg", 7.99m, 4),
+                ("Pedicure Nail Brush", "Cleanyyy...", "https://alexnld.com/wp-content/uploads/2019/11/TBD0173463001D.jpg", 7.99m, 4),
             };
 
             foreach (var product in products)

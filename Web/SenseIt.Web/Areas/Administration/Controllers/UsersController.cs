@@ -17,9 +17,15 @@
             this.roleManager = roleManager;
         }
 
+        public IActionResult UsersAll()
+        {
+            return this.View();
+        }
+
+        [ActionName("AddToRole")]
         public IActionResult AddToRoleAsync(string userId)
         {
-            return View();
+            return this.View();
         }
     }
 }

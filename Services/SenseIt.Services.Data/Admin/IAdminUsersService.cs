@@ -1,9 +1,12 @@
 ﻿namespace SenseIt.Services.Data.Admin
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
+
+    using SenseIt.Services.Data.Admin.Models.Users;
 
     public interface IAdminUsersService
     {
-        Task<string> CreateAsync(string username, string email, string password);
+        Task<IEnumerable<AdminUsersListingModel>> GetUsersAsync(); 
     }
 }
