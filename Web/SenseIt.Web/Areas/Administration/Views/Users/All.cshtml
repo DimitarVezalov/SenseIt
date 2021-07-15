@@ -1,1 +1,74 @@
-﻿
+﻿@model List<SenseIt.Services.Data.Admin.Models.Users.AdminUsersListingModel>;
+@using SenseIt.Common
+@{
+    this.ViewData["Title"] = "Admin dashboard";
+    var counter = 1;
+}
+
+<div class="tab-content">
+    <h1 class="text-center font-weight-light">Accounts Management</h1>
+    <hr />
+    <table id="usersTable" class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col" class="text-center">#</th>
+                <th scope="col" class="text-center">Username</th>
+                <th scope="col" class="text-center">Email</th>
+                <th scope="col" class="text-center">IsLocked</th>
+                <th scope="col" class="text-center">Lock/Unlock</th>
+                <th scope="col" class="text-center">Add To Role</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                var accountStatus = user.IsLocked ? GlobalConstants.Account.LockedAccount : GlobalConstants.Account.UnLockedAccount;
+
+                <tr>
+                    <th scope="row" class="text-center">@counter</th>
+                    <td class="text-center">@user.Username</td>
+                    <td class="text-center">@user.Email</td>
+                    @if (user.IsLocked)
+                    {
+                        <td class="text-center text-danger">@accountStatus</td>
+                    }
+                    else
+                    {
+                        <td class="text-center text-success">@accountStatus</td>
+                    }
+
+
+                    @if (user.IsLocked)
+                    {
+                        <td class="text-center">
+                            <a asp-area="Administration" asp-controller="Users" asp-action="UnlockAccount" asp-route-Id="@user.Id" class="btn btn-outline-success mx-1 bi bi-trash">Unlock</a>
+                        </td>
+                    }
+                    else
+                    {
+                        <td class="text-center">
+                            <a asp-area="Administration" asp-controller="Users" asp-action="UnlockAccount" asp-route-Id="@user.Id" class="btn disabled btn-outline-success mx-1 bi bi-trash">Unlock</a>
+                        </td>
+                    }
+
+                    <td class="text-center">
+                        <a asp-area="Administration" asp-controller="Users" asp-action="AddToRole" asp-route-Id="@user.Id" class="btn btn-outline-info mx-1 bi bi-trash">Add To Role</a>
+                    </td>
+                </tr>
+
+                counter++;
+            }
+        </tbody>
+    </table>
+    <hr />
+</div>
+
+@section Scripts{
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#usersTable').DataTable();
+        });
+    </script>
+}
+

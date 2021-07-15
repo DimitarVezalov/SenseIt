@@ -69,6 +69,7 @@
             services.AddTransient<IAdminAppServicesService, AdminAppServicesService>();
             services.AddTransient<IAdminProductCategoriesService, AdminProductCategoriesService>();
             services.AddTransient<IAdminServiceCategoriesService, AdminServiceCategoriesService>();
+            services.AddTransient<IAdminUsersService, AdminUsersService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

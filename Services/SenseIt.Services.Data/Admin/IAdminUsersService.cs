@@ -7,6 +7,6 @@
 
     public interface IAdminUsersService
     {
-        Task<IEnumerable<AdminUsersListingModel>> GetUsersAsync(); 
+        Task<IEnumerable<AdminUsersListingModel>> GetUsersAsync();
     }
 }

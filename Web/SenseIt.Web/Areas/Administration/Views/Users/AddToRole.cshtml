@@ -1,0 +1,21 @@
+﻿@{
+    this.ViewData["Title"] = "Admin dashboard";
+}
+
+<div>
+    <h2 class="text-center">Add User To Role</h2>
+</div>
+<form class="form-control" method="post">
+    <div class="row">
+        <div class="input-group pb-5">
+            <select class="form-select">
+                <option selected>Choose...</option>
+                @foreach (var role in Model)
+                {
+                    <option>@role</option>
+                }
+            </select>
+            <label class="input-group-text" for="inputGroupSelect02">Category</label>
+        </div>
+    </div>
+</form>

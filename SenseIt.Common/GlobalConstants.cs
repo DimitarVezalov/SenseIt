@@ -46,5 +46,12 @@
 
             public const string AdminDashboardIndex = "/Administration/Dashboard/Index";
         }
+
+        public static class Account
+        {
+            public const string LockedAccount = "Locked";
+            public const string UnLockedAccount = "Unlocked";
+
+        }
     }
 }
