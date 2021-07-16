@@ -15,8 +15,9 @@
                 <th scope="col" class="text-center">Username</th>
                 <th scope="col" class="text-center">Email</th>
                 <th scope="col" class="text-center">IsLocked</th>
+                <th scope="col" class="text-center">Roles</th>
                 <th scope="col" class="text-center">Lock/Unlock</th>
-                <th scope="col" class="text-center">Add To Role</th>
+                <th scope="col" class="text-center">Manage Roles</th>
             </tr>
         </thead>
         <tbody>
@@ -24,37 +25,44 @@
             {
                 var accountStatus = user.IsLocked ? GlobalConstants.Account.LockedAccount : GlobalConstants.Account.UnLockedAccount;
 
-                <tr>
-                    <th scope="row" class="text-center">@counter</th>
-                    <td class="text-center">@user.Username</td>
-                    <td class="text-center">@user.Email</td>
-                    @if (user.IsLocked)
-                    {
-                        <td class="text-center text-danger">@accountStatus</td>
-                    }
-                    else
-                    {
-                        <td class="text-center text-success">@accountStatus</td>
-                    }
+            <tr>
+                <th scope="row" class="text-center">@counter</th>
+                <td class="text-center">@user.Username</td>
+                <td class="text-center">@user.Email</td>
+                @if (user.IsLocked)
+                {
+                    <td class="text-center text-danger">@accountStatus</td>
+                }
+                else
+                {
+                    <td class="text-center text-success">@accountStatus</td>
+                }
+                <td class="text-center">@string.Join(", ", user.Roles)</td>
 
 
-                    @if (user.IsLocked)
-                    {
-                        <td class="text-center">
-                            <a asp-area="Administration" asp-controller="Users" asp-action="UnlockAccount" asp-route-Id="@user.Id" class="btn btn-outline-success mx-1 bi bi-trash">Unlock</a>
-                        </td>
-                    }
-                    else
-                    {
-                        <td class="text-center">
-                            <a asp-area="Administration" asp-controller="Users" asp-action="UnlockAccount" asp-route-Id="@user.Id" class="btn disabled btn-outline-success mx-1 bi bi-trash">Unlock</a>
-                        </td>
-                    }
 
+                @if (user.IsLocked)
+                {
                     <td class="text-center">
-                        <a asp-area="Administration" asp-controller="Users" asp-action="AddToRole" asp-route-Id="@user.Id" class="btn btn-outline-info mx-1 bi bi-trash">Add To Role</a>
+                        <a asp-area="Administration" asp-controller="Users" asp-action="UnlockAccount" asp-route-Id="@user.Id" class="btn btn-outline-success mx-1 bi bi-trash">Unlock</a>
                     </td>
-                </tr>
+                }
+                else
+                {
+                    <td class="text-center">
+                        <a asp-area="Administration" asp-controller="Users" asp-action="UnlockAccount" asp-route-Id="@user.Id" class="btn disabled btn-outline-success mx-1 bi bi-trash">Unlock</a>
+                    </td>
+                }
+
+
+            <td class="text-center">
+                <a asp-area="Administration" asp-controller="Users" asp-action="AddToRole" asp-route-Id="@user.Id" class="btn btn-outline-info mx-1 bi bi-trash">Add</a>
+                <a asp-area="Administration" asp-controller="Users" asp-action="RemoveFromRole" asp-route-Id="@user.Id" class="btn btn-outline-secondary mx-1 bi bi-trash">Remove</a>
+            </td>
+                
+                    
+                
+            </tr>
 
                 counter++;
             }

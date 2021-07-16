@@ -28,7 +28,6 @@
                     Username = u.UserName,
                     Email = u.Email,
                     IsLocked = u.LockoutEnd != null,
-                    Roles = u.Roles.Select(r => r.)
                 })
                 .ToListAsync();
 

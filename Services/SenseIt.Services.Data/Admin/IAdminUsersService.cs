@@ -8,5 +8,6 @@
     public interface IAdminUsersService
     {
         Task<IEnumerable<AdminUsersListingModel>> GetUsersAsync();
+
     }
 }

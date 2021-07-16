@@ -1,4 +1,4 @@
-﻿@model SenseIt.Services.Data.Admin.Models.Users.AddUserToRolePostModel;
+﻿@model SenseIt.Services.Data.Admin.Models.Users.RemoveUserFromRolePostModel;
 @using SenseIt.Data.Models
 @using Microsoft.AspNetCore.Identity
 @inject RoleManager<ApplicationRole> roleManager;
@@ -27,8 +27,9 @@
         </div>
         <div class="row">
             <div class="col">
-                <input type="submit" asp-area="Administration" asp-controller="Users" asp-action="AddToRole" class="btn btn-lg btn-primary form-control" value="Add To Role" />
-            </div>    
+                <input type="submit" asp-area="Administration" asp-controller="Users" asp-action="RemoveFromRole" class="btn btn-lg btn-primary form-control" value="Remove From Role" />
+            </div>
         </div>
     </div>
 </form>
+
