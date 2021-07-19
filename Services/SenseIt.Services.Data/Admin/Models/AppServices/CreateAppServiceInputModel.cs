@@ -1,5 +1,6 @@
 ﻿namespace SenseIt.Services.Data.Admin.Models.AppServices
 {
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     using static SenseIt.Common.GlobalConstants.ServiceConstants;
@@ -21,6 +22,8 @@
 
         [Required]
         public string Category { get; set; }
+
+        public IEnumerable<string> Categories { get; set; }
 
         [Required]
         public string ImageUrl { get; set; }

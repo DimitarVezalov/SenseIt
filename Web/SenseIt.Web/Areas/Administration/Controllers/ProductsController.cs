@@ -102,6 +102,11 @@
 
         public async Task<IActionResult> Edit(int? id)
         {
+            if (id == null)
+            {
+                return this.NotFound();
+            }
+
             var categoris = await this.adminCategoriesService.GetCategoryNames();
 
             var product = await this.adminProductsService.GetProductById(id);

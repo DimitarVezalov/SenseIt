@@ -16,6 +16,8 @@ namespace SenseIt.Services.Data.Admin
 
         Task<bool> Update(int? id, EditAppServiceInputModel model);
 
+        Task<EditAppServiceInputModel> GetServiceById(int? id);
+
         Task<bool> Undelete(int? serviceId);
     }
 }

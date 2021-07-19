@@ -9,13 +9,17 @@
     public class ServicesController : AdministrationController
     {
         private readonly IAdminAppServicesService adminAppServicesService;
+        private readonly IAdminServiceCategoriesService categoriesService;
 
-        public ServicesController(IAdminAppServicesService adminAppServicesService)
+        public ServicesController(
+            IAdminAppServicesService adminAppServicesService,
+            IAdminServiceCategoriesService categoriesService)
         {
             this.adminAppServicesService = adminAppServicesService;
+            this.categoriesService = categoriesService;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             return this.View();
         }
@@ -27,9 +31,16 @@
             return this.View(services);
         }
 
-        public IActionResult Add()
+        public async Task<IActionResult> Add()
         {
-            return this.View();
+            var categories = await this.categoriesService.GetCategoryNames();
+
+            var model = new CreateAppServiceInputModel
+            {
+                Categories = categories,
+            };
+
+            return this.View(model);
         }
 
         [HttpPost]
@@ -69,7 +80,11 @@
                 return this.NotFound();
             }
 
-            return this.View();
+            var model = await this.adminAppServicesService.GetServiceById(id);
+            var categories = await this.categoriesService.GetCategoryNames();
+            model.Categories = categories;
+
+            return this.View(model);
         }
 
         [HttpPost]

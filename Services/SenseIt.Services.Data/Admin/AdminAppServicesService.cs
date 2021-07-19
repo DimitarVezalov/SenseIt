@@ -149,5 +149,30 @@
 
             return result > 0;
         }
+
+        public async Task<EditAppServiceInputModel> GetServiceById(int? id)
+        {
+            if (id == null)
+            {
+                return null;
+            }
+
+            var appService = await this.serviceRepository
+                .AllWithDeleted()
+                .Where(s => s.Id == id)
+                .Select(s => new EditAppServiceInputModel
+                {
+                    Id = s.Id,
+                    Name = s.Name,
+                    Category = s.Category.Name,
+                    Description = s.Description,
+                    ImageUrl = s.ImageUrl,
+                    Duration = s.Duration.ToString(),
+                    Price = s.Price,
+                })
+                .FirstOrDefaultAsync();
+
+            return appService;
+        }
     }
 }

@@ -1,9 +1,12 @@
 ﻿namespace SenseIt.Services.Data.Admin.Models.AppServices
 {
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     public class EditAppServiceInputModel
     {
+        public int Id { get; set; }
+
         [Required]
         [MinLength(5)]
         [MaxLength(100)]
@@ -16,6 +19,8 @@
 
         [Required]
         public string Category { get; set; }
+
+        public IEnumerable<string> Categories { get; set; }
 
         [Required]
         public string ImageUrl { get; set; }

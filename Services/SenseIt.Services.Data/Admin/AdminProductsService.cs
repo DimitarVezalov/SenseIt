@@ -120,18 +120,6 @@
                 Price = dbModel.Price,
                 Category = dbModel.Category.IsDeleted ? MissingCategoryValue : dbModel.Category.Name,
             };
-            //.Where(p => p.Id == id)
-            //.Where(p => p.Category.IsDeleted || !p.Category.IsDeleted)
-            //.Select(p => new AdminProductDetailsViewModel
-            //{
-            //    Id = p.Id,
-            //    Name = p.Name,
-            //    Category = p.Category.IsDeleted ? MissingCategoryValue : p.Category.Name,
-            //    Description = p.Description,
-            //    ImageUrl = p.ImageUrl,
-            //    Price = p.Price,
-            //})
-            //.FirstOrDefaultAsync();
 
             return model;
         }
