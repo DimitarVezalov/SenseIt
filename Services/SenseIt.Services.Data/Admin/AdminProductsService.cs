@@ -119,18 +119,18 @@
                 Price = dbModel.Price,
                 Category = dbModel.Category == null ? MissingCategoryValue : dbModel.Category.Name,
             };
-                //.Where(p => p.Id == id)
-                //.Where(p => p.Category.IsDeleted || !p.Category.IsDeleted)
-                //.Select(p => new AdminProductDetailsViewModel
-                //{
-                //    Id = p.Id,
-                //    Name = p.Name,
-                //    Category = p.Category.IsDeleted ? MissingCategoryValue : p.Category.Name,
-                //    Description = p.Description,
-                //    ImageUrl = p.ImageUrl,
-                //    Price = p.Price,
-                //})
-                //.FirstOrDefaultAsync();
+            //.Where(p => p.Id == id)
+            //.Where(p => p.Category.IsDeleted || !p.Category.IsDeleted)
+            //.Select(p => new AdminProductDetailsViewModel
+            //{
+            //    Id = p.Id,
+            //    Name = p.Name,
+            //    Category = p.Category.IsDeleted ? MissingCategoryValue : p.Category.Name,
+            //    Description = p.Description,
+            //    ImageUrl = p.ImageUrl,
+            //    Price = p.Price,
+            //})
+            //.FirstOrDefaultAsync();
 
             return model;
         }
@@ -168,6 +168,25 @@
             var result = await this.productsRepository.SaveChangesAsync();
 
             return result > 0;
+        }
+
+        public async Task<AdminProductUpdateModel> GetProductById(int? id)
+        {
+            var product = await this.productsRepository
+                .AllWithDeleted()
+                .Where(p => p.Id == id)
+                .Select(p => new AdminProductUpdateModel
+                {
+                    Id = p.Id,
+                    Category = p.Category.Name,
+                    Description = p.Description,
+                    ImageUrl = p.ImageUrl,
+                    Name = p.Name,
+                    Price = p.Price,
+                })
+                .FirstOrDefaultAsync();
+
+            return product;
         }
 
         private async Task<Product> GetById(int? productId)

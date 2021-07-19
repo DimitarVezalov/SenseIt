@@ -1,13 +1,8 @@
-﻿@using SenseIt.Services.Data.Admin;
-
-@model SenseIt.Services.Data.Admin.Models.Product.CreateProductInputModel;
-
-@inject IAdminProductCategoriesService adminCategoriesService;
-
+﻿@model SenseIt.Services.Data.Admin.Models.Product.CreateProductInputModel;
 @{
-    this.ViewData["Title"] = "Admin dashboard";
+    this.ViewData["Title"] = "Admin Dashboard";
 
-    var categories = await adminCategoriesService.GetCategoryNames();
+    var categories = this.Model.Categories.Select(x => new SelectListItem(x, x));
 }
 
 
@@ -23,16 +18,25 @@
         <span asp-validation-for="Name" class="text-danger"></span>
     </div>
 
+    @*<div class="input-group pb-5">
+            <select class="form-select" asp-for="Category">
+                <option selected>Choose...</option>
+                @foreach (var category in categories)
+                {
+                    <option>@category</option>
+                }
+            </select>
+            <label class="input-group-text" for="inputGroupSelect02">Category</label>
+        </div>*@
+
     <div class="input-group pb-5">
-        <select class="form-select" asp-for="Category">
-            <option selected>Choose...</option>
-            @foreach (var category in categories)
-            {
-                <option>@category</option>
-            }
+        <select asp-for="Category" class="form-select" asp-items="@categories">
+            <option value="new">Select Category</option>
         </select>
-        <label class="input-group-text" for="inputGroupSelect02">Category</label>
+        <label class="input-group-text" for="@categories">Category</label>
+        <span asp-validation-for="Category" class="text-danger"></span>
     </div>
+
 
     <div class="input-group pb-5">
         <span class="input-group-text">Image Url</span>

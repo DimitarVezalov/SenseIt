@@ -1,5 +1,6 @@
 ﻿namespace SenseIt.Services.Data.Admin.Models.Product
 {
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     using static SenseIt.Common.GlobalConstants.ProductConstants;
@@ -15,6 +16,8 @@
         [MinLength(ProductDescriptionMinLength)]
         [MaxLength(ProductDescriptionMaxLength)]
         public string Description { get; set; }
+
+        public IEnumerable<string> Categories { get; set; }
 
         [Required]
         public string Category { get; set; }

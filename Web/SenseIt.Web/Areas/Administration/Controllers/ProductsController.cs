@@ -29,9 +29,14 @@
             return this.View(products);
         }
 
-        public IActionResult Add()
+        public async Task<IActionResult> Add()
         {
-            return this.View();
+            var categories = await this.adminCategoriesService.GetCategoryNames();
+            var model = new CreateProductInputModel
+            {
+                Categories = categories,
+            };
+            return this.View(model);
         }
 
         [HttpPost]
@@ -95,9 +100,13 @@
             return this.View(model);
         }
 
-        public IActionResult Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
-            return this.View();
+            var categoris = await this.adminCategoriesService.GetCategoryNames();
+
+            var product = await this.adminProductsService.GetProductById(id);
+            product.Categories = categoris;
+            return this.View(product);
         }
 
         [HttpPost]
