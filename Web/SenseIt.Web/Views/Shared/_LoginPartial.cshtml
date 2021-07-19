@@ -7,7 +7,7 @@
 <ul class="navbar-nav">
     @if (this.SignInManager.IsSignedIn(this.User))
     {  
-        <li class="nav-item me-5">
+        <li class="nav-item me-2">
             <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @this.User.Identity.Name!</a>
         </li>
         if (this.User.IsInRole(GlobalConstants.Role.AdministratorRoleName))
@@ -15,15 +15,15 @@
             @*<li class="nav-item">
                     <a class="nav-link text-info btn btn-outline-light" asp-area="Administration" asp-controller="Dashboard" asp-action="Index" title="Admin">Content Management</a>
                 </li>*@
-            <li class="nav-item dropdown me-5">
+            <li class="nav-item dropdown me-2">
                 <a class="nav-link dropdown-toggle" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Content Management
                 </a>
-                <ul class="dropdown-menu mt-2" aria-labelledby="navbarScrollingDropdown">
-                    <li><a class="dropdown-item" asp-area="Administration" asp-controller="Products" asp-action="Index">Products</a></li>
-                    <li><a class="dropdown-item" asp-area="Administration" asp-controller="Services" asp-action="Index">Services</a></li>
+                <ul class="dropdown-menu mt-4 bg-dark" aria-labelledby="navbarScrollingDropdown">
+                    <li><a class="dropdown-item text-muted" asp-area="Administration" asp-controller="Products" asp-action="Index">Products</a></li>
+                    <li><a class="dropdown-item text-muted" asp-area="Administration" asp-controller="Services" asp-action="Index">Services</a></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" asp-area="Administration" asp-controller="Categories" asp-action="Index">Categories</a></li>
+                    <li><a class="dropdown-item text-muted" asp-area="Administration" asp-controller="Categories" asp-action="Index">Categories</a></li>
                 </ul>
             </li>
         }

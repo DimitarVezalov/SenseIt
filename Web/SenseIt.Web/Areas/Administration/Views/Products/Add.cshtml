@@ -13,8 +13,8 @@
 <form method="post">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="input-group pb-5">
-        <span class="input-group-text">Name</span>
-        <input type="text" asp-for="Name" class="form-control">
+        <span class="input-group-text text-dark  border border-dark">Name</span>
+        <input type="text" asp-for="Name" class="form-control border border-dark">
         <span asp-validation-for="Name" class="text-danger"></span>
     </div>
 
@@ -30,41 +30,41 @@
         </div>*@
 
     <div class="input-group pb-5">
-        <select asp-for="Category" class="form-select" asp-items="@categories">
-            <option value="new">Select Category</option>
+        <select asp-for="Category" class="form-select text-dark border border-dark" asp-items="@categories">
+            <option value="new">Select Category...</option>
         </select>
-        <label class="input-group-text" for="@categories">Category</label>
+        <label class="input-group-text text-dark border border-dark" for="@categories">Category</label>
         <span asp-validation-for="Category" class="text-danger"></span>
     </div>
 
 
     <div class="input-group pb-5">
-        <span class="input-group-text">Image Url</span>
-        <input type="text" asp-for="ImageUrl" class="form-control">
+        <span class="input-group-text text-dark border border-dark">Image Url</span>
+        <input type="text" asp-for="ImageUrl" class="form-control border border-dark">
         <span asp-validation-for="ImageUrl" class="text-danger"></span>
     </div>
 
     <div class="input-group pb-5">
-        <span class="input-group-text">$</span>
-        <input type="number" asp-for="Price" class="form-control">
+        <span class="input-group-text text-dark border border-dark">$</span>
+        <input type="number" asp-for="Price" class="form-control border border-dark">
         <span asp-validation-for="Price" class="text-danger"></span>
-        <span class="input-group-text">Qty</span>
-        <input type="number" asp-for="InStockQuantity" class="form-control">
+        <span class="input-group-text text-dark border border-dark">Qty</span>
+        <input type="number" asp-for="InStockQuantity" class="form-control border border-dark">
         <span asp-validation-for="InStockQuantity" class="text-danger"></span>
     </div>
 
     <div class="input-group pb-5">
-        <span class="input-group-text">Description</span>
-        <textarea rows="4" asp-for="Description" class="form-control"></textarea>
+        <span class="input-group-text text-dark  border border-dark">Description</span>
+        <textarea rows="4" asp-for="Description" class="form-control border border-dark"></textarea>
         <span asp-validation-for="Description" class="text-danger"></span>
     </div>
 
     <div class="row">
         <div class="col-6">
-            <input type="submit" class="btn btn-lg btn-info form-control" value="Create" />
+            <input type="submit" class="btn btn-outline-info form-control" value="Create" />
         </div>
         <div class="col-6">
-            <a asp-action="All" class="btn btn-lg btn-secondary form-control">Back to List</a>
+            <a asp-action="All" class="btn btn-outline-dark form-control">Back to List</a>
         </div>
     </div>
 </form>
