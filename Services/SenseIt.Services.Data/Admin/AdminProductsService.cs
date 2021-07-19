@@ -108,6 +108,7 @@
 
             var dbModel = await this.productsRepository
                 .AllWithDeleted()
+                .Include(p => p.Category)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             var model = new AdminProductDetailsViewModel
@@ -117,7 +118,7 @@
                 ImageUrl = dbModel.ImageUrl,
                 Name = dbModel.Name,
                 Price = dbModel.Price,
-                Category = dbModel.Category == null ? MissingCategoryValue : dbModel.Category.Name,
+                Category = dbModel.Category.IsDeleted ? MissingCategoryValue : dbModel.Category.Name,
             };
             //.Where(p => p.Id == id)
             //.Where(p => p.Category.IsDeleted || !p.Category.IsDeleted)
