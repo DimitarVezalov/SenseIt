@@ -21,16 +21,22 @@
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
 
+                <div class="input-group pb-4">
+                    <span class="input-group-text text-dark  border border-dark">Brand</span>
+                    <input type="text" asp-for="Brand" class="form-control border border-dark">
+                    <span asp-validation-for="Brand" class="text-danger"></span>
+                </div>
+
                 @*<div class="input-group pb-5">
-                        <select class="form-select" asp-for="Category">
-                            <option selected>Choose...</option>
-                            @foreach (var category in categories)
-                            {
-                                <option>@category</option>
-                            }
-                        </select>
-                        <label class="input-group-text" for="inputGroupSelect02">Category</label>
-                    </div>*@
+            <select class="form-select" asp-for="Category">
+                <option selected>Choose...</option>
+                @foreach (var category in categories)
+                {
+                    <option>@category</option>
+                }
+            </select>
+            <label class="input-group-text" for="inputGroupSelect02">Category</label>
+        </div>*@
 
                 <div class="input-group pb-5">
                     <select asp-for="Category" class="form-select border border-dark" asp-items="@categories">

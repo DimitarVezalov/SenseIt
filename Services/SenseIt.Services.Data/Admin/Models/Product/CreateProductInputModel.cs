@@ -17,6 +17,11 @@
         [MaxLength(ProductDescriptionMaxLength)]
         public string Description { get; set; }
 
+        [Required]
+        [MinLength(ProductBrandMinLength)]
+        [MaxLength(ProductBrandMaxLength)]
+        public string Brand { get; set; }
+
         public IEnumerable<string> Categories { get; set; }
 
         [Required]

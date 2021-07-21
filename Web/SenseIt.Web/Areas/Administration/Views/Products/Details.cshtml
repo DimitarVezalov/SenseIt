@@ -14,7 +14,12 @@
                 <div class="card-body">
                     <h5 class="card-title text-center pb-4">@Model.Name</h5>
                     <hr />
-                    <p class="card-text text-center pb-4">@Model.Category</p>
+                    @*<p class="card-text text-center pb-4">@Model.Category</p>*@
+                    <p class="text-center">
+                        <span class="text-info">Brand:  <span class="text-secondary">@Model.Brand</span></span>
+                        <br />
+                        <span class="text-info">Category:  <span class="text-secondary">@Model.Category</span></span>
+                    </p>
                     <hr />
                     <p class="card-text text-center pb-4">@Model.Description</p>
                     <hr />

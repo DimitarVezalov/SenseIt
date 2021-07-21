@@ -22,6 +22,10 @@
         public string ImageUrl { get; set; }
 
         [Required]
+        [MaxLength(30)]
+        public string Brand { get; set; }
+
+        [Required]
         [MaxLength(ProductDescriptionMaxLength)]
         public string Description { get; set; }
 

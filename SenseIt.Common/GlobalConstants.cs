@@ -12,6 +12,8 @@
             public const int ProductDescriptionMinLength = 5;
             public const int ProductDescriptionMaxLength = 800;
             public const int ProductRestockQuantity = 1000;
+            public const int ProductBrandMinLength = 2;
+            public const int ProductBrandMaxLength = 30;
         }
 
         public static class ServiceConstants
@@ -51,7 +53,12 @@
         {
             public const string LockedAccount = "Locked";
             public const string UnLockedAccount = "Unlocked";
+        }
 
+        public static class Pagination
+        {
+            public const int ProductsPerPage = 9;
+            public const int DefaultStartingPage = 1;
         }
     }
 }

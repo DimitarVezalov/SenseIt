@@ -36,6 +36,7 @@
                 ImageUrl = model.ImageUrl,
                 Description = model.Description,
                 Price = model.Price,
+                Brand = model.Brand,
                 InStockQuantity = model.InStockQuantity,
             };
 
@@ -117,6 +118,7 @@
                 Description = dbModel.Description,
                 ImageUrl = dbModel.ImageUrl,
                 Name = dbModel.Name,
+                Brand = dbModel.Brand,
                 Price = dbModel.Price,
                 Category = dbModel.Category.IsDeleted ? MissingCategoryValue : dbModel.Category.Name,
             };
@@ -133,6 +135,7 @@
             product.Description = model.Description;
             product.ImageUrl = model.ImageUrl;
             product.Price = model.Price;
+            product.Brand = model.Brand;
             product.CategoryId = categoryId;
 
             this.productsRepository.Update(product);
@@ -171,6 +174,7 @@
                     Description = p.Description,
                     ImageUrl = p.ImageUrl,
                     Name = p.Name,
+                    Brand = p.Brand,
                     Price = p.Price,
                 })
                 .FirstOrDefaultAsync();
