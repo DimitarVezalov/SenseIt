@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="~/bootstrap/bootstrap.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.25/datatables.min.css" />
+    <link href="~/lib/fontawesome/css/all.css" rel="stylesheet" />
 
 
 </head>
@@ -55,7 +56,7 @@
             <div class="collapse navbar-collapse" id="navbarScroll">
                 <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
                     @if (this.SignInManager.IsSignedIn(this.User) &&
-                  this.User.IsInRole(GlobalConstants.Role.AdministratorRoleName))
+                 this.User.IsInRole(GlobalConstants.Role.AdministratorRoleName))
                     {
                         <li class="nav-item">
                             <a class="nav-link active" asp-area="Administration" asp-controller="Dashboard" asp-action="Index">Home</a>
@@ -78,24 +79,16 @@
                     else
                     {
                         <li class="nav-item">
-                            <a class="nav-link active" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">Store</a>
+                            <a class="nav-link active" asp-controller="Store" asp-action="ProductsAll">Store</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="#" tabindex="-1" aria-disabled="true">Link</a>
+                            <a class="nav-link active" href="#">Our Services</a>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Our Services
-                            </a>
-                            <ul class="dropdown-menu mt-2" aria-labelledby="navbarScrollingDropdown">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">Offers</a>
                         </li>
                     }
                 </ul>
