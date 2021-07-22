@@ -14,6 +14,9 @@
             public const int ProductRestockQuantity = 1000;
             public const int ProductBrandMinLength = 2;
             public const int ProductBrandMaxLength = 30;
+
+            public const string ProductNotAvailableString = "Out Of Stock";
+            public const string ProductAvailableString = "In Stock";
         }
 
         public static class ServiceConstants

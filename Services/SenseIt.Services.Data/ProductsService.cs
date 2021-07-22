@@ -32,9 +32,37 @@ namespace SenseIt.Services.Data
             return products;
         }
 
+        public async Task<IEnumerable<T>> GetAllByCategory<T>(string categoryName, int id)
+        {
+            if (categoryName == null)
+            {
+                return null;
+            }
+
+            var products = await this.productsRepository
+                .AllAsNoTracking()
+                .Where(p => p.Category.Name == categoryName)
+                .Where(p => p.Id != id)
+                .To<T>()
+                .ToListAsync();
+
+            return products;
+        }
+
         public int GetCount()
         {
             return this.productsRepository.All().Count();
+        }
+
+        public async Task<T> GetDetails<T>(int? id)
+        {
+            var product = await this.productsRepository
+                .AllAsNoTracking()
+                .Where(p => p.Id == id)
+                .To<T>()
+                .FirstOrDefaultAsync();
+
+            return  product;
         }
     }
 }

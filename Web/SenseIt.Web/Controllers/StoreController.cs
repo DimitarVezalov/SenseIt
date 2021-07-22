@@ -8,7 +8,7 @@
 
     using static SenseIt.Common.GlobalConstants.Pagination;
 
-    public class StoreController : Controller
+    public class StoreController : BaseController
     {
         private readonly IProductsService productsService;
 
@@ -17,6 +17,7 @@
             this.productsService = productsService;
         }
 
+        [ActionName("All")]
         public async Task<IActionResult> ProductsAll(int id = DefaultStartingPage)
         {
             var products = await this.productsService.GetAll<ProductInListViewModel>(id, ProductsPerPage);
@@ -31,6 +32,25 @@
             };
 
             return this.View(viewModel);
+        }
+
+        [ActionName("Details")]
+        public async Task<IActionResult> ProductDetails(int? id)
+        {
+            if (id == null)
+            {
+                return this.Error();
+            }
+
+            var productModel = await this.productsService
+                .GetDetails<ProductDetailsViewModel>(id);
+
+            var relatedProducts = await this.productsService
+                .GetAllByCategory<ProductInListViewModel>(productModel.CategoryName, productModel.Id);
+
+            productModel.Products = relatedProducts;
+
+            return this.View(productModel);
         }
     }
 }
