@@ -8,10 +8,18 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@this.ViewData["Title"] - @GlobalConstants.SystemName</title>
+
+    @*<link rel="apple-touch-icon" href="~/assets/img/apple-icon.png">*@
+    @*<link rel="shortcut icon" type="image/x-icon" href="~/assets/img/favicon.ico">*@
+
     <link rel="stylesheet" href="~/bootstrap/bootstrap.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/assets/css/templatemo.css">
+    <link rel="stylesheet" href="~/assets/css/custom.css">
     <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.25/datatables.min.css" />
     <link href="~/lib/fontawesome/css/all.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+
 
 
 </head>
@@ -78,11 +86,11 @@
                     }
                     else
                     {
-                        <li class="nav-item">
+                        <li class="nav-item ps-3">
                             <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" asp-controller="Store" asp-action="ProductsAll">Store</a>
+                            <a class="nav-link active" asp-area="" asp-controller="Store" asp-action="ProductsAll">Store</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" href="#">Our Services</a>

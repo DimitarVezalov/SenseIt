@@ -12,13 +12,13 @@
     <link rel="apple-touch-icon" href="~/assets/img/apple-icon.png">
     <link rel="shortcut icon" type="image/x-icon" href="~/assets/img/favicon.ico">
 
-    <link rel="stylesheet" href="~/assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="~/assets/css/templatemo.css">
-    <link rel="stylesheet" href="~/assets/css/custom.css">
+    @*<link rel="stylesheet" href="~/assets/css/bootstrap.min.css">*@
+    @*<link rel="stylesheet" href="~/assets/css/templatemo.css">
+    <link rel="stylesheet" href="~/assets/css/custom.css">*@
 
     <!-- Load fonts style after rendering the layout styles -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
-    <link rel="stylesheet" href="~/assets/css/fontawesome.min.css">
+    @*<link rel="stylesheet" href="~/assets/css/fontawesome.min.css">*@
     <!--
 
     TemplateMo 559 Zay Shop
@@ -122,7 +122,7 @@
         <div class="col-md-4">
             <div class="card mb-4 product-wap rounded-0">
                 <div class="card rounded-0">
-                    <img class="card-img rounded-0 img-fluid" src=@product.ImageUrl>
+                    <img class="card-img rounded-0 img-fluid" style="height: 300px" src=@product.ImageUrl>
                     <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                         <ul class="list-unstyled">
                             @*<li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>*@
@@ -131,8 +131,8 @@
                         </ul>
                     </div>
                 </div>
-                <div class="card-body">
-                    <a href="shop-single.html" class="h3 text-decoration-none">@product.Name</a>
+                <div class="card-body" style="height: 150px">
+                    <p  class="text-center h3 text-decoration-none">@product.Name</p>
                     @*<ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
                             <li class="pt-2">
                                 <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
