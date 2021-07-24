@@ -5,7 +5,9 @@
 
 @{
     this.ViewData["Title"] = "Admin Dashboard";
+
     var categories = this.Model.Categories.Select(c => new SelectListItem(c, c));
+    var genders = this.Model.Genders.Select(c => new SelectListItem(c, c));
 }
 
 <div class="container">
@@ -27,23 +29,17 @@
                     <span asp-validation-for="Brand" class="text-danger"></span>
                 </div>
 
-                @*<div class="input-group pb-5">
-            <select class="form-select" asp-for="Category">
-                <option selected>Choose...</option>
-                @foreach (var category in categories)
-                {
-                    <option>@category</option>
-                }
-            </select>
-            <label class="input-group-text" for="inputGroupSelect02">Category</label>
-        </div>*@
-
                 <div class="input-group pb-5">
                     <select asp-for="Category" class="form-select border border-dark" asp-items="@categories">
                         <option value="new">Select Category...</option>
                     </select>
                     <label class="input-group-text text-dark  border border-dark" for="@categories">Category</label>
                     <span asp-validation-for="Category" class="text-danger"></span>
+                    <select asp-for="Gender" class="form-select text-dark border border-dark" asp-items="@genders">
+                        <option value="new">Select Gender...</option>
+                    </select>
+                    <label class="input-group-text text-dark border border-dark" for="@genders">Gender</label>
+                    <span asp-validation-for="Gender" class="text-danger"></span>
                 </div>
 
                 <div class="input-group pb-5">

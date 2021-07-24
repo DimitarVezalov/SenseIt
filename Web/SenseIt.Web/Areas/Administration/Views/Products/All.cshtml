@@ -10,14 +10,6 @@
 <div class="tab-content">
     <h1 class="text-center font-weight-light">Products Management</h1>
     <hr />
-    <div class="row">
-        <div class="btn-group mb-2 col-6 offset-3" role="group">
-            <a asp-area="Administration" asp-controller="Products" asp-action="ByCategory" asp-route-Id="" class="btn btn-secondary">Hair & Hair Style</a>
-            <a asp-area="Administration" asp-controller="Products" asp-action="ByCategory" asp-route-Id="" class="btn btn-secondary">Body Care</a>
-            <a asp-area="Administration" asp-controller="Products" asp-action="ByCategory" asp-route-Id="" class="btn btn-secondary">Manicure</a>
-            <a asp-area="Administration" asp-controller="Products" asp-action="ByCategory" asp-route-Id="" class="btn btn-secondary">Pedicure</a>
-        </div>
-    </div>
     <table id="productsTable" class="table table-hover">
         <thead>
             <tr>
@@ -26,6 +18,7 @@
                 <th scope="col" class="text-center">Description</th>
                 <th scope="col" class="text-center">Category</th>
                 <th scope="col" class="text-center">Price</th>
+                <th scope="col" class="text-center">M/F</th>
                 <th scope="col" class="text-center">Details</th>
                 <th scope="col" class="text-center">Delete/Undelete</th>
                 <th scope="col" class="text-center">Restock</th>
@@ -52,6 +45,7 @@
                             <td class="text-center">@product.CategoryName</td>
                         }
                         <td class="text-center">@product.Price</td>
+                        <td class="text-center">@product.Gender</td>
                         <td class="text-center">
                             <a asp-area="Administration" asp-controller="Products" asp-action="Details" asp-route-Id="@product.Id" class="btn btn-outline-primary mx-1">Details</a>
                         </td>
@@ -74,73 +68,75 @@
                 }
                 else if (product.InStockQuantity < 200)
                 {
-                    <tr class="table-warning">
-                        <th scope="row" class="text-center">@counter</th>
-                        <td class="text-center">@product.Name</td>
-                        <td class="text-center">@description</td>
-                        @if (product.CategoryName == GlobalConstants.MissingCategoryValue)
-                        {
-                            <td class="text-center text-danger">@product.CategoryName</td>
-                        }
-                        else
-                        {
-                            <td class="text-center">@product.CategoryName</td>
-                        }
-                        <td class="text-center">@product.Price</td>
-                        <td class="text-center">
-                            <a asp-area="Administration" asp-controller="Products" asp-action="Details" asp-route-Id="@product.Id" class="btn btn-outline-primary mx-1">Details</a>
-                        </td>
-                        @if (product.IsDeleted)
-                        {
-                            <td class="text-center">
-                                <a asp-area="Administration" asp-controller="Products" asp-action="Undelete" asp-route-Id="@product.Id" class="btn btn-outline-success mx-1 bi bi-trash">Undelete</a>
-                            </td>
-                        }
-                        else
-                        {
-                            <td class="text-center">
-                                <a asp-area="Administration" asp-controller="Products" asp-action="Delete" asp-route-Id="@product.Id" class="btn btn-outline-danger mx-1 bi bi-trash">Delete</a>
-                            </td>
-                        }
-                        <td class="text-center">
-                            <a asp-area="Administration" asp-controller="Products" asp-action="Restock" asp-route-Id="@product.Id" class="btn btn-outline-success mx-1">Restock</a>
-                        </td>
-                    </tr>
+        <tr class="table-warning">
+            <th scope="row" class="text-center">@counter</th>
+            <td class="text-center">@product.Name</td>
+            <td class="text-center">@description</td>
+            @if (product.CategoryName == GlobalConstants.MissingCategoryValue)
+            {
+                <td class="text-center text-danger">@product.CategoryName</td>
+            }
+            else
+            {
+                <td class="text-center">@product.CategoryName</td>
+            }
+            <td class="text-center">@product.Price</td>
+            <td class="text-center">@product.Gender</td>
+            <td class="text-center">
+                <a asp-area="Administration" asp-controller="Products" asp-action="Details" asp-route-Id="@product.Id" class="btn btn-outline-primary mx-1">Details</a>
+            </td>
+            @if (product.IsDeleted)
+            {
+                <td class="text-center">
+                    <a asp-area="Administration" asp-controller="Products" asp-action="Undelete" asp-route-Id="@product.Id" class="btn btn-outline-success mx-1 bi bi-trash">Undelete</a>
+                </td>
+            }
+            else
+            {
+                <td class="text-center">
+                    <a asp-area="Administration" asp-controller="Products" asp-action="Delete" asp-route-Id="@product.Id" class="btn btn-outline-danger mx-1 bi bi-trash">Delete</a>
+                </td>
+            }
+            <td class="text-center">
+                <a asp-area="Administration" asp-controller="Products" asp-action="Restock" asp-route-Id="@product.Id" class="btn btn-outline-success mx-1">Restock</a>
+            </td>
+        </tr>
                 }
                 else
                 {
-                    <tr>
-                        <th scope="row" class="text-center">@counter</th>
-                        <td class="text-center">@product.Name</td>
-                        <td class="text-center">@description</td>
-                        @if (product.CategoryName == GlobalConstants.MissingCategoryValue)
-                        {
-                            <td class="text-center text-danger">@product.CategoryName</td>
-                        }
-                        else
-                        {
-                            <td class="text-center">@product.CategoryName</td>
-                        }
-                        <td class="text-center">@product.Price</td>
-                        <td class="text-center">
-                            <a asp-area="Administration" asp-controller="Products" asp-action="Details" asp-route-Id="@product.Id" class="btn btn-outline-primary mx-1">Details</a>
-                        </td>
-                        @if (product.IsDeleted)
-                        {
-                            <td class="text-center">
-                                <a asp-area="Administration" asp-controller="Products" asp-action="Undelete" asp-route-Id="@product.Id" class="btn btn-outline-success mx-1 bi bi-trash">Undelete</a>
-                            </td>
-                        }
-                        else
-                        {
-                            <td class="text-center">
-                                <a asp-area="Administration" asp-controller="Products" asp-action="Delete" asp-route-Id="@product.Id" class="btn btn-outline-danger mx-1 bi bi-trash">Delete</a>
-                            </td>
-                        }
-                        <td class="text-center">
-                            <a asp-area="Administration" asp-controller="Products" asp-action="Restock" asp-route-Id="@product.Id" class="btn disabled btn-outline-success mx-1">Restock</a>
-                        </td>
-                    </tr>
+        <tr>
+            <th scope="row" class="text-center">@counter</th>
+            <td class="text-center">@product.Name</td>
+            <td class="text-center">@description</td>
+            @if (product.CategoryName == GlobalConstants.MissingCategoryValue)
+            {
+                <td class="text-center text-danger">@product.CategoryName</td>
+            }
+            else
+            {
+                <td class="text-center">@product.CategoryName</td>
+            }
+            <td class="text-center">@product.Price</td>
+            <td class="text-center">@product.Gender</td>
+            <td class="text-center">
+                <a asp-area="Administration" asp-controller="Products" asp-action="Details" asp-route-Id="@product.Id" class="btn btn-outline-primary mx-1">Details</a>
+            </td>
+            @if (product.IsDeleted)
+            {
+                <td class="text-center">
+                    <a asp-area="Administration" asp-controller="Products" asp-action="Undelete" asp-route-Id="@product.Id" class="btn btn-outline-success mx-1 bi bi-trash">Undelete</a>
+                </td>
+            }
+            else
+            {
+                <td class="text-center">
+                    <a asp-area="Administration" asp-controller="Products" asp-action="Delete" asp-route-Id="@product.Id" class="btn btn-outline-danger mx-1 bi bi-trash">Delete</a>
+                </td>
+            }
+            <td class="text-center">
+                <a asp-area="Administration" asp-controller="Products" asp-action="Restock" asp-route-Id="@product.Id" class="btn disabled btn-outline-success mx-1">Restock</a>
+            </td>
+        </tr>
                 }
 
                 counter++;

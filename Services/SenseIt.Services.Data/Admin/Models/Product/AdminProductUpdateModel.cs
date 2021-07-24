@@ -28,6 +28,11 @@
         public IEnumerable<string> Categories { get; set; }
 
         [Required]
+        public string Gender { get; set; }
+
+        public IEnumerable<string> Genders { get; set; }
+
+        [Required]
         public string Category { get; set; }
 
         [Required]

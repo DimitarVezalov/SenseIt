@@ -32,9 +32,11 @@
         public async Task<IActionResult> Add()
         {
             var categories = await this.adminCategoriesService.GetCategoryNames();
+            var genders = this.adminProductsService.GetGendersList();
             var model = new CreateProductInputModel
             {
                 Categories = categories,
+                Genders = genders,
             };
             return this.View(model);
         }
@@ -108,9 +110,12 @@
             }
 
             var categoris = await this.adminCategoriesService.GetCategoryNames();
+            var genders = this.adminProductsService.GetGendersList();
 
             var product = await this.adminProductsService.GetProductById(id);
             product.Categories = categoris;
+            product.Genders = genders;
+
             return this.View(product);
         }
 

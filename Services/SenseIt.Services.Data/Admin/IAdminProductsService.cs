@@ -22,5 +22,7 @@
         Task<AdminProductUpdateModel> GetProductById(int? id);
 
         Task<bool> Update(int? id, AdminProductUpdateModel model);
+
+        IEnumerable<string> GetGendersList();
     }
 }

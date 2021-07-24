@@ -23,7 +23,10 @@
                     <hr />
                     <p class="card-text text-center pb-4">@Model.Description</p>
                     <hr />
-                    <p class="card-text text-center pb-4">$@Model.Price</p>
+                    <div class="row">
+                        <p class="col-6 card-text text-center pb-4">$@Model.Price</p>
+                        <p class="col-6 card-text text-center pb-4">Gender: @Model.Gender</p>
+                    </div>
                     <p class="text-center">
                         <a asp-area="Administration" asp-controller="Products" asp-action="Edit" asp-route-Id="@Model.Id" class="btn btn-outline-secondary">Edit Product Details</a>
                     </p>

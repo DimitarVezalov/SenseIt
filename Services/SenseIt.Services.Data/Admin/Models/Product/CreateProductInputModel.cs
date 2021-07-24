@@ -28,6 +28,11 @@
         public string Category { get; set; }
 
         [Required]
+        public string Gender { get; set; }
+
+        public IEnumerable<string> Genders { get; set; }
+
+        [Required]
         public string ImageUrl { get; set; }
 
         [Range(0.1, 1000.00)]

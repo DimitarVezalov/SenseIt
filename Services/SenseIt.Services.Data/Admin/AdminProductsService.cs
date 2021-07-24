@@ -8,6 +8,7 @@
     using Microsoft.EntityFrameworkCore;
     using SenseIt.Data.Common.Repositories;
     using SenseIt.Data.Models;
+    using SenseIt.Data.Models.Enumerations;
     using SenseIt.Services.Data.Admin.Models.Product;
 
     using static SenseIt.Common.GlobalConstants;
@@ -38,6 +39,7 @@
                 Price = model.Price,
                 Brand = model.Brand,
                 InStockQuantity = model.InStockQuantity,
+                Gender = Enum.Parse<ProductGender>(model.Gender),
             };
 
             await this.productsRepository.AddAsync(product);
@@ -60,6 +62,7 @@
                     Price = x.Price.ToString("F2"),
                     InStockQuantity = x.InStockQuantity,
                     IsDeleted = x.IsDeleted,
+                    Gender = ((int)x.Gender) == 1 ? 'M' : ((int)x.Gender) == 2 ? 'F' : 'U',
                 })
                 .ToListAsync();
 
@@ -121,6 +124,7 @@
                 Brand = dbModel.Brand,
                 Price = dbModel.Price,
                 Category = dbModel.Category.IsDeleted ? MissingCategoryValue : dbModel.Category.Name,
+                Gender = dbModel.Gender.ToString(),
             };
 
             return model;
@@ -137,6 +141,7 @@
             product.Price = model.Price;
             product.Brand = model.Brand;
             product.CategoryId = categoryId;
+            product.Gender = Enum.Parse<ProductGender>(model.Gender);
 
             this.productsRepository.Update(product);
             var result = await this.productsRepository.SaveChangesAsync();
@@ -176,10 +181,21 @@
                     Name = p.Name,
                     Brand = p.Brand,
                     Price = p.Price,
+                    Gender = p.Gender.ToString(),
                 })
                 .FirstOrDefaultAsync();
 
             return product;
+        }
+
+        public IEnumerable<string> GetGendersList()
+        {
+            var genders = Enum.GetValues(typeof(ProductGender))
+                .Cast<ProductGender>()
+                .Select(x => x.ToString())
+                .ToList();
+
+            return genders;
         }
 
         private async Task<Product> GetById(int? productId)

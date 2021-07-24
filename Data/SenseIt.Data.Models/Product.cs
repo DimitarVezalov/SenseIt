@@ -4,7 +4,7 @@
     using System.ComponentModel.DataAnnotations.Schema;
 
     using SenseIt.Data.Common.Models;
-
+    using SenseIt.Data.Models.Enumerations;
     using static SenseIt.Common.GlobalConstants.ProductConstants;
 
     public class Product : BaseDeletableModel<int>
@@ -28,6 +28,8 @@
         [Required]
         [MaxLength(ProductDescriptionMaxLength)]
         public string Description { get; set; }
+
+        public ProductGender Gender { get; set; }
 
         public decimal Price { get; set; }
 
