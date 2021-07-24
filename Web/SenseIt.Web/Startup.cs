@@ -64,13 +64,17 @@
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
 
             // Application services
+            // Admin services
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<IAdminProductsService, AdminProductsService>();
             services.AddTransient<IAdminAppServicesService, AdminAppServicesService>();
             services.AddTransient<IAdminProductCategoriesService, AdminProductCategoriesService>();
             services.AddTransient<IAdminServiceCategoriesService, AdminServiceCategoriesService>();
             services.AddTransient<IAdminUsersService, AdminUsersService>();
+
+            // User Interface services
             services.AddTransient<IProductsService, ProductsService>();
+            services.AddTransient<ICategoriesService, CategoriesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

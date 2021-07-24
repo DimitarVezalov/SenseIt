@@ -9,6 +9,10 @@
 
         public int ProductsCount { get; set; }
 
+        public IEnumerable<string> Genders { get; set; }
+
+        public IEnumerable<string> Categories { get; set; }
+
         public int PageNumber { get; set; }
 
         public bool HasPreviousPage => this.PageNumber > 1;

@@ -1,8 +1,5 @@
 ﻿namespace SenseIt.Web.Controllers
 {
-    using System.Diagnostics;
-
-    using SenseIt.Web.ViewModels;
 
     using Microsoft.AspNetCore.Mvc;
 

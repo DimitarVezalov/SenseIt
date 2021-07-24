@@ -1,5 +1,10 @@
 ﻿@model SenseIt.Web.ViewModels.Products.ProductsPagingViewModel;
-@{ this.ViewData["Title"] = "Sense It"; }
+@{
+    this.ViewData["Title"] = "Sense It";
+
+    var categories = Model.Categories;
+    var genders = Model.Genders;
+}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -37,7 +42,7 @@
         <div class="row">
 
             <div class="col-lg-3">
-                <h1 class="h2 pb-4">Categories</h1>
+                <h1 class="h2 pb-4">Shop By</h1>
                 <ul class="list-unstyled templatemo-accordion">
                     <li class="pb-3">
                         <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
@@ -45,29 +50,22 @@
                             <i class="fa fa-fw fa-chevron-circle-down mt-1"></i>
                         </a>
                         <ul class="collapse show list-unstyled pl-3">
-                            <li><a class="text-decoration-none" href="#">Men</a></li>
-                            <li><a class="text-decoration-none" href="#">Women</a></li>
+                            @foreach (var gender in genders)
+                            {
+                                <li><a class="text-decoration-none" asp-action="All" asp-route-gender=@gender>@gender</a></li>
+                            }
                         </ul>
                     </li>
                     <li class="pb-3">
                         <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
-                            Sale
+                            Category
                             <i class="pull-right fa fa-fw fa-chevron-circle-down mt-1"></i>
                         </a>
                         <ul id="collapseTwo" class="collapse list-unstyled pl-3">
-                            <li><a class="text-decoration-none" href="#">Sport</a></li>
-                            <li><a class="text-decoration-none" href="#">Luxury</a></li>
-                        </ul>
-                    </li>
-                    <li class="pb-3">
-                        <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
-                            Product
-                            <i class="pull-right fa fa-fw fa-chevron-circle-down mt-1"></i>
-                        </a>
-                        <ul id="collapseThree" class="collapse list-unstyled pl-3">
-                            <li><a class="text-decoration-none" href="#">Bag</a></li>
-                            <li><a class="text-decoration-none" href="#">Sweather</a></li>
-                            <li><a class="text-decoration-none" href="#">Sunglass</a></li>
+                            @foreach (var category in categories)
+	                        {
+                                 <li><a class="text-decoration-none" asp-action="AllByCategory" asp-route-id="@category">@category</a></li>
+	                        }                           
                         </ul>
                     </li>
                 </ul>
@@ -133,7 +131,10 @@
                                             <i class="text-muted fa fa-star"></i>
                                         </li>
                                     </ul>
-                                    <p class="text-center mb-0">$@product.Price.ToString("F2")</p>
+                                    <div class="row">
+                                        <p class="col-6 text-center mb-0">$@product.Price.ToString("F2")</p>
+                                        <p class="col-6 text-center mb-0">$@product.Gender</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
