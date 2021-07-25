@@ -1,0 +1,22 @@
+﻿@model SenseIt.Services.Data.Admin.Models.Categories.CategoryAddEditModel;
+
+@{
+    this.ViewData["Title"] = "Admin dashboard";
+}
+
+<title>@this.ViewData["Title"]</title>
+
+<h2 class="text-center mt-3">Add New Category</h2>
+
+<div class="mb-4">
+    <hr />
+</div>
+
+<form method="post" class="form-control border-light">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="input-group mb-3">
+        <input type="text" placeholder="Name" aria-label="Name" class="form-control" asp-for="Name">
+        <button class="btn btn-outline-success" type="submit" id="button-addon2">Submit</button>
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+</form>
