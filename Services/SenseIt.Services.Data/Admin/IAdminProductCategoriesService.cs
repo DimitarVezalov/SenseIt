@@ -20,5 +20,7 @@
         Task<bool> Delete(int? categoryId);
 
         Task<bool> Undelete(int? categoryId);
+
+        Task<CategoryAddEditModel> GetEditModel(int? id);
     }
 }

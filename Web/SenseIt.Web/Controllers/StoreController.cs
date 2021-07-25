@@ -12,9 +12,9 @@
     public class StoreController : BaseController
     {
         private readonly IProductsService productsService;
-        private readonly ICategoriesService categoriesService;
+        private readonly IProductCategoriesService categoriesService;
 
-        public StoreController(IProductsService productsService, ICategoriesService categoriesService)
+        public StoreController(IProductsService productsService, IProductCategoriesService categoriesService)
         {
             this.productsService = productsService;
             this.categoriesService = categoriesService;

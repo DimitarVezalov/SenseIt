@@ -3,6 +3,7 @@
     using Microsoft.AspNetCore.Mvc;
     using SenseIt.Services.Data.Admin;
     using SenseIt.Services.Data.Admin.Models.Categories;
+    using SenseIt.Services.Data.Admin.Models.Categories.AppServiceCategory;
     using System.Threading.Tasks;
 
     public class ServiceCategoriesController : AdministrationController
@@ -16,18 +17,18 @@
 
         public IActionResult Add()
         {
-            return this.View("AddEdit");
+            return this.View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(CategoryInputModel input)
+        public async Task<IActionResult> Add(AppServiceCategoryAddEditModel input)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.RedirectToAction(nameof(this.Add));
             }
 
-            var result = await this.serviceCategoriesService.CreateAsync(input.Name);
+            var result = await this.serviceCategoriesService.CreateAsync(input.Name, input.Description, input.ImageUrl);
 
             return this.RedirectToAction(nameof(this.All));
         }
@@ -39,18 +40,20 @@
             return this.View(categories);
         }
 
-        public IActionResult Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return this.NotFound();
             }
 
-            return this.View("AddEdit");
+            var category = await this.serviceCategoriesService.GetEditModel(id);
+
+            return this.View(category);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int? id, CategoryEditModel input)
+        public async Task<IActionResult> Edit(int? id, AppServiceCategoryAddEditModel input)
         {
             if (id == null)
             {
@@ -62,7 +65,7 @@
                 return this.RedirectToAction($"{nameof(this.Edit)}/{id}");
             }
 
-            var result = await this.serviceCategoriesService.Edit(id, input.Name);
+            var result = await this.serviceCategoriesService.Edit(id, input.Name, input.Description, input.ImageUrl);
 
             return this.RedirectToAction(nameof(this.All));
         }

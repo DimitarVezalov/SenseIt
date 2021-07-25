@@ -18,6 +18,13 @@
         [MaxLength(CategoryNameMaxLength)]
         public string Name { get; set; }
 
+        [Required]
+        [MaxLength(CategoryDescriptionMaxLength)]
+        public string Description { get; set; }
+
+        [Required]
+        public string ImageUrl { get; set; }
+
         public virtual ICollection<Service> Services { get; set; }
     }
 }

@@ -13,7 +13,7 @@
                 <th scope="col" class="text-center">#</th>
                 <th scope="col" class="text-center">Name</th>
                 <th scope="col" class="text-center">Services Count</th>
-                <th scope="col" class="text-center">Change Name</th>
+                <th scope="col" class="text-center">Edit</th>
                 <th scope="col" class="text-center">Delete/Undelete</th>
             </tr>
         </thead>
@@ -25,7 +25,7 @@
                     <td class="text-center">@category.Name</td>
                     <td class="text-center">@category.ProductsCount</td>
                     <td class="text-center">
-                        <a asp-area="Administration" asp-controller="ServiceCategories" asp-action="Edit" asp-route-Id="@category.Id" class="btn btn-outline-primary mx-1">Edit</a>
+                        <a asp-area="Administration" asp-controller="ServiceCategories" asp-action="Edit" asp-route-Id="@category.Id" class="btn btn-outline-info mx-1">Edit</a>
                     </td>
                     @if (category.IsDeleted)
                     {

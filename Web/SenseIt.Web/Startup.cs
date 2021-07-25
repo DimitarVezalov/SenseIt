@@ -74,7 +74,9 @@
 
             // User Interface services
             services.AddTransient<IProductsService, ProductsService>();
-            services.AddTransient<ICategoriesService, CategoriesService>();
+            services.AddTransient<IProductCategoriesService, ProductCategoriesService>();
+            services.AddTransient<IAppServiceCategoriesService, AppServiceCategoriesService>();
+            services.AddTransient<IAppServicesService, AppServicesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

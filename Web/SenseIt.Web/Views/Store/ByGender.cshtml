@@ -7,6 +7,7 @@
 }
 
 <title>@this.ViewData["Title"]</title>
+
 <div class="container py-5">
     <div class="row">
 
@@ -21,7 +22,7 @@
                     <ul class="collapse show list-unstyled pl-3">
                         @foreach (var gender in genders)
                         {
-                            <li><a class="text-decoration-none" asp-action="ByGender" asp-route-gender=@gender>@gender</a></li>
+                            <li><a class="text-decoration-none" asp-action="ByGender" asp-route-id="1" asp-route-gender=@gender>@gender</a></li>
                         }
                     </ul>
                 </li>
@@ -33,7 +34,7 @@
                     <ul id="collapseTwo" class="collapse list-unstyled pl-3">
                         @foreach (var category in categories)
                         {
-                            <li><a class="text-decoration-none" asp-action="ByCategory" asp-route-category="@category">@category</a></li>
+                            <li><a class="text-decoration-none" asp-action="ByCategory" asp-route-id="" asp-route-category="@category">@category</a></li>
                         }
                     </ul>
                 </li>

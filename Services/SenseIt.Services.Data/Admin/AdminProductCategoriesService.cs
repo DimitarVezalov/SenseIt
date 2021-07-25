@@ -122,5 +122,24 @@
 
             return result > 0;
         }
+
+        public async Task<CategoryAddEditModel> GetEditModel(int? id)
+        {
+            if (id == null)
+            {
+                return null;
+            }
+
+            var model = await this.categoryRepository
+                .All()
+                .Where(c => c.Id == id)
+                .Select(c => new CategoryAddEditModel
+                {
+                    Name = c.Name,
+                })
+                .FirstOrDefaultAsync();
+
+            return model;
+        }
     }
 }

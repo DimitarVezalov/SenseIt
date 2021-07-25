@@ -17,11 +17,11 @@ namespace SenseIt.Web.Areas.Administration.Controllers
 
         public IActionResult Add()
         {
-            return this.View("AddEdit");
+            return this.View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(CategoryInputModel input)
+        public async Task<IActionResult> Add(CategoryAddEditModel input)
         {
             if (!this.ModelState.IsValid)
             {
@@ -40,18 +40,20 @@ namespace SenseIt.Web.Areas.Administration.Controllers
             return this.View(categories);
         }
 
-        public IActionResult Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return this.NotFound();
             }
 
-            return this.View("AddEdit");
+            var model = await this.productCategoriesService.GetEditModel(id);
+
+            return this.View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int? id, CategoryEditModel input)
+        public async Task<IActionResult> Edit(int? id, CategoryAddEditModel input)
         {
             if (id == null)
             {

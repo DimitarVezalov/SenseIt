@@ -34,6 +34,9 @@
         {
             public const int CategoryNameMinLength = 5;
             public const int CategoryNameMaxLength = 50;
+
+            public const int CategoryDescriptionMinLength = 5;
+            public const int CategoryDescriptionMaxLength = 800;
         }
 
         public static class Role
