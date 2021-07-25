@@ -10,6 +10,9 @@
 
         public string Name { get; set; }
 
+        public string ShortName =>
+                this.Name.Length > 40 ? this.Name.Substring(0, 40) + "..." : this.Name;
+
         public string Gender { get; set; }
 
         public string ImageUrl { get; set; }

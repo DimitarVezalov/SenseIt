@@ -20,12 +20,9 @@
             this.productsRepository = productsRepository;
         }
 
-        public async Task<IEnumerable<T>> GetAll<T>(int page, int itemsPerPage, string gender)
+        public async Task<IEnumerable<T>> GetAllPaging<T>(int page, int itemsPerPage)
         {
-            // TO DO: Fix the method
-            if (gender == null)
-            {
-                var products = await this.productsRepository
+            var products = await this.productsRepository
                 .AllAsNoTracking()
                 .OrderBy(x => x.Id)
                 .Skip((page - 1) * itemsPerPage)
@@ -33,21 +30,7 @@
                 .To<T>()
                 .ToListAsync();
 
-                return products;
-            }
-            else
-            {
-                var products = await this.productsRepository
-               .AllAsNoTracking()
-               .Where(x => x.Gender.ToString() == gender)
-               .OrderBy(x => x.Id)
-               .Skip((page - 1) * itemsPerPage)
-               .Take(itemsPerPage)
-               .To<T>()
-               .ToListAsync();
-
-                return products;
-            }
+            return products;
         }
 
         public async Task<IEnumerable<T>> GetAllByCategory<T>(string categoryName, int id)
@@ -67,19 +50,51 @@
             return products;
         }
 
+        public async Task<IEnumerable<T>> GetByCategoryPaging<T>(int page, int itemsPerPage, string category = null)
+        {
+            var products = await this.productsRepository
+                   .AllAsNoTracking()
+                   .Where(x => x.Category.Name == category)
+                   .OrderBy(x => x.Id)
+                   .Skip((page - 1) * itemsPerPage)
+                   .Take(itemsPerPage)
+                   .To<T>()
+                   .ToListAsync();
+
+            return products;
+        }
+
+        public async Task<IEnumerable<T>> GetByGenderPaging<T>(int page, int itemsPerPage, string gender)
+        {
+            var products = await this.productsRepository
+                   .AllAsNoTracking()
+                   .Where(x => ((int)x.Gender) == ((int)Enum.Parse<ProductGender>(gender)))
+                   .OrderBy(x => x.Id)
+                   .Skip((page - 1) * itemsPerPage)
+                   .Take(itemsPerPage)
+                   .To<T>()
+                   .ToListAsync();
+
+            return products;
+        }
+
         public int GetCount()
         {
             return this.productsRepository.All().Count();
         }
 
-        public int GetCount(string gender)
+        public int GetCount(string filter)
         {
-            if (gender == null)
+            if (this.GetGenders().Contains(filter))
             {
-                return this.GetCount();
+                return this.productsRepository
+                .All()
+                .Count(p => ((int)p.Gender) == ((int)Enum.Parse<ProductGender>(filter)));
             }
 
-            return this.productsRepository.All().Count(x => x.Gender.ToString() == gender);
+            return this.productsRepository
+                .All()
+                .Count(p => p.Category.Name == filter);
         }
 
         public async Task<T> GetDetails<T>(int? id)

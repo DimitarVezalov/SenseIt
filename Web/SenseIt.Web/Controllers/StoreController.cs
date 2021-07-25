@@ -21,11 +21,11 @@
         }
 
         [ActionName("All")]
-        public async Task<IActionResult> ProductsAll(int id = DefaultStartingPage, string gender = null)
+        public async Task<IActionResult> ProductsAll(int id = DefaultStartingPage)
         {
 
-            var products = await this.productsService.GetAll<ProductInListViewModel>(id, ProductsPerPage, gender);
-            var productsCount = this.productsService.GetCount(gender);
+            var products = await this.productsService.GetAllPaging<ProductInListViewModel>(id, ProductsPerPage);
+            var productsCount = this.productsService.GetCount();
 
             var categories = await this.categoriesService.GetProductCategories();
             var genders = this.productsService.GetGenders();
@@ -63,14 +63,67 @@
         }
 
         [ActionName("ByGender")]
-        public async Task<IActionResult> AllByGender(string gender)
+        public async Task<IActionResult> AllByGender(string gender, int id = DefaultStartingPage)
         {
             if (gender == null)
             {
                 return this.Error();
             }
 
-            return this.View("All");
+            var products = await this.productsService.GetByGenderPaging<ProductInListViewModel>(id, ProductsPerPage, gender);
+            var productsCount = this.productsService.GetCount(gender);
+
+            var categories = await this.categoriesService.GetProductCategories();
+            var genders = this.productsService.GetGenders();
+
+            var viewModel = new ProductsPagingByGenderViewModel
+            {
+                ProductsPerPage = ProductsPerPage,
+                PageNumber = id,
+                ProductsCount = productsCount,
+                Products = products,
+                Categories = categories,
+                Genders = genders,
+            };
+
+            if (this.Request.Query.ContainsKey("gender"))
+            {
+                viewModel.Gender = this.Request.Query["gender"];
+            }
+
+            return this.View(viewModel);
+        }
+
+        [ActionName("ByCategory")]
+        public async Task<IActionResult> AllByCategory(string category, int id = DefaultStartingPage)
+        {
+            if (category == null)
+            {
+                return this.Error();
+            }
+
+            var products = await this.productsService.GetByCategoryPaging<ProductInListViewModel>(id, ProductsPerPage, category);
+            var productsCount = this.productsService.GetCount(category);
+
+            var categories = await this.categoriesService.GetProductCategories();
+            var genders = this.productsService.GetGenders();
+
+            var viewModel = new ProductsPagingByCategoryViewModel
+            {
+                ProductsPerPage = ProductsPerPage,
+                PageNumber = id,
+                ProductsCount = productsCount,
+                Products = products,
+                Categories = categories,
+                Genders = genders,
+            };
+
+            if (this.Request.Query.ContainsKey("category"))
+            {
+                viewModel.Category = this.Request.Query["category"];
+            }
+
+            return this.View(viewModel);
         }
     }
 }
