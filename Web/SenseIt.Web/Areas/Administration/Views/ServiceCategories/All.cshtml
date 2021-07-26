@@ -1,4 +1,4 @@
-﻿@model List<SenseIt.Services.Data.Admin.Models.Categories.CategoriesListingViewModel>;
+﻿@model List<SenseIt.Web.ViewModels.Admin.Categories.AppServiceCategory.AppServiceCategoriesListingModel>;
 @{
     this.ViewData["Title"] = "Admin dashboard";
     var counter = 1;
@@ -23,7 +23,7 @@
                 <tr class="table">
                     <th scope="row" class="text-center">@counter</th>
                     <td class="text-center">@category.Name</td>
-                    <td class="text-center">@category.ProductsCount</td>
+                    <td class="text-center">@category.ServicesCount</td>
                     <td class="text-center">
                         <a asp-area="Administration" asp-controller="ServiceCategories" asp-action="Edit" asp-route-Id="@category.Id" class="btn btn-outline-info mx-1">Edit</a>
                     </td>

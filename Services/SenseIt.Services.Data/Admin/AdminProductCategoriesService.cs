@@ -8,7 +8,7 @@
     using Microsoft.EntityFrameworkCore;
     using SenseIt.Data.Common.Repositories;
     using SenseIt.Data.Models;
-    using SenseIt.Services.Data.Admin.Models.Categories;
+    using SenseIt.Services.Mapping;
 
     public class AdminProductCategoriesService : IAdminProductCategoriesService
     {
@@ -24,7 +24,6 @@
             var category = new ProductCategory
             {
                 Name = name,
-                CreatedOn = DateTime.UtcNow,
             };
 
             var result = this.categoryRepository.AddAsync(category);
@@ -53,17 +52,12 @@
             return result > 0;
         }
 
-        public async Task<IEnumerable<CategoriesListingViewModel>> GetCategoriesList()
+        public async Task<IEnumerable<T>> GetCategoriesList<T>()
         {
-            var categories = await this.categoryRepository.AllWithDeleted()
-               .Select(c => new CategoriesListingViewModel
-               {
-                   Id = c.Id,
-                   Name = c.Name,
-                   ProductsCount = c.Products.Count,
-                   IsDeleted = c.IsDeleted,
-               })
-               .ToListAsync();
+            var categories = await this.categoryRepository
+                .AllWithDeleted()
+                .To<T>()
+                .ToListAsync();
 
             return categories;
         }
@@ -123,20 +117,12 @@
             return result > 0;
         }
 
-        public async Task<CategoryAddEditModel> GetEditModel(int? id)
+        public async Task<T> GetEditModel<T>(int? id)
         {
-            if (id == null)
-            {
-                return null;
-            }
-
             var model = await this.categoryRepository
                 .All()
                 .Where(c => c.Id == id)
-                .Select(c => new CategoryAddEditModel
-                {
-                    Name = c.Name,
-                })
+                .To<T>()
                 .FirstOrDefaultAsync();
 
             return model;

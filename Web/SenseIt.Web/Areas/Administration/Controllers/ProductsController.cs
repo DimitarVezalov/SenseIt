@@ -4,7 +4,7 @@
 
     using Microsoft.AspNetCore.Mvc;
     using SenseIt.Services.Data.Admin;
-    using SenseIt.Services.Data.Admin.Models.Product;
+    using SenseIt.Web.ViewModels.Admin.Product;
 
     public class ProductsController : AdministrationController
     {
@@ -24,7 +24,7 @@
 
         public async Task<IActionResult> All()
         {
-            var products = await this.adminProductsService.GetAllProductsAsync();
+            var products = await this.adminProductsService.GetAllProductsAsync<AdminProductsListingViewModel>();
 
             return this.View(products);
         }
@@ -49,7 +49,8 @@
                 return this.RedirectToAction(nameof(this.Add));
             }
 
-            await this.adminProductsService.CreateAsync(input);
+            await this.adminProductsService.CreateAsync(input.Category, input.Name, input.ImageUrl,
+                input.Description, input.Brand, input.Gender, input.InStockQuantity, input.Price);
 
             return this.RedirectToAction(nameof(this.All));
         }
@@ -97,7 +98,7 @@
                 return this.NotFound();
             }
 
-            var model = await this.adminProductsService.GetDetailsModel(id);
+            var model = await this.adminProductsService.GetDetailsModel<AdminProductDetailsViewModel>(id);
 
             return this.View(model);
         }
@@ -112,7 +113,7 @@
             var categoris = await this.adminCategoriesService.GetCategoryNames();
             var genders = this.adminProductsService.GetGendersList();
 
-            var product = await this.adminProductsService.GetProductById(id);
+            var product = await this.adminProductsService.GetProductById<AdminProductUpdateFormModel>(id);
             product.Categories = categoris;
             product.Genders = genders;
 
@@ -132,7 +133,8 @@
                 return this.RedirectToAction($"{nameof(this.Edit)}/{id}");
             }
 
-            var isUpdated = await this.adminProductsService.Update(id, input);
+            var isUpdated = await this.adminProductsService.Update(id, input.Name, input.Description,
+                input.CategoryName, input.ImageUrl, input.Brand, input.Gender, input.Price);
 
             return this.RedirectToAction(nameof(this.All));
         }

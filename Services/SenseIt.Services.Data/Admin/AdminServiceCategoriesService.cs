@@ -8,8 +8,7 @@
     using Microsoft.EntityFrameworkCore;
     using SenseIt.Data.Common.Repositories;
     using SenseIt.Data.Models;
-    using SenseIt.Services.Data.Admin.Models.Categories;
-    using SenseIt.Services.Data.Admin.Models.Categories.AppServiceCategory;
+    using SenseIt.Services.Mapping;
 
     public class AdminServiceCategoriesService : IAdminServiceCategoriesService
     {
@@ -57,17 +56,11 @@
             return result > 0;
         }
 
-        public async Task<IEnumerable<CategoriesListingViewModel>> GetCategoriesList()
+        public async Task<IEnumerable<T>> GetCategoriesList<T>()
         {
             var categories = await this.categoryRepository
                .AllWithDeleted()
-               .Select(c => new CategoriesListingViewModel
-               {
-                   Id = c.Id,
-                   Name = c.Name,
-                   ProductsCount = c.Services.Count,
-                   IsDeleted = c.IsDeleted,
-               })
+               .To<T>()
                .ToListAsync();
 
             return categories;
@@ -128,22 +121,12 @@
             return result > 0;
         }
 
-        public async Task<AppServiceCategoryAddEditModel> GetEditModel(int? id)
+        public async Task<T> GetEditModel<T>(int? id)
         {
-            if (id == null)
-            {
-                return null;
-            }
-
             var category = await this.categoryRepository
                 .All()
                 .Where(c => c.Id == id)
-                .Select(c => new AppServiceCategoryAddEditModel
-                {
-                    Name = c.Name,
-                    Description = c.Description,
-                    ImageUrl = c.ImageUrl,
-                })
+                .To<T>()
                 .FirstOrDefaultAsync();
 
             return category;

@@ -8,23 +8,20 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using SenseIt.Data.Models;
-    using SenseIt.Services.Data.Admin;
-    using SenseIt.Services.Data.Admin.Models.Users;
+
+    using SenseIt.Web.ViewModels.Admin.Users;
 
     public class UsersController : AdministrationController
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly RoleManager<ApplicationRole> roleManager;
-        private readonly IAdminUsersService usersService;
 
         public UsersController(
             UserManager<ApplicationUser> userManager,
-            RoleManager<ApplicationRole> roleManager,
-            IAdminUsersService usersService)
+            RoleManager<ApplicationRole> roleManager)
         {
             this.userManager = userManager;
             this.roleManager = roleManager;
-            this.usersService = usersService;
         }
 
         public async Task<IActionResult> All()
@@ -33,7 +30,7 @@
                 .Select(u => new AdminUsersListingModel
                 {
                     Id = u.Id,
-                    Username = u.UserName,
+                    UserName = u.UserName,
                     Email = u.Email,
                     IsLocked = u.LockoutEnd != null,
                     Roles = this.roleManager.Roles

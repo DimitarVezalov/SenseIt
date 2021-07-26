@@ -1,4 +1,4 @@
-﻿namespace SenseIt.Services.Data.Admin.Models.Users
+﻿namespace SenseIt.Web.ViewModels.Admin.Users
 {
     using System.ComponentModel.DataAnnotations;
 

@@ -4,7 +4,7 @@ namespace SenseIt.Web.Areas.Administration.Controllers
 
     using Microsoft.AspNetCore.Mvc;
     using SenseIt.Services.Data.Admin;
-    using SenseIt.Services.Data.Admin.Models.Categories;
+    using SenseIt.Web.ViewModels.Admin.Categories;
 
     public class ProductCategoriesController : AdministrationController
     {
@@ -21,7 +21,7 @@ namespace SenseIt.Web.Areas.Administration.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(CategoryAddEditModel input)
+        public async Task<IActionResult> Add(ProductCategoryAddEditModel input)
         {
             if (!this.ModelState.IsValid)
             {
@@ -35,7 +35,7 @@ namespace SenseIt.Web.Areas.Administration.Controllers
 
         public async Task<IActionResult> All()
         {
-            var categories = await this.productCategoriesService.GetCategoriesList();
+            var categories = await this.productCategoriesService.GetCategoriesList<ProductCategoriesListingViewModel>();
 
             return this.View(categories);
         }
@@ -47,13 +47,13 @@ namespace SenseIt.Web.Areas.Administration.Controllers
                 return this.NotFound();
             }
 
-            var model = await this.productCategoriesService.GetEditModel(id);
+            var model = await this.productCategoriesService.GetEditModel<ProductCategoryAddEditModel>(id);
 
             return this.View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int? id, CategoryAddEditModel input)
+        public async Task<IActionResult> Edit(int? id, ProductCategoryAddEditModel input)
         {
             if (id == null)
             {

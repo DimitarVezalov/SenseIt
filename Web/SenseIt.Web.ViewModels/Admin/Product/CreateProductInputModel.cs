@@ -1,15 +1,12 @@
-﻿namespace SenseIt.Services.Data.Admin.Models.Product
+﻿namespace SenseIt.Web.ViewModels.Admin.Product
 {
-    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     using static SenseIt.Common.GlobalConstants.ProductConstants;
 
-    public class AdminProductUpdateModel
+    public class CreateProductInputModel
     {
-        public int Id { get; set; }
-
         [Required]
         [MinLength(ProductNameMinLength)]
         [MaxLength(ProductNameMaxLength)]
@@ -28,17 +25,20 @@
         public IEnumerable<string> Categories { get; set; }
 
         [Required]
+        public string Category { get; set; }
+
+        [Required]
         public string Gender { get; set; }
 
         public IEnumerable<string> Genders { get; set; }
-
-        [Required]
-        public string Category { get; set; }
 
         [Required]
         public string ImageUrl { get; set; }
 
         [Range(0.1, 1000.00)]
         public decimal Price { get; set; }
+
+        [Range(1, 1000)]
+        public int InStockQuantity { get; set; }
     }
 }

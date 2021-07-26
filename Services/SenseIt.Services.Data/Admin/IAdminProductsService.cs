@@ -3,13 +3,19 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    using SenseIt.Services.Data.Admin.Models.Product;
-
     public interface IAdminProductsService
     {
-        Task<int> CreateAsync(CreateProductInputModel model);
+        Task<int> CreateAsync(
+            string category,
+            string name,
+            string imageUrl,
+            string description,
+            string brand,
+            string gender,
+            int quantity,
+            decimal price);
 
-        Task<IEnumerable<AdminProductsListingViewModel>> GetAllProductsAsync();
+        Task<IEnumerable<T>> GetAllProductsAsync<T>();
 
         Task<bool> Restock(int? productId);
 
@@ -17,11 +23,19 @@
 
         Task<bool> Undelete(int? productId);
 
-        Task<AdminProductDetailsViewModel> GetDetailsModel(int? id);
+        Task<T> GetDetailsModel<T>(int? id);
 
-        Task<AdminProductUpdateModel> GetProductById(int? id);
+        Task<T> GetProductById<T>(int? id);
 
-        Task<bool> Update(int? id, AdminProductUpdateModel model);
+        Task<bool> Update(
+            int? id,
+            string name,
+            string description,
+            string category,
+            string imageUrl,
+            string brand,
+            string gender,
+            decimal price);
 
         IEnumerable<string> GetGendersList();
     }

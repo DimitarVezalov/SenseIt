@@ -9,7 +9,8 @@
     using Microsoft.EntityFrameworkCore;
     using SenseIt.Data.Common.Repositories;
     using SenseIt.Data.Models;
-    using SenseIt.Services.Data.Admin.Models.AppServices;
+
+    using SenseIt.Services.Mapping;
 
     using static SenseIt.Common.GlobalConstants;
 
@@ -24,19 +25,24 @@
             this.categoriesService = categoriesService;
         }
 
-        public async Task<int> CreateAsync(CreateAppServiceInputModel model)
+        public async Task<int> CreateAsync(
+            string name,
+            string description,
+            string category,
+            string imageUrl,
+            string duration,
+            decimal price)
         {
-            var categoryId = await this.categoriesService.GetCategoryIdByName(model.Category);
+            var categoryId = await this.categoriesService.GetCategoryIdByName(category);
 
             var service = new Service
             {
-                Name = model.Name,
-                Description = model.Description,
-                Price = model.Price,
+                Name = name,
+                Description = description,
+                Price = price,
                 CategoryId = categoryId,
-                ImageUrl = model.ImageUrl,
-                CreatedOn = DateTime.UtcNow,
-                Duration = TimeSpan.Parse(model.Duration),
+                ImageUrl = imageUrl,
+                Duration = TimeSpan.Parse(duration),
             };
 
             await this.serviceRepository.AddAsync(service);
@@ -45,69 +51,53 @@
             return service.Id;
         }
 
-        public async Task<IEnumerable<AdminAppServiceListingViewModel>> GetAllServicesAsync()
+        public async Task<IEnumerable<T>> GetAllAppServicesAsync<T>()
         {
             var services = await this.serviceRepository
                 .AllWithDeleted()
-                .Select(x => new AdminAppServiceListingViewModel
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    Description = x.Description,
-                    Duration = x.Duration.ToString().Substring(0, 5),
-                    Category = x.Category.IsDeleted ? MissingCategoryValue : x.Category.Name,
-                    Price = x.Price.ToString(),
-                    IsDeleted = x.IsDeleted,
-                })
+                .To<T>()
                 .ToListAsync();
 
             return services;
         }
 
-        public async Task<AppServiceDetailsModel> GetDetailsModel(int? id)
+        public async Task<T> GetDetailsModel<T>(int? id)
         {
-            if (id == null)
-            {
-                return null;
-            }
-
             var appService = await this.serviceRepository
                 .AllWithDeleted()
                 .Where(s => s.Id == id)
-                .Select(s => new AppServiceDetailsModel
-                {
-                    Id = s.Id,
-                    Category = s.Category.Name,
-                    Description = s.Description,
-                    ImageUrl = s.ImageUrl,
-                    Name = s.Name,
-                    Price = s.Price,
-                    Duration = s.Duration.ToString().Substring(0, 5),
-                })
+                .To<T>()
                 .FirstOrDefaultAsync();
 
             return appService;
         }
 
-        public async Task<bool> Update(int? id, EditAppServiceInputModel model)
+        public async Task<bool> Update(
+            int? id,
+            string name,
+            string description,
+            string imageUrl,
+            string category,
+            string duration,
+            decimal price)
         {
             if (id == null)
             {
                 return false;
             }
 
-            var categoryId = await this.categoriesService.GetCategoryIdByName(model.Category);
+            var categoryId = await this.categoriesService.GetCategoryIdByName(category);
 
             var appService = this.serviceRepository
                 .AllWithDeleted()
                 .FirstOrDefault(s => s.Id == id);
 
-            appService.ImageUrl = model.ImageUrl;
-            appService.Name = model.Name;
-            appService.Description = model.Description;
-            appService.Price = model.Price;
+            appService.ImageUrl = imageUrl;
+            appService.Name = name;
+            appService.Description = description;
+            appService.Price = price;
             appService.CategoryId = categoryId;
-            appService.Duration = TimeSpan.Parse(model.Duration);
+            appService.Duration = TimeSpan.Parse(duration);
 
             this.serviceRepository.Update(appService);
 
@@ -150,26 +140,12 @@
             return result > 0;
         }
 
-        public async Task<EditAppServiceInputModel> GetServiceById(int? id)
+        public async Task<T> GetServiceById<T>(int? id)
         {
-            if (id == null)
-            {
-                return null;
-            }
-
             var appService = await this.serviceRepository
                 .AllWithDeleted()
                 .Where(s => s.Id == id)
-                .Select(s => new EditAppServiceInputModel
-                {
-                    Id = s.Id,
-                    Name = s.Name,
-                    Category = s.Category.Name,
-                    Description = s.Description,
-                    ImageUrl = s.ImageUrl,
-                    Duration = s.Duration.ToString(),
-                    Price = s.Price,
-                })
+                .To<T>()
                 .FirstOrDefaultAsync();
 
             return appService;

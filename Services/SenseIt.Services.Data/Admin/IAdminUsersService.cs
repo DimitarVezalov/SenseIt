@@ -3,11 +3,9 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    using SenseIt.Services.Data.Admin.Models.Users;
-
     public interface IAdminUsersService
     {
-        Task<IEnumerable<AdminUsersListingModel>> GetUsersAsync();
+        Task<IEnumerable<T>> GetUsersAsync<T>();
 
     }
 }

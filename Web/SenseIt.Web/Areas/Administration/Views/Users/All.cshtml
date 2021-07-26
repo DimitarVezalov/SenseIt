@@ -1,4 +1,4 @@
-﻿@model List<SenseIt.Services.Data.Admin.Models.Users.AdminUsersListingModel>;
+﻿@model List<SenseIt.Web.ViewModels.Admin.Users.AdminUsersListingModel>;
 @using SenseIt.Common
 @{
     this.ViewData["Title"] = "Admin dashboard";
@@ -27,7 +27,7 @@
 
             <tr>
                 <th scope="row" class="text-center">@counter</th>
-                <td class="text-center">@user.Username</td>
+                <td class="text-center">@user.UserName</td>
                 <td class="text-center">@user.Email</td>
                 @if (user.IsLocked)
                 {

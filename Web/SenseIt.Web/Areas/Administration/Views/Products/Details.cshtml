@@ -1,4 +1,4 @@
-﻿@model SenseIt.Services.Data.Admin.Models.Product.AdminProductDetailsViewModel;
+﻿@model SenseIt.Web.ViewModels.Admin.Product.AdminProductDetailsViewModel;
 
 @{
     this.ViewData["Title"] = "Admin dashboard";
@@ -18,7 +18,7 @@
                     <p class="text-center">
                         <span class="text-info">Brand:  <span class="text-secondary">@Model.Brand</span></span>
                         <br />
-                        <span class="text-info">Category:  <span class="text-secondary">@Model.Category</span></span>
+                        <span class="text-info">Category:  <span class="text-secondary">@Model.CategoryName</span></span>
                     </p>
                     <hr />
                     <p class="card-text text-center pb-4">@Model.Description</p>

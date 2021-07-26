@@ -1,4 +1,4 @@
-﻿@model SenseIt.Services.Data.Admin.Models.AppServices.AppServiceDetailsModel;
+﻿@model SenseIt.Web.ViewModels.Admin.AppServices.AppServiceDetailsModel;
 
 @{
     this.ViewData["Title"] = "Admin dashboard";
@@ -25,7 +25,7 @@
                     <hr />
                     <p class="card-text text-center pb-4">Duration: @Model.DurationAsText</p>
                     <p class="text-center">
-                        <a asp-area="Administration" asp-controller="Services" asp-action="Edit" asp-route-Id="@Model.Id" class="btn btn-outline-secondary">Edit Service Details</a>
+                        <a asp-area="Administration" asp-controller="AppServices" asp-action="Edit" asp-route-Id="@Model.Id" class="btn btn-outline-secondary">Edit Service Details</a>
                     </p>
                 </div>
             </div>

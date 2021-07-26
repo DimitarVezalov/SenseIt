@@ -3,15 +3,13 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    using SenseIt.Services.Data.Admin.Models.Categories;
-
     public interface IAdminProductCategoriesService
     {
         Task<int> CreateAsync(string name);
 
         Task<int> GetCategoryIdByName(string name);
 
-        Task<IEnumerable<CategoriesListingViewModel>> GetCategoriesList();
+        Task<IEnumerable<T>> GetCategoriesList<T>();
 
         Task<IEnumerable<string>> GetCategoryNames();
 
@@ -21,6 +19,6 @@
 
         Task<bool> Undelete(int? categoryId);
 
-        Task<CategoryAddEditModel> GetEditModel(int? id);
+        Task<T> GetEditModel<T>(int? id);
     }
 }

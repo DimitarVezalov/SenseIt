@@ -9,8 +9,7 @@
     using SenseIt.Data.Common.Repositories;
     using SenseIt.Data.Models;
     using SenseIt.Data.Models.Enumerations;
-    using SenseIt.Services.Data.Admin.Models.Product;
-
+    using SenseIt.Services.Mapping;
     using static SenseIt.Common.GlobalConstants;
     using static SenseIt.Common.GlobalConstants.ProductConstants;
 
@@ -25,21 +24,28 @@
             this.adminCategoriesService = adminCategoriesService;
         }
 
-        public async Task<int> CreateAsync(CreateProductInputModel model)
+        public async Task<int> CreateAsync(
+            string category,
+            string name,
+            string imageUrl,
+            string description,
+            string brand,
+            string gender,
+            int quantity,
+            decimal price)
         {
-            var categoryId = await this.adminCategoriesService.GetCategoryIdByName(model.Category);
+            var categoryId = await this.adminCategoriesService.GetCategoryIdByName(category);
 
             var product = new Product
             {
-                Name = model.Name,
+                Name = name,
                 CategoryId = categoryId,
-                CreatedOn = DateTime.UtcNow,
-                ImageUrl = model.ImageUrl,
-                Description = model.Description,
-                Price = model.Price,
-                Brand = model.Brand,
-                InStockQuantity = model.InStockQuantity,
-                Gender = Enum.Parse<ProductGender>(model.Gender),
+                ImageUrl = imageUrl,
+                Description = description,
+                Price = price,
+                Brand = brand,
+                InStockQuantity = quantity,
+                Gender = Enum.Parse<ProductGender>(gender),
             };
 
             await this.productsRepository.AddAsync(product);
@@ -48,22 +54,12 @@
             return product.Id;
         }
 
-        public async Task<IEnumerable<AdminProductsListingViewModel>> GetAllProductsAsync()
+        public async Task<IEnumerable<T>> GetAllProductsAsync<T>()
         {
-            var products = await this.productsRepository.AllWithDeleted()
-                //.Where(x => !x.IsDeleted)
+            var products = await this.productsRepository
+                .AllWithDeleted()
                 .Include(x => x.Category)
-                .Select(x => new AdminProductsListingViewModel
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    Description = x.Description,
-                    CategoryName = x.Category.IsDeleted ? MissingCategoryValue : x.Category.Name,
-                    Price = x.Price.ToString("F2"),
-                    InStockQuantity = x.InStockQuantity,
-                    IsDeleted = x.IsDeleted,
-                    Gender = ((int)x.Gender) == 1 ? 'M' : ((int)x.Gender) == 2 ? 'F' : 'U',
-                })
+                .To<T>()
                 .ToListAsync();
 
             return products;
@@ -103,45 +99,38 @@
             return result > 0;
         }
 
-        public async Task<AdminProductDetailsViewModel> GetDetailsModel(int? id)
+        public async Task<T> GetDetailsModel<T>(int? id)
         {
-            if (id == null)
-            {
-                return null;
-            }
-
-            var dbModel = await this.productsRepository
+            var model = await this.productsRepository
                 .AllWithDeleted()
                 .Include(p => p.Category)
-                .FirstOrDefaultAsync(x => x.Id == id);
-
-            var model = new AdminProductDetailsViewModel
-            {
-                Id = dbModel.Id,
-                Description = dbModel.Description,
-                ImageUrl = dbModel.ImageUrl,
-                Name = dbModel.Name,
-                Brand = dbModel.Brand,
-                Price = dbModel.Price,
-                Category = dbModel.Category.IsDeleted ? MissingCategoryValue : dbModel.Category.Name,
-                Gender = dbModel.Gender.ToString(),
-            };
+                .Where(p => p.Id == id)
+                .To<T>()
+                .FirstOrDefaultAsync();
 
             return model;
         }
 
-        public async Task<bool> Update(int? id, AdminProductUpdateModel model)
+        public async Task<bool> Update(
+            int? id,
+            string name,
+            string description,
+            string category,
+            string imageUrl,
+            string brand,
+            string gender,
+            decimal price)
         {
             var product = await this.GetById(id);
-            var categoryId = await this.adminCategoriesService.GetCategoryIdByName(model.Category);
+            var categoryId = await this.adminCategoriesService.GetCategoryIdByName(category);
 
-            product.Name = model.Name;
-            product.Description = model.Description;
-            product.ImageUrl = model.ImageUrl;
-            product.Price = model.Price;
-            product.Brand = model.Brand;
+            product.Name = name;
+            product.Description = description;
+            product.ImageUrl = imageUrl;
+            product.Price = price;
+            product.Brand = brand;
             product.CategoryId = categoryId;
-            product.Gender = Enum.Parse<ProductGender>(model.Gender);
+            product.Gender = Enum.Parse<ProductGender>(gender);
 
             this.productsRepository.Update(product);
             var result = await this.productsRepository.SaveChangesAsync();
@@ -167,22 +156,12 @@
             return result > 0;
         }
 
-        public async Task<AdminProductUpdateModel> GetProductById(int? id)
+        public async Task<T> GetProductById<T>(int? id)
         {
             var product = await this.productsRepository
                 .AllWithDeleted()
                 .Where(p => p.Id == id)
-                .Select(p => new AdminProductUpdateModel
-                {
-                    Id = p.Id,
-                    Category = p.Category.Name,
-                    Description = p.Description,
-                    ImageUrl = p.ImageUrl,
-                    Name = p.Name,
-                    Brand = p.Brand,
-                    Price = p.Price,
-                    Gender = p.Gender.ToString(),
-                })
+                .To<T>()
                 .FirstOrDefaultAsync();
 
             return product;

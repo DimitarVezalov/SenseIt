@@ -3,18 +3,15 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    using SenseIt.Services.Data.Admin.Models.Categories;
-    using SenseIt.Services.Data.Admin.Models.Categories.AppServiceCategory;
-
     public interface IAdminServiceCategoriesService
     {
         Task<int> CreateAsync(string name, string description, string imageUrl);
 
         Task<int> GetCategoryIdByName(string name);
 
-        Task<AppServiceCategoryAddEditModel> GetEditModel(int? id);
+        Task<T> GetEditModel<T>(int? id);
 
-        Task<IEnumerable<CategoriesListingViewModel>> GetCategoriesList();
+        Task<IEnumerable<T>> GetCategoriesList<T>();
 
         Task<IEnumerable<string>> GetCategoryNames();
 

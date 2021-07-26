@@ -60,38 +60,6 @@
             <div class="row">
                 @foreach (var product in Model.Products)
                 {
-                    <!--<div class="col-md-4">
-            <div class="card mb-4 product-wap rounded-0">
-                <div class="card rounded-0">
-                    <img class="card-img rounded-0 img-fluid" style="height: 300px" src=@product.ImageUrl>
-                    <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
-                        <ul class="list-unstyled">-->
-                    @*<li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>*@
-                    <!--<li><a class="btn btn-success text-white mt-2" asp-action="Details" asp-route-id="@product.Id"><i class="far fa-eye"></i></a></li>
-                            <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="card-body" style="height: 150px">
-                    <p class="text-center h3 text-decoration-none">@product.ShortName</p>
-
-                    <ul class="list-unstyled d-flex justify-content-center mb-1">
-                        <li>
-                            <i class="text-warning fa fa-star"></i>
-                            <i class="text-warning fa fa-star"></i>
-                            <i class="text-warning fa fa-star"></i>
-                            <i class="text-success fa fa-star"></i>
-                            <i class="text-muted fa fa-star"></i>
-                        </li>
-                    </ul>
-                    <div class="row">
-                        <p class="col-6 text-center mb-0">$@product.Price.ToString("F2")</p>
-                        <p class="col-6 text-center mb-0">$@product.Gender</p>
-                    </div>
-                </div>
-            </div>
-        </div>-->
-
                     <partial name="_IndividualProductCard" model="product" />
                 }
 

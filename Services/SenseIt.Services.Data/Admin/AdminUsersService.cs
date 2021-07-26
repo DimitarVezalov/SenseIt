@@ -7,7 +7,7 @@
     using Microsoft.EntityFrameworkCore;
     using SenseIt.Data.Common.Repositories;
     using SenseIt.Data.Models;
-    using SenseIt.Services.Data.Admin.Models.Users;
+    using SenseIt.Services.Mapping;
 
     public class AdminUsersService : IAdminUsersService
     {
@@ -18,17 +18,11 @@
             this.userRepository = userRepository;
         }
 
-        public async Task<IEnumerable<AdminUsersListingModel>> GetUsersAsync()
+        public async Task<IEnumerable<T>> GetUsersAsync<T>()
         {
             var users = await this.userRepository
                 .All()
-                .Select(u => new AdminUsersListingModel
-                {
-                    Id = u.Id,
-                    Username = u.UserName,
-                    Email = u.Email,
-                    IsLocked = u.LockoutEnd != null,
-                })
+                .To<T>()
                 .ToListAsync();
 
             return users;

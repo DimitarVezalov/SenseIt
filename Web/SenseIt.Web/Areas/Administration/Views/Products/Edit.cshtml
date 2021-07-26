@@ -1,7 +1,4 @@
-﻿@using SenseIt.Services.Data.Admin;
-
-@model SenseIt.Services.Data.Admin.Models.Product.AdminProductUpdateModel;
-
+﻿@model SenseIt.Web.ViewModels.Admin.Product.AdminProductUpdateModel;
 
 @{
     this.ViewData["Title"] = "Admin Dashboard";
@@ -30,11 +27,11 @@
                 </div>
 
                 <div class="input-group pb-5">
-                    <select asp-for="Category" class="form-select border border-dark" asp-items="@categories">
+                    <select asp-for="CategoryName" class="form-select border border-dark" asp-items="@categories">
                         <option value="new">Select Category...</option>
                     </select>
                     <label class="input-group-text text-dark  border border-dark" for="@categories">Category</label>
-                    <span asp-validation-for="Category" class="text-danger"></span>
+                    <span asp-validation-for="CategoryName" class="text-danger"></span>
                     <select asp-for="Gender" class="form-select text-dark border border-dark" asp-items="@genders">
                         <option value="new">Select Gender...</option>
                     </select>

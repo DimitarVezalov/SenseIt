@@ -4,14 +4,14 @@
 
     using Microsoft.AspNetCore.Mvc;
     using SenseIt.Services.Data.Admin;
-    using SenseIt.Services.Data.Admin.Models.AppServices;
+    using SenseIt.Web.ViewModels.Admin.AppServices;
 
-    public class ServicesController : AdministrationController
+    public class AppServicesController : AdministrationController
     {
         private readonly IAdminAppServicesService adminAppServicesService;
         private readonly IAdminServiceCategoriesService categoriesService;
 
-        public ServicesController(
+        public AppServicesController(
             IAdminAppServicesService adminAppServicesService,
             IAdminServiceCategoriesService categoriesService)
         {
@@ -26,7 +26,7 @@
 
         public async Task<IActionResult> All()
         {
-            var services = await this.adminAppServicesService.GetAllServicesAsync();
+            var services = await this.adminAppServicesService.GetAllAppServicesAsync<AdminAppServiceListingViewModel>();
 
             return this.View(services);
         }
@@ -51,7 +51,8 @@
                 return this.RedirectToAction(nameof(this.Add));
             }
 
-            var result = await this.adminAppServicesService.CreateAsync(input);
+            var result = await this.adminAppServicesService
+                .CreateAsync(input.Name, input.Description, input.Duration, input.Category, input.ImageUrl, input.Price);
 
             return this.RedirectToAction(nameof(this.All));
         }
@@ -63,7 +64,7 @@
                 return this.BadRequest();
             }
 
-            var service = await this.adminAppServicesService.GetDetailsModel(id);
+            var service = await this.adminAppServicesService.GetDetailsModel<AppServiceDetailsModel>(id);
 
             if (service == null)
             {
@@ -80,7 +81,7 @@
                 return this.NotFound();
             }
 
-            var model = await this.adminAppServicesService.GetServiceById(id);
+            var model = await this.adminAppServicesService.GetServiceById<EditAppServiceFormModel>(id);
             var categories = await this.categoriesService.GetCategoryNames();
             model.Categories = categories;
 
@@ -100,7 +101,8 @@
                 return this.RedirectToAction($"{nameof(this.Edit)}/{id}");
             }
 
-            var result = await this.adminAppServicesService.Update(id, input);
+            var result = await this.adminAppServicesService
+                .Update(id, input.Name, input.Description, input.ImageUrl, input.Category, input.Duration, input.Price);
 
             return this.RedirectToAction(nameof(this.All));
         }

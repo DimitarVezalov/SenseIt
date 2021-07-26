@@ -1,4 +1,4 @@
-﻿@model List<SenseIt.Services.Data.Admin.Models.AppServices.AdminAppServiceListingViewModel>;
+﻿@model List<SenseIt.Web.ViewModels.Admin.AppServices.AdminAppServiceListingViewModel>;
 @using SenseIt.Common
 @{
     this.ViewData["Title"] = "Admin dashboard";
@@ -7,14 +7,6 @@
 <div class="tab-content">
         <h1 class="text-center font-weight-light">Service Management</h1>
         <hr />
-        <div class="row">
-            <div class="btn-group mb-2 col-6 offset-3" role="group">
-                <a asp-area="Administration" asp-controller="Products" asp-action="ByCategory" asp-route-Id="" class="btn btn-secondary">Hair & Hair Style</a>
-                <a asp-area="Administration" asp-controller="Products" asp-action="ByCategory" asp-route-Id="" class="btn btn-secondary">Body Care</a>
-                <a asp-area="Administration" asp-controller="Products" asp-action="ByCategory" asp-route-Id="" class="btn btn-secondary">Manicure</a>
-                <a asp-area="Administration" asp-controller="Products" asp-action="ByCategory" asp-route-Id="" class="btn btn-secondary">Pedicure</a>
-            </div>
-        </div>
         <table id="servicesTable" class="table table-hover">
             <thead>
                 <tr>
@@ -48,18 +40,18 @@
                     <td class="text-center">@service.Duration</td>
                     <td class="text-center">@service.Price $</td>
                     <td class="text-center">
-                        <a asp-area="Administration" asp-controller="Services" asp-action="Details" asp-route-Id="@service.Id" class="btn btn-outline-primary mx-1">Details</a>
+                        <a asp-area="Administration" asp-controller="AppServices" asp-action="Details" asp-route-Id="@service.Id" class="btn btn-outline-primary mx-1">Details</a>
                     </td>
                     @if (service.IsDeleted)
                     {
                         <td class="text-center">
-                            <a asp-area="Administration" asp-controller="Services" asp-action="Undelete" asp-route-Id="@service.Id" class="btn btn-outline-success mx-1 bi bi-trash">Undelete</a>
+                            <a asp-area="Administration" asp-controller="AppServices" asp-action="Undelete" asp-route-Id="@service.Id" class="btn btn-outline-success mx-1 bi bi-trash">Undelete</a>
                         </td>
                     }
                     else
                     {
                         <td class="text-center">
-                            <a asp-area="Administration" asp-controller="Services" asp-action="Delete" asp-route-Id="@service.Id" class="btn btn-outline-danger mx-1 bi bi-trash">Delete</a>
+                            <a asp-area="Administration" asp-controller="AppServices" asp-action="Delete" asp-route-Id="@service.Id" class="btn btn-outline-danger mx-1 bi bi-trash">Delete</a>
                         </td>
                     }
                 </tr>
@@ -71,7 +63,7 @@
         <hr />
         <div class="container-fluid">
             <div class="text-center">
-                <a asp-area="Administration" asp-controller="Services" asp-action="Add" class="btn btn-outline-info mx-1">Add New Service</a>
+                <a asp-area="Administration" asp-controller="AppServices" asp-action="Add" class="btn btn-outline-info mx-1">Add New Service</a>
             </div>
         </div>
     </div>

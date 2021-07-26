@@ -1,22 +1,21 @@
-﻿using SenseIt.Services.Data.Admin.Models.AppServices;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace SenseIt.Services.Data.Admin
+﻿namespace SenseIt.Services.Data.Admin
 {
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+
     public interface IAdminAppServicesService
     {
-        Task<int> CreateAsync(CreateAppServiceInputModel model);
+        Task<int> CreateAsync(string name, string description, string duration, string category, string imageUrl, decimal price);
 
-        Task<IEnumerable<AdminAppServiceListingViewModel>> GetAllServicesAsync();
+        Task<IEnumerable<T>> GetAllAppServicesAsync<T>();
 
         Task<bool> Delete(int? serviceId);
 
-        Task<AppServiceDetailsModel> GetDetailsModel(int? id);
+        Task<T> GetDetailsModel<T>(int? id);
 
-        Task<bool> Update(int? id, EditAppServiceInputModel model);
+        Task<bool> Update(int? id, string name, string description, string imageUrl, string category, string duration, decimal price);
 
-        Task<EditAppServiceInputModel> GetServiceById(int? id);
+        Task<T> GetServiceById<T>(int? id);
 
         Task<bool> Undelete(int? serviceId);
     }

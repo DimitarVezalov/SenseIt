@@ -1,4 +1,4 @@
-﻿@model SenseIt.Services.Data.Admin.Models.AppServices.EditAppServiceInputModel;
+﻿@model SenseIt.Web.ViewModels.Admin.AppServices.CreateAppServiceInputModel;
 
 @{
     this.ViewData["Title"] = "Admin Dashboard";
@@ -8,7 +8,7 @@
 
 
 <div>
-    <h2 class="text-center">Edit Service</h2>
+    <h2 class="text-center">Create Service</h2>
 </div>
 
 <form method="post">
@@ -61,13 +61,12 @@
 
     <div class="row">
         <div class="col-6">
-            <input type="submit" class="btn btn-lg btn-info form-control" value="Edit Service Details" />
+            <input type="submit" class="btn btn-lg btn-info form-control" value="Create" />
         </div>
         <div class="col-6">
             <a asp-action="All" class="btn btn-lg btn-secondary form-control">Back to List</a>
         </div>
     </div>
 </form>
-
 
 

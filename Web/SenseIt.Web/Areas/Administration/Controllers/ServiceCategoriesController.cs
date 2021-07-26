@@ -1,10 +1,11 @@
 ﻿namespace SenseIt.Web.Areas.Administration.Controllers
 {
+    using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Mvc;
     using SenseIt.Services.Data.Admin;
-    using SenseIt.Services.Data.Admin.Models.Categories;
-    using SenseIt.Services.Data.Admin.Models.Categories.AppServiceCategory;
-    using System.Threading.Tasks;
+    using SenseIt.Web.ViewModels.Admin.Categories.AppServiceCategory;
+
 
     public class ServiceCategoriesController : AdministrationController
     {
@@ -35,7 +36,7 @@
 
         public async Task<IActionResult> All()
         {
-            var categories = await this.serviceCategoriesService.GetCategoriesList();
+            var categories = await this.serviceCategoriesService.GetCategoriesList<AppServiceCategoriesListingModel>();
 
             return this.View(categories);
         }
@@ -47,7 +48,7 @@
                 return this.NotFound();
             }
 
-            var category = await this.serviceCategoriesService.GetEditModel(id);
+            var category = await this.serviceCategoriesService.GetEditModel<AppServiceCategoryAddEditModel>(id);
 
             return this.View(category);
         }
