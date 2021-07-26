@@ -38,12 +38,12 @@
 
 <div class="input-group pb-4">
     <select asp-for="Category" class="form-select text-dark border border-dark" asp-items="@categories">
-        <option value="new">Select Category...</option>
+        <option disabled value="new">Select Category...</option>
     </select>
     <label class="input-group-text text-dark border border-dark" for="@categories">Category</label>
     <span asp-validation-for="Category" class="text-danger"></span>
     <select asp-for="Gender" class="form-select text-dark border border-dark" asp-items="@genders">
-        <option value="new">Select Gender...</option>
+        <option disabled value="new">Select Gender...</option>
     </select>
     <label class="input-group-text text-dark border border-dark" for="@genders">Gender</label>
     <span asp-validation-for="Gender" class="text-danger"></span>

@@ -1,27 +1,16 @@
 ﻿namespace SenseIt.Web.ViewModels.Admin.AppServices
 {
-    using System;
-    using System.Collections.Generic;
-
+    using AutoMapper;
     using SenseIt.Data.Models;
     using SenseIt.Services.Mapping;
 
-    public class EditAppServiceFormModel : IMapFrom<Service>
+    public class EditAppServiceFormModel : EditAppServiceInputModel, IMapFrom<Service>, IHaveCustomMappings
     {
-        public int Id { get; set; }
-
-        public string Name { get; set; }
-
-        public string Description { get; set; }
-
-        public string Category { get; set; }
-
-        public IEnumerable<string> Categories { get; set; }
-
-        public string ImageUrl { get; set; }
-
-        public decimal Price { get; set; }
-
-        public TimeSpan Duration { get; set; }
+        public void CreateMappings(IProfileExpression configuration)
+        {
+            configuration.CreateMap<Service, EditAppServiceFormModel>()
+                .ForMember(x => x.Duration, opt =>
+                opt.MapFrom(y => y.Duration.ToString().Substring(0, 5)));
+        }
     }
 }

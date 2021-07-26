@@ -32,7 +32,7 @@
 
     <div class="input-group pb-5">
         <select asp-for="Category" class="form-select" asp-items="@categories">
-            <option value="new">Select Category</option>
+            <option disabled value="new">Select Category...</option>
         </select>
         <label class="input-group-text" for="@categories">Category</label>
         <span asp-validation-for="Category" class="text-danger"></span>
