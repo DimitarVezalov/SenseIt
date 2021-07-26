@@ -14,10 +14,14 @@
     public class ProductsService : IProductsService
     {
         private readonly IDeletableEntityRepository<Product> productsRepository;
+        private readonly IProductCategoriesService productCategoriesService;
 
-        public ProductsService(IDeletableEntityRepository<Product> productsRepository)
+        public ProductsService(
+            IDeletableEntityRepository<Product> productsRepository,
+            IProductCategoriesService productCategoriesService)
         {
             this.productsRepository = productsRepository;
+            this.productCategoriesService = productCategoriesService;
         }
 
         public async Task<IEnumerable<T>> GetAllPaging<T>(int page, int itemsPerPage)
@@ -83,7 +87,7 @@
             return this.productsRepository.All().Count();
         }
 
-        public int GetCount(string filter)
+        public async Task<int> GetCount(string filter)
         {
             if (this.GetGenders().Contains(filter))
             {
@@ -92,9 +96,18 @@
                 .Count(p => ((int)p.Gender) == ((int)Enum.Parse<ProductGender>(filter)));
             }
 
-            return this.productsRepository
+            var categories = await this.productCategoriesService.GetProductCategories();
+
+            if (categories.Contains(filter))
+            {
+                return this.productsRepository
                 .All()
                 .Count(p => p.Category.Name == filter);
+            }
+
+            return this.productsRepository
+                .All()
+                .Count(p => p.Name.Contains(filter));
         }
 
         public async Task<T> GetDetails<T>(int? id)
@@ -116,6 +129,20 @@
                 .ToList();
 
             return genders;
+        }
+
+        public async Task<IEnumerable<T>> GetBySearchTermPaging<T>(int page, int itemsPerPage, string searchTerm)
+        {
+            var products = await this.productsRepository
+                 .AllAsNoTracking()
+                 .Where(x => x.Name.Contains(searchTerm))
+                 .OrderBy(x => x.Id)
+                 .Skip((page - 1) * itemsPerPage)
+                 .Take(itemsPerPage)
+                 .To<T>()
+                 .ToListAsync();
+
+            return products;
         }
     }
 }

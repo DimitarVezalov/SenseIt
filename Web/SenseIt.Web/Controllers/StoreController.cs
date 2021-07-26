@@ -71,7 +71,7 @@
             }
 
             var products = await this.productsService.GetByGenderPaging<ProductInListViewModel>(id, ProductsPerPage, gender);
-            var productsCount = this.productsService.GetCount(gender);
+            var productsCount = await this.productsService.GetCount(gender);
 
             var categories = await this.categoriesService.GetProductCategories();
             var genders = this.productsService.GetGenders();
@@ -103,7 +103,7 @@
             }
 
             var products = await this.productsService.GetByCategoryPaging<ProductInListViewModel>(id, ProductsPerPage, category);
-            var productsCount = this.productsService.GetCount(category);
+            var productsCount = await this.productsService.GetCount(category);
 
             var categories = await this.categoriesService.GetProductCategories();
             var genders = this.productsService.GetGenders();
@@ -122,6 +122,33 @@
             {
                 viewModel.Category = this.Request.Query["category"];
             }
+
+            return this.View(viewModel);
+        }
+
+        public async Task<IActionResult> Search(string keyword, int id = DefaultStartingPage)
+        {
+            if (keyword == null)
+            {
+                return this.Error();
+            }
+
+            var products = await this.productsService.GetBySearchTermPaging<ProductInListViewModel>(id, ProductsPerPage, keyword);
+            var productsCount = await this.productsService.GetCount(keyword);
+
+            var categories = await this.categoriesService.GetProductCategories();
+            var genders = this.productsService.GetGenders();
+
+            var viewModel = new ProductsPagingBySearchTermViewModel
+            {
+                ProductsPerPage = ProductsPerPage,
+                PageNumber = id,
+                ProductsCount = productsCount,
+                Products = products,
+                Categories = categories,
+                Genders = genders,
+                Keyword = keyword,
+            };
 
             return this.View(viewModel);
         }

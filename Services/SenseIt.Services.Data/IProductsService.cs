@@ -11,9 +11,11 @@
 
         Task<IEnumerable<T>> GetByCategoryPaging<T>(int page, int itemsPerPage, string category);
 
+        Task<IEnumerable<T>> GetBySearchTermPaging<T>(int page, int itemsPerPage, string searchTerm);
+
         int GetCount();
 
-        int GetCount(string filter);
+        Task<int> GetCount(string filter);
 
         Task<T> GetDetails<T>(int? id);
 

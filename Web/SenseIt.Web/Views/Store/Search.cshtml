@@ -1,4 +1,4 @@
-﻿@model SenseIt.Web.ViewModels.Products.ProductsPagingViewModel;
+﻿@model SenseIt.Web.ViewModels.Products.ProductsPagingBySearchTermViewModel;
 @{
     this.ViewData["Title"] = "Sense It";
 
@@ -33,9 +33,9 @@
                     </a>
                     <ul id="collapseTwo" class="collapse list-unstyled pl-3">
                         @foreach (var category in categories)
-	                    {
-                                <li><a class="text-decoration-none" asp-action="ByCategory" asp-route-category="@category">@category</a></li>
-	                    }                           
+                        {
+                            <li><a class="text-decoration-none" asp-action="ByCategory" asp-route-category="@category">@category</a></li>
+                        }
                     </ul>
                 </li>
             </ul>
@@ -55,12 +55,6 @@
                         <input class="form-control me-2" type="text" placeholder="Name..." name="keyword" aria-label="Search">
                         <button class="btn btn-outline-success" type="submit">Search</button>
                     </form>
-                    @*<form asp-action="Search" method="get">
-                        <p>
-                            Name or Brand: <input type="text" name="keyword" />
-                            <input type="submit" value="Search" />
-                        </p>
-                    </form>*@
                 </div>
             </div>
             <div class="row">
@@ -79,7 +73,7 @@
                                 </div>
                             </div>
                             <div class="card-body" style="height: 150px">
-                                <p  class="text-center h3 text-decoration-none">@product.ShortName</p>
+                                <p class="text-center h3 text-decoration-none">@product.ShortName</p>
 
                                 <ul class="list-unstyled d-flex justify-content-center mb-1">
                                     <li>
@@ -104,14 +98,15 @@
             <nav aria-label="...">
                 <ul class="pagination justify-content-end">
                     <li class="page-item @if (!Model.HasPreviousPage) {<text>disabled</text>}">
-                        <a class="page-link" asp-action="All" asp-route-id="@Model.PreviousPageNumber">Previous</a>
+                        <a class="page-link" asp-action="Search" asp-route-keyword=@Model.Keyword asp-route-id="@Model.PreviousPageNumber">Previous</a>
                     </li>
                     @for (int i = Model.PageNumber - 3; i < Model.PageNumber; i++)
                     {
                         if (i > 0)
                         {
-                            <li class="page-item"><a class="page-link" asp-action="All" asp-route-id="@i">@i</a></li>}
-                        }
+                            <li class="page-item"><a class="page-link" asp-action="Search" asp-route-keyword=@Model.Keyword asp-route-id="@i">@i</a></li>
+}
+                    }
 
                     <li class="page-item active" aria-current="page">
                         <a class="page-link" href="#">@Model.PageNumber</a>
@@ -120,10 +115,11 @@
                     {
                         if (i <= Model.PagesCount)
                         {
-                            <li class="page-item"><a class="page-link" asp-action="All" asp-route-id="@i">@i</a></li>}
-                        }
+                            <li class="page-item"><a class="page-link" asp-action="Search" asp-route-keyword=@Model.Keyword asp-route-id="@i">@i</a></li>
+}
+                    }
                     <li class="page-item @if (!Model.HasNextPage) {<text>disabled</text>}">
-                        <a class="page-link" asp-action="All" asp-route-id="@Model.NextPageNumber">Next</a>
+                        <a class="page-link" asp-action="Search" asp-route-keyword=@Model.Keyword asp-route-id="@Model.NextPageNumber">Next</a>
                     </li>
                 </ul>
             </nav>
@@ -131,4 +127,5 @@
 
     </div>
 </div>
+
 
