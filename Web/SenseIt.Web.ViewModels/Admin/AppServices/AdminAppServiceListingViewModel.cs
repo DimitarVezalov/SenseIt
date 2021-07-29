@@ -19,6 +19,6 @@
 
         public bool IsDeleted { get; set; }
 
-        public string Category { get; set; }
+        public string CategoryName { get; set; }
     }
 }

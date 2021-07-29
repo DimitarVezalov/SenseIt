@@ -1,12 +1,9 @@
-﻿using AutoMapper;
-using SenseIt.Data.Models;
-using SenseIt.Services.Mapping;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SenseIt.Web.ViewModels.AppServices
+﻿namespace SenseIt.Web.ViewModels.AppServices
 {
+    using AutoMapper;
+    using SenseIt.Data.Models;
+    using SenseIt.Services.Mapping;
+
     public class AppServiceInListViewModel : IMapFrom<Service>, IHaveCustomMappings
     {
         public int Id { get; set; }

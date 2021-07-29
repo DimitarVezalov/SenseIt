@@ -1,6 +1,7 @@
 ﻿namespace SenseIt.Data.Models
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
@@ -10,6 +11,11 @@
 
     public class Service : BaseDeletableModel<int>
     {
+        public Service()
+        {
+            this.Reviews = new HashSet<Review>();
+        }
+
         [Required]
         [MaxLength(ServiceNameMaxLength)]
         public string Name { get; set; }
@@ -29,5 +35,7 @@
         public string ImageUrl { get; set; }
 
         public decimal Price { get; set; }
+
+        public virtual ICollection<Review> Reviews { get; set; }
     }
 }

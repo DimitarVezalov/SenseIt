@@ -1,8 +1,8 @@
-﻿using SenseIt.Data.Models;
-using SenseIt.Services.Mapping;
-
-namespace SenseIt.Web.ViewModels.AppServices
+﻿namespace SenseIt.Web.ViewModels.AppServices
 {
+    using SenseIt.Data.Models;
+    using SenseIt.Services.Mapping;
+
     public class AppServicesCategoriesViewModel : IMapFrom<ServiceCategory>
     {
         public int Id { get; set; }

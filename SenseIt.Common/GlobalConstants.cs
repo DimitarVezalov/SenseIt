@@ -66,5 +66,11 @@
             public const int ProductsPerPage = 9;
             public const int DefaultStartingPage = 1;
         }
+
+        public static class Review
+        {
+            public const int ContentMinLength = 5;
+            public const int ContentMaxLength = 1000;
+        }
     }
 }

@@ -1,0 +1,60 @@
+﻿@model SenseIt.Web.ViewModels.Reviews.CreateReviewInputModel;
+@{
+    this.ViewData["Title"] = "Sense It";
+}
+
+<div>
+    <partial name="_IndividualAppServiceCard" model="@Model.AppService" />
+</div>
+<div>
+    <form class="form-group row" method="post">
+        <div class="input-group pb-5">
+            <span class="input-group-text">Content</span>
+            <textarea asp-for="Content" id="contentBox" class="form-control summernote"></textarea>
+            <span asp-validation-for="Content" class="text-danger"></span>
+        </div>
+        <div class="input-group pb-5">
+            <span class="input-group-text">Rating</span>
+            <input type="number" id="ratingBox" asp-for="Rating" class="form-control"/>
+            <span asp-validation-for="Rating" class="text-danger"></span>
+        </div>
+
+        <div class="row">
+            <input type="submit" onclick="return validateInput()" class="btn btn-outline-success" asp-action="Add" asp-route-id="@Model.AppServiceId"/>
+        </div>
+    </form>
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('.summernote').summernote({
+                height: 250,
+                width: 1290
+            });
+        });
+
+        function validateInput() {
+            if (document.getElementById("contentBox").value == "" || 
+                (document.getElementById("ratingBox").value < 1.0) ||
+                (document.getElementById("ratingBox").value > 5.0)) {
+
+                Swal.fire(
+                    'Error!',
+                    'Your input is not valid!',
+                    'error'
+                )
+
+                return false;
+            } else {
+                Swal.fire(
+                    'Success!',
+                    'You submited your review!',
+                    'success'
+                )
+
+                return true;
+            }
+        }
+    </script>
+}

@@ -28,5 +28,16 @@
 
             return appServices;
         }
+
+        public async Task<T> GetAppServiceById<T>(int? id)
+        {
+            var appService = await this.appServiceRepository
+                .AllAsNoTracking()
+                .Where(s => s.Id == id)
+                .To<T>()
+                .FirstOrDefaultAsync();
+
+            return appService;
+        }
     }
 }

@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SenseIt.Services.Data
+﻿namespace SenseIt.Services.Data
 {
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+
     public interface IAppServicesService
     {
         Task<IEnumerable<T>> GetAllByCategory<T>(int? id);
+
+        Task<T> GetAppServiceById<T>(int? id);
     }
 }

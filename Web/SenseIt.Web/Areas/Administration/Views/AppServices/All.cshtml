@@ -29,13 +29,13 @@
                     <th scope="row" class="text-center">@counter</th>
                     <td class="text-center">@service.Name</td>
                     <td class="text-center">@description</td>
-                    @if (service.Category == GlobalConstants.MissingCategoryValue)
+                    @if (service.CategoryName == GlobalConstants.MissingCategoryValue)
                     {
-                        <td class="text-center text-danger">@service.Category</td>
+                        <td class="text-center text-danger">@service.CategoryName</td>
                     }
                     else
                     {
-                        <td class="text-center">@service.Category</td>
+                        <td class="text-center">@service.CategoryName</td>
                     }
                     <td class="text-center">@service.Duration</td>
                     <td class="text-center">@service.Price $</td>
