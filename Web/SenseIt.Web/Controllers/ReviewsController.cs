@@ -56,7 +56,26 @@
 
             var result = await this.reviewsService.CreateAsync(id, userId, input.Content, input.Rating);
 
-            return this.Ok();
+            return this.RedirectToAction(nameof(this.ServiceReviews), new { id });
+        }
+
+
+        public async Task<IActionResult> ServiceReviews(int? id)
+        {
+            if (id == null)
+            {
+                return this.NotFound();
+            }
+
+            var viewModel = await this.appServicesService
+                .GetAppServiceById<AppServiceWithReviewsModel>(id);
+
+            var modelReviews = await this.reviewsService
+                .GetAllByAppService<ReviewInListViewModel>(id);
+
+            viewModel.Reviews = modelReviews;
+
+            return this.View(viewModel);
         }
     }
 }

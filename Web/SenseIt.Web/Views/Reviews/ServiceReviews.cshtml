@@ -1,0 +1,23 @@
+﻿@model SenseIt.Web.ViewModels.AppServices.AppServiceWithReviewsModel
+
+@{ 
+    this.ViewData["Title"] = "Sense It";
+}
+
+<div class="container-fluid">
+
+    <partial name="_IndividualAppServiceCard" model="@Model" />
+
+    @foreach (var review in Model.Reviews)
+	{
+        <figure>
+            <blockquote class="blockquote">
+                <p>@review.Content</p>
+            </blockquote>
+            <figcaption class="blockquote-footer">
+                Posted By: <cite title="Source Title">@review.PostedBy</cite>
+            </figcaption>
+        </figure>
+	}
+
+</div>

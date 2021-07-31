@@ -22,6 +22,8 @@
 
         public decimal Price { get; set; }
 
+        public int ReviewsCount { get; set; }
+
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<Service, AppServiceInListViewModel>()

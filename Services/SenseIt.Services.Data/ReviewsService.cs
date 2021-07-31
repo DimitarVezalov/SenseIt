@@ -1,10 +1,13 @@
 ﻿namespace SenseIt.Services.Data
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
-
+    using Microsoft.EntityFrameworkCore;
     using SenseIt.Data.Common.Repositories;
     using SenseIt.Data.Models;
+    using SenseIt.Services.Mapping;
 
     public class ReviewsService : IReviewsService
     {
@@ -29,6 +32,22 @@
             var result = await this.reviewRepository.SaveChangesAsync();
 
             return result;
+        }
+
+        public async Task<IEnumerable<T>> GetAllByAppService<T>(int? appServiceId)
+        {
+            if (appServiceId == null)
+            {
+                return null;
+            }
+
+            var reviews = await this.reviewRepository
+                .AllAsNoTracking()
+                .Where(r => r.AppServiceId == appServiceId)
+                .To<T>()
+                .ToListAsync();
+
+            return reviews;
         }
     }
 }
