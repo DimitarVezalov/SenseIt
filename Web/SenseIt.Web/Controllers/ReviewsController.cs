@@ -59,7 +59,7 @@
             return this.RedirectToAction(nameof(this.ServiceReviews), new { id });
         }
 
-
+        [AllowAnonymous]
         public async Task<IActionResult> ServiceReviews(int? id)
         {
             if (id == null)

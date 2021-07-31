@@ -20,7 +20,7 @@
         [MaxLength(ContentMaxLength)]
         public string Content { get; set; }
 
-        [Range(1.0, 5.0)]
-        public double Rating { get; set; }
+        [Range(1, 5)]
+        public int Rating { get; set; }
     }
 }

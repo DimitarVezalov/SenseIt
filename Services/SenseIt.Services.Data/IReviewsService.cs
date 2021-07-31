@@ -5,7 +5,7 @@
 
     public interface IReviewsService
     {
-        Task<int> CreateAsync(int appServiceId, string postedById, string content, double rating);
+        Task<int> CreateAsync(int appServiceId, string postedById, string content, int rating);
 
         Task<IEnumerable<T>> GetAllByAppService<T>(int? appServiceId);
     }

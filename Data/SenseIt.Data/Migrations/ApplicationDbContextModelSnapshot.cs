@@ -364,8 +364,8 @@ namespace SenseIt.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<double>("Rating")
-                        .HasColumnType("float");
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -375,7 +375,7 @@ namespace SenseIt.Data.Migrations
 
                     b.HasIndex("PostedById");
 
-                    b.ToTable("Review");
+                    b.ToTable("Reviews");
                 });
 
             modelBuilder.Entity("SenseIt.Data.Models.Service", b =>

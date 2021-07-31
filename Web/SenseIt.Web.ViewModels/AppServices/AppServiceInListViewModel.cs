@@ -1,5 +1,8 @@
 ﻿namespace SenseIt.Web.ViewModels.AppServices
 {
+    using System;
+    using System.Linq;
+
     using AutoMapper;
     using SenseIt.Data.Models;
     using SenseIt.Services.Mapping;
@@ -24,11 +27,16 @@
 
         public int ReviewsCount { get; set; }
 
+        public int OverallRating { get; set; }
+
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<Service, AppServiceInListViewModel>()
                 .ForMember(x => x.Duration, opt =>
-                opt.MapFrom(y => y.Duration.ToString().Substring(0, 5)));
+                opt.MapFrom(y => y.Duration.ToString().Substring(0, 5)))
+                .ForMember(x => x.OverallRating, opt =>
+                opt.MapFrom(y => y.Reviews.Any() ?
+                        (int)Math.Round(y.Reviews.Average(r => r.Rating)) : 0));
         }
 
         private string GetDurationText()

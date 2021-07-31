@@ -32,7 +32,7 @@
         public async Task<T> GetAppServiceById<T>(int? id)
         {
             var appService = await this.appServiceRepository
-                .AllAsNoTracking()
+                .All()
                 .Where(s => s.Id == id)
                 .To<T>()
                 .FirstOrDefaultAsync();

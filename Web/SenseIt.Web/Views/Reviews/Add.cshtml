@@ -1,4 +1,5 @@
 ﻿@model SenseIt.Web.ViewModels.Reviews.CreateReviewInputModel;
+@using static SenseIt.Common.GlobalConstants.Review;
 @{
     this.ViewData["Title"] = "Sense It";
 }
@@ -7,11 +8,7 @@
 <html lang="en">
 
 <head>
-    @*<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">*@
-
-    <!-- include summernote css/js -->
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-
+    
 </head>
 
 <body>
@@ -83,7 +80,7 @@
                                 <i class="fa fa-star text-warning"></i>
                                 <i class="fa fa-star text-warning"></i>
                                 <i class="fa fa-star text-secondary"></i>
-                                <span class="list-inline-item text-dark">Rating 4.8 &nbsp | &nbsp @Model.AppService.ReviewsCount <a class="btn btn-sm text-capitalize" asp-controller="Reviews" asp-action="ServiceReviews" asp-route-id="@Model.AppServiceId">Reviews</a></span>
+                                <span class="list-inline-item text-dark">Rating @Model.AppService.OverallRating &nbsp | &nbsp @Model.AppService.ReviewsCount <a class="btn btn-sm text-capitalize" asp-controller="Reviews" asp-action="ServiceReviews" asp-route-id="@Model.AppServiceId">Reviews</a></span>
                             </p>
                             <ul class="list-inline">
                                 <li class="list-inline-item">
@@ -121,14 +118,14 @@
     <div>
         <form class="form-group row" method="post">
             <div class="input-group pb-5 col-6">
-                <span class="input-group-text">Content</span>
-                <textarea asp-for="Content" id="contentBox" class="form-control summernote"></textarea>
+                <span class="input-group-text">Write Your Review</span>
+                <textarea asp-for="Content" class="form-control" id="tinyMce"></textarea>
                 <span asp-validation-for="Content" class="text-danger"></span>
             </div>
             <div class=" col-2 input-group pb-5 ">
                 <span class="input-group-text col-2">Rating</span>
                 <input type="number" id="ratingBox" asp-for="Rating" class="form-control col-2" />
-                <span asp-validation-for="Rating" class="text-danger"></span>
+                
             </div>
 
             <div class="row">
@@ -139,10 +136,9 @@
         </form>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    <script src="https://cdn.tiny.cloud/1/xvkwiavb02ht7zusxc1g7vo34xetij95ggytl1jcevvrichm/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 
 
@@ -150,17 +146,22 @@
 
 @section Scripts{
     <script>
-        $(document).ready(function () {
-            $('.summernote').summernote({
-                height: 250
-
-            });
+        tinymce.init({
+            selector: '#tinyMce',
+            plugins: 'a11ychecker advcode casechange export formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
+            toolbar: 'a11ycheck addcomment showcomments casechange checklist code export formatpainter pageembed permanentpen table',
+            toolbar_mode: 'floating',
+            tinycomments_mode: 'embedded',
+            tinycomments_author: 'Author name',
+            forced_root_block: false,
+            height: 300,
+            width: "100%"
         });
 
         function validateInput() {
-            if (document.getElementById("contentBox").value == "" ||
-                (document.getElementById("ratingBox").value < 1.0) ||
-                (document.getElementById("ratingBox").value > 5.0)) {
+
+            if (document.getElementById("ratingBox").value < 1 ||
+                    document.getElementById("ratingBox").value > 5) {
 
                 Swal.fire(
                     'Error!',
@@ -168,16 +169,16 @@
                     'error'
                 )
 
-                return false;
             } else {
+
                 Swal.fire(
                     'Success!',
-                    'You submited your review!',
+                    'You submited review successfully',
                     'success'
                 )
-
-                return true;
             }
+            
         }
+        
     </script>
 }

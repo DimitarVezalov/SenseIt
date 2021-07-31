@@ -18,7 +18,7 @@
             this.reviewRepository = reviewRepository;
         }
 
-        public async Task<int> CreateAsync(int appServiceId, string postedById, string content, double rating)
+        public async Task<int> CreateAsync(int appServiceId, string postedById, string content, int rating)
         {
             var review = new Review
             {

@@ -1,23 +1,53 @@
 ﻿@model SenseIt.Web.ViewModels.AppServices.AppServiceWithReviewsModel
 
-@{ 
+@{
     this.ViewData["Title"] = "Sense It";
 }
 
-<div class="container-fluid">
+<div>
 
     <partial name="_IndividualAppServiceCard" model="@Model" />
+    <div class="row">
+        @foreach (var review in Model.Reviews)
+        {
+            <div id="reviewBox">
+                <figure>
+                    <figcaption class="blockquote-footer text-end">
+                        <i class="list-inline-item text-info fas fa-user-edit"><span class="text-secondary"> @review.PostedBy</span></i>
+                        <i class="far fa-calendar-alt"><span class="text-secondary"> @review.PostedOn</span></i>
 
-    @foreach (var review in Model.Reviews)
-	{
-        <figure>
-            <blockquote class="blockquote">
-                <p>@review.Content</p>
-            </blockquote>
-            <figcaption class="blockquote-footer">
-                Posted By: <cite title="Source Title">@review.PostedBy</cite>
-            </figcaption>
-        </figure>
-	}
+                        @if (review.Rating < 2)
+                        {
+                            <i class="text-warning fas fa-star-half"><span class="text-secondary"> @review.Rating</span></i>
+                        }
+                        else if (review.Rating < 4)
+                        {
+                            <i class="text-warning fas fa-star-half-alt"><span class="text-secondary"> @review.Rating</span></i>
+                        }
+                        else
+                        {
+                            <i class="text-warning fas fa-star"><span class="text-secondary"> @review.Rating</span></i>
+                        }
+
+                    </figcaption>
+
+                    <blockquote class="blockquote">
+                        <p>@review.Content</p>
+                    </blockquote>
+                </figure>
+            </div>
+        }
+    </div>
 
 </div>
+
+<style>
+    #reviewBox {
+        border: 2px solid #ccc;
+        background-color: #eee;
+        border-radius: 5px;
+        padding: 16px;
+        margin: 16px 0;
+        word-wrap: break-word;
+    }
+</style>
