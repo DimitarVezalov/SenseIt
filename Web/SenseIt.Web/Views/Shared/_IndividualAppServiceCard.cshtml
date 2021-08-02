@@ -61,11 +61,14 @@
                     <h1 class="h2">@Model.Name</h1>
                     <p class="h3 py-2">$@Model.Price.ToString("F2")</p>
                     <p class="py-2">
-                        <i class="fa fa-star text-warning"></i>
-                        <i class="fa fa-star text-warning"></i>
-                        <i class="fa fa-star text-warning"></i>
-                        <i class="fa fa-star text-warning"></i>
-                        <i class="fa fa-star text-secondary"></i>
+                        @for (int i = 0; i < Model.OverallRating; i++)
+                        {
+                            <i class="fa fa-star text-warning"></i>
+                        }
+                        @for (int i = Model.OverallRating; i < 5; i++)
+                        {
+                            <i class="far fa-star"></i>
+                        }
                         <span class="list-inline-item text-dark">Rating @Model.OverallRating &nbsp | &nbsp @Model.ReviewsCount <a class="btn btn-sm text-capitalize" asp-controller="Reviews" asp-action="ServiceReviews" asp-route-id="@Model.Id">Reviews</a></span>
                     </p>
                     <ul class="list-inline">

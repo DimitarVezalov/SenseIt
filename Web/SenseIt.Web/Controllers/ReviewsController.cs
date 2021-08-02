@@ -1,5 +1,7 @@
 ﻿namespace SenseIt.Web.Controllers
 {
+    using System;
+    using System.Linq;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
@@ -74,6 +76,7 @@
                 .GetAllByAppService<ReviewInListViewModel>(id);
 
             viewModel.Reviews = modelReviews;
+            viewModel.OverallRating = modelReviews.Any() ? (int)Math.Round(modelReviews.Average(r => r.Rating)) : 0;
 
             return this.View(viewModel);
         }

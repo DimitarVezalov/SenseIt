@@ -8,7 +8,20 @@
 <html lang="en">
 
 <head>
-    
+    <style>
+        #selected{
+            color: #f7c10c;
+        }
+
+        #unselected {
+            color: dimgray;
+        }
+
+        .fa{
+            color :dimgrey;
+            font-size: 35px
+        }
+    </style>
 </head>
 
 <body>
@@ -75,11 +88,14 @@
                             <h1 class="h2">@Model.AppService.Name</h1>
                             <p class="h3 py-2">$@Model.AppService.Price.ToString("F2")</p>
                             <p class="py-2">
-                                <i class="fa fa-star text-warning"></i>
-                                <i class="fa fa-star text-warning"></i>
-                                <i class="fa fa-star text-warning"></i>
-                                <i class="fa fa-star text-warning"></i>
-                                <i class="fa fa-star text-secondary"></i>
+                                @for (int i = 0; i < Model.AppService.OverallRating; i++)
+                                {
+                                    <i class="fa fa-star text-warning"></i>
+                                }
+                                @for (int i = Model.AppService.OverallRating; i < 5; i++)
+                                {
+                                    <i class="far fa-star"></i>
+                                }
                                 <span class="list-inline-item text-dark">Rating @Model.AppService.OverallRating &nbsp | &nbsp @Model.AppService.ReviewsCount <a class="btn btn-sm text-capitalize" asp-controller="Reviews" asp-action="ServiceReviews" asp-route-id="@Model.AppServiceId">Reviews</a></span>
                             </p>
                             <ul class="list-inline">
@@ -117,22 +133,27 @@
     </div>
     <div>
         <form class="form-group row" method="post">
-            <div class="input-group pb-5 col-6">
+            <div class="input-group pb-4 col">
                 <span class="input-group-text">Write Your Review</span>
                 <textarea asp-for="Content" class="form-control" id="tinyMce"></textarea>
                 <span asp-validation-for="Content" class="text-danger"></span>
             </div>
-            <div class=" col-2 input-group pb-5 ">
+            @*<div class="input-group col pb-5 ">
                 <span class="input-group-text col-2">Rating</span>
                 <input type="number" id="ratingBox" asp-for="Rating" class="form-control col-2" />
-                
+            </div>*@
+            <div class="col">
+                <i class="fa fa-star star-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top" ></i>
+                <i class="fa fa-star star-2"></i>
+                <i class="fa fa-star star-3"></i>
+                <i class="fa fa-star star-4"></i>
+                <i class="fa fa-star star-5"></i>
             </div>
 
-            <div class="row">
-                <div class="col">
-                    <input type="submit" onclick="return validateInput()" class="btn btn-outline-success" asp-action="Add" asp-route-id="@Model.AppServiceId" />
-                </div>
+            <div>
+                <input type="submit" onclick="return validateInput()" class="btn btn-outline-success" asp-action="Add" asp-route-id="@Model.AppServiceId" />
             </div>
+
         </form>
     </div>
 
@@ -146,6 +167,7 @@
 
 @section Scripts{
     <script>
+
         tinymce.init({
             selector: '#tinyMce',
             plugins: 'a11ychecker advcode casechange export formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
@@ -154,13 +176,16 @@
             tinycomments_mode: 'embedded',
             tinycomments_author: 'Author name',
             height: 300,
-            width: "100%"
+            
         });
 
         function validateInput() {
 
-            if (document.getElementById("ratingBox").value < 1 ||
-                    document.getElementById("ratingBox").value > 5) {
+            var contentLength = countCharacters();
+
+            if ((contentLength < 5 || contentLength > 1000) ||
+                document.getElementById("ratingBox").value < 1 ||
+                document.getElementById("ratingBox").value > 5) {
 
                 Swal.fire(
                     'Error!',
@@ -176,8 +201,20 @@
                     'success'
                 )
             }
-            
         }
-        
+
+        function countCharacters() {
+            var body = tinymce.get("tinyMce").getBody();
+            var content = tinymce.trim(body.innerText || body.textContent);
+            return content.length;
+        }
+
+        $("i").hover(function () {
+            $(this).attr("id", "selected");
+        },
+            function () {
+                $(this).attr("id", "unselected");
+        })
+
     </script>
 }
