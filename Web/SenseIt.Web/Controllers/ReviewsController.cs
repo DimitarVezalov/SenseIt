@@ -47,7 +47,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(int id, CreateReviewInputModel input)
+        public async Task<IActionResult> Add(int id, int rating, CreateReviewInputModel input)
         {
             if (!this.ModelState.IsValid)
             {

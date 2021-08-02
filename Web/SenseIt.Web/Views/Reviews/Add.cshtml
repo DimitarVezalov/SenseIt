@@ -10,17 +10,21 @@
 <head>
     <style>
         #selected{
-            color: #f7c10c;
+            color: gold;
         }
 
         #unselected {
             color: dimgray;
         }
 
-        .fa{
-            color :dimgrey;
-            font-size: 35px
+        .ratingStar{
+            color :dimgray;
+            font-size: 35px;
+            cursor: pointer;
+            
         }
+
+       
     </style>
 </head>
 
@@ -90,7 +94,7 @@
                             <p class="py-2">
                                 @for (int i = 0; i < Model.AppService.OverallRating; i++)
                                 {
-                                    <i class="fa fa-star text-warning"></i>
+                                    <i class="fa fa-star" style="color: gold"></i>
                                 }
                                 @for (int i = Model.AppService.OverallRating; i < 5; i++)
                                 {
@@ -132,26 +136,36 @@
         </div>
     </div>
     <div>
-        <form class="form-group row" method="post">
-            <div class="input-group pb-4 col">
+        <form class="form-group" method="post">
+            <div class="input-group row pb-4">
                 <span class="input-group-text">Write Your Review</span>
                 <textarea asp-for="Content" class="form-control" id="tinyMce"></textarea>
                 <span asp-validation-for="Content" class="text-danger"></span>
             </div>
             @*<div class="input-group col pb-5 ">
-                <span class="input-group-text col-2">Rating</span>
-                <input type="number" id="ratingBox" asp-for="Rating" class="form-control col-2" />
-            </div>*@
-            <div class="col">
-                <i class="fa fa-star star-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top" ></i>
-                <i class="fa fa-star star-2"></i>
-                <i class="fa fa-star star-3"></i>
-                <i class="fa fa-star star-4"></i>
-                <i class="fa fa-star star-5"></i>
+            <span class="input-group-text col-2">Rating</span>
+            <input type="number" id="ratingBox" asp-for="Rating" class="form-control col-2" />
+        </div>*@
+        <div class="text-center text-dark">
+            <span class="text-dark list-inline-item pb-4">Your Rating</span>
+        </div>
+            <div class="text-sm-center">
+                <i class="fa fa-star star-1 ratingStar"></i>
+                <i class="fa fa-star star-2 ratingStar"></i>
+                <i class="fa fa-star star-3 ratingStar"></i>
+                <i class="fa fa-star star-4 ratingStar"></i>
+                <i class="fa fa-star star-5 ratingStar"></i>
+
+            </div>
+            <div>
+                <input type="hidden" name="rating" id="lblRating" value="0" />
+            </div>
+            <div>
+                <input type="hidden" name="id" value="@Model.AppServiceId" />
             </div>
 
-            <div>
-                <input type="submit" onclick="return validateInput()" class="btn btn-outline-success" asp-action="Add" asp-route-id="@Model.AppServiceId" />
+            <div class="col pt-4 text-sm-center">
+                <button class="btn btn-outline-success" onclick="return validateInput()" asp-action="Add">Submit Your Review</button>
             </div>
 
         </form>
@@ -179,13 +193,50 @@
             
         });
 
+
+        function changeStarColor(ratingArg) {
+            let rating = ratingArg;
+            for (let i = 1; i <= rating; i++) {
+                $(`.star-${i}`).attr("id", "selected");
+            }
+            for (let i = rating + 1; i <= 5; i++) {
+                $(`.star-${i}`).attr("id", "unselected");
+            }
+        }
+
+
+        let selectedRating = 0;
+
+        $(".ratingStar").hover(function () {
+
+            let starClass = parseInt($(this).attr("class").split("star-")[1]);
+            changeStarColor(starClass);
+        },
+            function () {
+                if (selectedRating == 0) {
+                    changeStarColor(0);
+
+                } else {
+                    changeStarColor(selectedRating);
+                }
+            });
+
+        
+
+        $(".ratingStar").click(function () {
+
+            let starClass = parseInt($(this).attr("class").split("star-")[1]);
+            changeStarColor(starClass);
+            selectedRating = starClass;
+            $("#lblRating").val(selectedRating);
+        });
+
+
         function validateInput() {
 
-            var contentLength = countCharacters();
+            var rating = $("#lblRating").val();
 
-            if ((contentLength < 5 || contentLength > 1000) ||
-                document.getElementById("ratingBox").value < 1 ||
-                document.getElementById("ratingBox").value > 5) {
+            if (rating == 0) {
 
                 Swal.fire(
                     'Error!',
@@ -203,18 +254,6 @@
             }
         }
 
-        function countCharacters() {
-            var body = tinymce.get("tinyMce").getBody();
-            var content = tinymce.trim(body.innerText || body.textContent);
-            return content.length;
-        }
-
-        $("i").hover(function () {
-            $(this).attr("id", "selected");
-        },
-            function () {
-                $(this).attr("id", "unselected");
-        })
 
     </script>
 }

@@ -11,7 +11,7 @@
     {
         public AppServiceInListViewModel AppService { get; set; }
 
-        public string PosterById { get; set; }
+        public string PostedById { get; set; }
 
         public int AppServiceId { get; set; }
 

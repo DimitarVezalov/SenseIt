@@ -16,19 +16,6 @@
                         <i class="list-inline-item text-info fas fa-user-edit"><span class="text-secondary"> @review.PostedBy</span></i>
                         <i class="far fa-calendar-alt"><span class="text-secondary"> @review.PostedOn</span></i>
 
-                        @*@if (review.Rating < 2)
-        {
-            <i class="text-warning fas fa-star-half"><span class="text-secondary"> @review.Rating</span></i>
-        }
-        else if (review.Rating < 4)
-        {
-            <i class="text-warning fas fa-star-half-alt"><span class="text-secondary"> @review.Rating</span></i>
-        }
-        else
-        {
-            <i class="text-warning fas fa-star"><span class="text-secondary"> @review.Rating</span></i>
-        }*@
-
                         @for (int i = 0; i < review.Rating; i++)
                         {
                             <i class="text-warning fas fa-star"></i>
