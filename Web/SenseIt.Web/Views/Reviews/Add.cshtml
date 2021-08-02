@@ -150,11 +150,11 @@
             <span class="text-dark list-inline-item pb-4">Your Rating</span>
         </div>
             <div class="text-sm-center">
-                <i class="fa fa-star star-1 ratingStar"></i>
-                <i class="fa fa-star star-2 ratingStar"></i>
-                <i class="fa fa-star star-3 ratingStar"></i>
-                <i class="fa fa-star star-4 ratingStar"></i>
-                <i class="fa fa-star star-5 ratingStar"></i>
+                <i class="fa fa-star star-1 ratingStar" data-bs-toggle="tooltip" data-bs-placement="top" title="Very Bad"></i>
+                <i class="fa fa-star star-2 ratingStar" data-bs-toggle="tooltip" data-bs-placement="top" title="Bad"></i>
+                <i class="fa fa-star star-3 ratingStar" data-bs-toggle="tooltip" data-bs-placement="top" title="Good"></i>
+                <i class="fa fa-star star-4 ratingStar" data-bs-toggle="tooltip" data-bs-placement="top" title="Very Good"></i>
+                <i class="fa fa-star star-5 ratingStar" data-bs-toggle="tooltip" data-bs-placement="top" title="Excellent"></i>
 
             </div>
             <div>
@@ -231,28 +231,32 @@
             $("#lblRating").val(selectedRating);
         });
 
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
 
-        function validateInput() {
+        //function validateInput() {
 
-            var rating = $("#lblRating").val();
+        //    var rating = $("#lblRating").val();
 
-            if (rating == 0) {
+        //    if (rating == 0) {
 
-                Swal.fire(
-                    'Error!',
-                    'Your input is not valid!',
-                    'error'
-                )
+        //        Swal.fire(
+        //            'Error!',
+        //            'Your input is not valid!',
+        //            'error'
+        //        )
 
-            } else {
+        //    } else {
 
-                Swal.fire(
-                    'Success!',
-                    'You submited review successfully',
-                    'success'
-                )
-            }
-        }
+        //        Swal.fire(
+        //            'Success!',
+        //            'You submited review successfully',
+        //            'success'
+        //        )
+        //    }
+        //}
 
 
     </script>
