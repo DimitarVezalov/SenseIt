@@ -1,0 +1,35 @@
+﻿@model SenseIt.Web.ViewModels.Appointments.AppointmentIndexViewModel;
+
+@{ 
+    this.ViewData["Title"] = "Sense It";
+}
+
+<div class="row pt-3">
+    <h2 class="text-center text-success">Welcome To Our Booking Section</h2>
+</div>
+<hr />
+<div class="row">
+    <div class="col-lg-3">
+        <div class="card" style="width: 18rem;">
+            <img src=@Model.AppService.ImageUrl class="card-img-top" alt="Service Image">
+            <div class="card-body">
+                <h5 class="card-title">@Model.AppService.Name</h5>
+                <p class="card-text">@Model.AppService.ShortDescription</p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><h6><strong>Category</strong></h6>@Model.AppService.CategoryName</li>
+                <li class="list-group-item"><h6><strong>Duration</strong></h6>@Model.AppService.DurationAsText</li>
+                <li class="list-group-item"><h6><strong>User</strong></h6>@Model.Username</li>
+                <li class="list-group-item"><h6><strong>Price</strong></h6>$@Model.AppService.Price.ToString("F2")</li>
+            </ul>
+            <div class="card-body">
+                <a asp-controller="AppServices" asp-action="ByCategory" asp-route-id="@Model.AppService.CategoryId" class="btn btn-sm btn-outline-success">All</a>
+                <a asp-controller="Reviews" asp-action="Add" asp-route-id="@Model.AppService.Id" class="btn btn-sm btn-outline-info">Write Review</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-9" id="calendar"></div>
+</div>
+
+<partial name="_AddEditAppointment"/>
+

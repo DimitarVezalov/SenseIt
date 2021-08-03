@@ -93,7 +93,7 @@
                         <input type="hidden" name="appService-name" value="@Model.Name">
                         <div class="row pb-3">
                             <div class="col d-grid">
-                                <button type="submit" class="btn btn-success btn-lg" name="submit" value="buy">Book Appointment</button>
+                                <button type="submit" class="btn btn-success btn-lg" asp-controller="Appointments" asp-action="Index" asp-route-id="@Model.Id">Book Appointment</button>
                             </div>
                             <div class="col d-grid">
                                 <button type="submit" class="btn btn-info btn-lg" asp-controller="Reviews" asp-action="Add" asp-route-id="@Model.Id">Leave A Review</button>
