@@ -72,5 +72,18 @@
             public const int ContentMinLength = 5;
             public const int ContentMaxLength = 1000;
         }
+
+        public static class AppointmentConstants
+        {
+            public const string AppointmentAdded = "Appointment Added Successfully.";
+            public const string AppointmentUpdated = "Appointment Updated Successfully.";
+            public const string AppointmentDeleted = "Appointment Deleted Successfully.";
+            public const string AppointmentDateTimeAlreadyTaken = "Date and time are already taken.";
+
+            public const string AppointmentAddError = "Something went wrong, Please try again!";
+
+            public const int SuccessCode = 1;
+            public const int ErrorCode = 0;
+        }
     }
 }
