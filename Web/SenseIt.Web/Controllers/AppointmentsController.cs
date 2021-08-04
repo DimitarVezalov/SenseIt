@@ -34,10 +34,14 @@
 
             var user = await this.userManager.GetUserAsync(this.User);
 
+            var activeApointments = await this.appointmentsService
+                .GetAllByUserId<AppointmentInModalDetailsVIewModel>(user.Id);
+
             var model = new AppointmentIndexViewModel
             {
                 AppService = appService,
                 Username = user.UserName,
+                ActiveAppointments = activeApointments,
             };
 
             return this.View(model);

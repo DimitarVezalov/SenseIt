@@ -3,10 +3,9 @@
     using System;
     using System.Linq;
 
+    using Microsoft.EntityFrameworkCore;
     using SenseIt.Data.Common.Models;
     using SenseIt.Data.Common.Repositories;
-
-    using Microsoft.EntityFrameworkCore;
 
     public class EfDeletableEntityRepository<TEntity> : EfRepository<TEntity>, IDeletableEntityRepository<TEntity>
         where TEntity : class, IDeletableEntity

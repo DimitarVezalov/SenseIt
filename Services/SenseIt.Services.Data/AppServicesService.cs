@@ -12,11 +12,16 @@
     public class AppServicesService : IAppServicesService
     {
         private readonly IDeletableEntityRepository<Service> appServiceRepository;
+        private readonly IAppointmentsService appointmentsService;
 
-        public AppServicesService(IDeletableEntityRepository<Service> appServiceRepository)
+        public AppServicesService(
+            IDeletableEntityRepository<Service> appServiceRepository,
+            IAppointmentsService appointmentsService)
         {
             this.appServiceRepository = appServiceRepository;
+            this.appointmentsService = appointmentsService;
         }
+
 
         public async Task<IEnumerable<T>> GetAllByCategory<T>(int? categoryId)
         {

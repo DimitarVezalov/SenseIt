@@ -14,6 +14,7 @@
         public Service()
         {
             this.Reviews = new HashSet<Review>();
+            this.Appointments = new HashSet<Appointment>();
         }
 
         [Required]
@@ -37,5 +38,6 @@
         public decimal Price { get; set; }
 
         public virtual ICollection<Review> Reviews { get; set; }
+        public virtual ICollection<Appointment> Appointments { get; set; }
     }
 }

@@ -1,5 +1,7 @@
 ﻿namespace SenseIt.Services.Data
 {
+    using SenseIt.Data.Models;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     public interface IAppointmentsService
@@ -11,5 +13,8 @@
             string customerFullName,
             int customerAge,
             string additionalNotes);
+
+        Task<IEnumerable<T>> GetAllByUserId<T>(string userId);
+
     }
 }
