@@ -15,36 +15,27 @@
             this.appointmentRepository = appointmentRepository;
         }
 
-        public async Task<int> CreateUpdateAsync(
-            int? appointmentId,
+        public async Task<int> CreateAsync(
             string userId,
             int appServiceId,
             string startDate,
-            string userFullName,
-            int userAge,
+            string customerFullName,
+            int customerAge,
             string additionalNotes)
         {
-
-            if (appointmentId != null)
+            var appointment = new Appointment
             {
-                return 1;
-            }
-            else
-            {
-                var appointment = new Appointment
-                {
-                    UserId = userId,
-                    ServiceId = appServiceId,
-                    StartDate = DateTime.Parse(startDate),
-                    UserFullName = userFullName,
-                    UserAge = userAge,
-                    AdditionalNotes = additionalNotes,
-                };
+                UserId = userId,
+                ServiceId = appServiceId,
+                StartDate = DateTime.Parse(startDate),
+                CustomerFullName = customerFullName,
+                CustomerAge = customerAge,
+                AdditionalNotes = additionalNotes,
+            };
 
-                await this.appointmentRepository.AddAsync(appointment);
-                var result = await this.appointmentRepository.SaveChangesAsync();
-                return 2;
-            }
+            await this.appointmentRepository.AddAsync(appointment);
+            var result = await this.appointmentRepository.SaveChangesAsync();
+            return result;
         }
     }
 }

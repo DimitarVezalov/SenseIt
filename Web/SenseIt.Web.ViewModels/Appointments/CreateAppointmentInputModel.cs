@@ -5,23 +5,22 @@
 
     public class CreateAppointmentInputModel
     {
-        public int? Id { get; set; }
-
         [Required]
         [MaxLength(50)]
         [MinLength(2)]
-        public string UserFullName { get; set; }
+        public string CustomerFullName { get; set; }
 
         [Range(1, 90)]
-        public int UserAge { get; set; }
+        public int CustomerAge { get; set; }
 
         [MaxLength(400)]
         public string AdditionalNotes { get; set; }
 
         public int ServiceId { get; set; }
 
-        public string StartDate { get; set; }
+        public string UserId { get; set; }
 
-        public string Duration { get; set; }
+        [Required]
+        public string StartDate { get; set; }
     }
 }

@@ -3,33 +3,115 @@
 @{ 
     this.ViewData["Title"] = "Sense It";
 }
-
-<div class="row pt-3">
-    <h2 class="text-center text-success">Welcome To Our Booking Section</h2>
-</div>
+<h2 class="text-center text-success m-3">Book Service Appointment</h2>
 <hr />
-<div class="row">
-    <div class="col-lg-3">
-        <div class="card" style="width: 18rem;">
-            <img src=@Model.AppService.ImageUrl class="card-img-top" alt="Service Image">
-            <div class="card-body">
-                <h5 class="card-title">@Model.AppService.Name</h5>
-                <p class="card-text">@Model.AppService.ShortDescription</p>
-            </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item"><h6><strong>Category</strong></h6>@Model.AppService.CategoryName</li>
-                <li class="list-group-item"><h6><strong>Duration</strong></h6>@Model.AppService.DurationAsText</li>
-                <li class="list-group-item"><h6><strong>User</strong></h6>@Model.Username</li>
-                <li class="list-group-item"><h6><strong>Price</strong></h6>$@Model.AppService.Price.ToString("F2")</li>
-            </ul>
-            <div class="card-body">
-                <a asp-controller="AppServices" asp-action="ByCategory" asp-route-id="@Model.AppService.CategoryId" class="btn btn-sm btn-outline-success">All</a>
-                <a asp-controller="Reviews" asp-action="Add" asp-route-id="@Model.AppService.Id" class="btn btn-sm btn-outline-info">Write Review</a>
+<div class="card">
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="card m-3" style="width: 18rem;">
+                <img src=@Model.AppService.ImageUrl class="card-img-top" alt="Service Image">
+                <div class="card-body">
+                    <h5 class="card-title">@Model.AppService.Name</h5>
+                    <p class="card-text">@Model.AppService.ShortDescription</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><h6><strong>Category</strong></h6>@Model.AppService.CategoryName</li>
+                    <li class="list-group-item"><h6><strong>Duration</strong></h6>@Model.AppService.DurationAsText</li>
+                    <li class="list-group-item"><h6><strong>User</strong></h6>@Model.Username</li>
+                    <li class="list-group-item"><h6><strong>Price</strong></h6>$@Model.AppService.Price.ToString("F2")</li>
+                </ul>
+                <div class="card-body">
+                    <a asp-controller="AppServices" asp-action="ByCategory" asp-route-id="@Model.AppService.CategoryId" class="btn btn-sm btn-outline-success">All</a>
+                    <a asp-controller="Reviews" asp-action="Add" asp-route-id="@Model.AppService.Id" class="btn btn-sm btn-outline-info">Write Review</a>
+                </div>
             </div>
         </div>
+        <div class="col-9">
+            <div class="card m-3 text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Special Service Information</h5>
+                    <div class="row">
+                        <p class="card-text">We try to provide our customers with the best conditions for conducting our services. This is the reason we will need additional information about the person using the service.</p>
+
+                        <div class="col-4 m-3">
+                            <h5 class="text-start pb-2">Benefits:</h5>
+                            <ul>
+                                <li class="text-muted">
+                                    <p>Personal Experianse</p>
+                                </li>
+                                <li class="text-muted">
+                                    <p>Personal Experianse</p>
+                                </li>
+                                <li class="text-muted">
+                                    <p>Personal Experianse</p>
+                                </li>
+                                <li class="text-muted">
+                                    <p>Personal Experianse</p>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                        <a class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="mdo">Add Additional Information</a>
+
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Enter Customer Data</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form method="post">
+                                            <div asp-validation-summary="ModelOnly"></div>
+                                            <div class="mb-3">
+                                                <label class="col-form-label">Full Name:</label>
+                                                <input type="text" asp-for="Appointment.CustomerFullName" class="form-control" name="CustomerFullName">
+                                                <span asp-validation-for="Appointment.CustomerFullName" class="text-danger"></span>
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label class="col-form-label">Age:</label>
+                                                <input type="number" asp-for="Appointment.CustomerAge" class="form-control" name="CustomerAge" />
+                                                <span asp-validation-for="Appointment.CustomerAge" class="text-danger"></span>
+
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label class="col-form-label">Date And Time:</label>
+                                                <input type="datetime-local" asp-for="Appointment.StartDate" class="form-control" name="StartDate" />
+                                                <span asp-validation-for="Appointment.StartDate" class="text-danger"></span>
+
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label class="col-form-label">Additional Notes: <small>(optional)</small></label>
+                                                <textarea asp-for="Appointment.AdditionalNotes" class="form-control" name="AdditionalNotes"></textarea>
+                                                <span asp-validation-for="Appointment.AdditionalNotes" class="text-danger"></span>
+
+                                            </div>
+                                            <input type="hidden" name="ServiceId" value="@Model.AppService.Id" />
+                                            <div class="modal-footer">
+                                                <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                                                <button class="btn btn-outline-success" asp-controller="Appointments" asp-action="Add">Confirm Appointment</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                   
+                </div>
+                <div class="card-footer text-muted">
+                    2 days ago
+                </div>
+            </div>
+            
+            @*<div class="col-lg-9" id="calendar"></div>*@
+        </div>
     </div>
-    <div class="col-lg-9" id="calendar"></div>
 </div>
 
-<partial name="_AddAppointment"/>
+@*<partial name="_AddAppointment"/>*@
 

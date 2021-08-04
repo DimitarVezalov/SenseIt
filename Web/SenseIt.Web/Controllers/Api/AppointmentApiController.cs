@@ -32,37 +32,7 @@
         [Route("SaveAppointmentData")]
         public IActionResult SaveAppointmentData(CreateAppointmentInputModel input)
         {
-            ApiCommonResponse<int> response = new ApiCommonResponse<int>();
-
-            try
-            {
-                response.Status = this.appointmentsService.CreateUpdateAsync(
-                   input.Id,
-                   this.loginUserId,
-                   input.ServiceId,
-                   input.StartDate,
-                   input.UserFullName,
-                   input.UserAge,
-                   input.AdditionalNotes).Result;
-
-                if (response.Status == 1)
-                {
-                    response.Message = AppointmentConstants.AppointmentUpdated;
-                }
-
-                if (response.Status == 2)
-                {
-                    response.Message = AppointmentConstants.AppointmentAdded;
-                }
-
-            }
-            catch (Exception e)
-            {
-                response.Message = e.Message;
-                response.Status = AppointmentConstants.ErrorCode;
-            }
-
-            return this.Ok(response);
+            return this.Ok();
         }
     }
 }

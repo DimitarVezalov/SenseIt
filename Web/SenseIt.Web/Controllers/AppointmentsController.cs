@@ -13,13 +13,16 @@
     [Authorize]
     public class AppointmentsController : BaseController
     {
+        private readonly IAppointmentsService appointmentsService;
         private readonly IAppServicesService appServicesService;
         private readonly UserManager<ApplicationUser> userManager;
 
         public AppointmentsController(
+            IAppointmentsService appointmentsService,
             IAppServicesService appServicesService,
             UserManager<ApplicationUser> userManager)
         {
+            this.appointmentsService = appointmentsService;
             this.appServicesService = appServicesService;
             this.userManager = userManager;
         }
@@ -38,6 +41,27 @@
             };
 
             return this.View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Add(CreateAppointmentInputModel input)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.Error();
+            }
+
+            var user = await this.userManager.GetUserAsync(this.User);
+
+            var result = await this.appointmentsService.CreateAsync(
+                                                    user.Id,
+                                                    input.ServiceId,
+                                                    input.StartDate,
+                                                    input.CustomerFullName,
+                                                    input.CustomerAge,
+                                                    input.AdditionalNotes);
+
+            return this.RedirectToAction(nameof(this.Index), new { id = input.ServiceId });
         }
     }
 }

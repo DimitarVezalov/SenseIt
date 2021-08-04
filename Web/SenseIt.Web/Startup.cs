@@ -78,6 +78,7 @@
             services.AddTransient<IAppServiceCategoriesService, AppServiceCategoriesService>();
             services.AddTransient<IAppServicesService, AppServicesService>();
             services.AddTransient<IReviewsService, ReviewsService>();
+            services.AddTransient<IAppointmentsService, AppointmentsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

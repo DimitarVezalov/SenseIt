@@ -88,7 +88,7 @@
             }
 
             var product = await this.productsRepository
-                .All()
+                .AllWithDeleted()
                 .Where(p => p.Id == productId)
                 .FirstOrDefaultAsync();
 

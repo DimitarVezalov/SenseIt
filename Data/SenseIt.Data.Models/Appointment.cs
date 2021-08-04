@@ -10,9 +10,9 @@
     {
         [Required]
         [MaxLength(50)]
-        public string UserFullName { get; set; }
+        public string CustomerFullName { get; set; }
 
-        public int UserAge { get; set; }
+        public int CustomerAge { get; set; }
 
         public string AdditionalNotes { get; set; }
 

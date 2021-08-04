@@ -4,13 +4,12 @@
 
     public interface IAppointmentsService
     {
-        public Task<int> CreateUpdateAsync(
-            int? appointmentId,
+        public Task<int> CreateAsync(
             string userId,
             int appServiceId,
             string startDate,
-            string userFullName,
-            int userAge,
+            string customerFullName,
+            int customerAge,
             string additionalNotes);
     }
 }
