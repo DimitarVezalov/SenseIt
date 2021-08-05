@@ -18,6 +18,28 @@
             this.appointmentRepository = appointmentRepository;
         }
 
+        public async Task<bool> CancelAppointment(int? id)
+        {
+            if (id == null)
+            {
+                return false;
+            }
+
+            var appointment = this.appointmentRepository
+                .All()
+                .FirstOrDefault(a => a.Id == id);
+
+            this.appointmentRepository.Delete(appointment);
+            var result = await this.appointmentRepository.SaveChangesAsync();
+
+            if (result == 0)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         public async Task<int> CreateAsync(
             string userId,
             int appServiceId,

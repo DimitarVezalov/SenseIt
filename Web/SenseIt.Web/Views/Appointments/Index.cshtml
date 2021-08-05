@@ -13,7 +13,7 @@
         }
 
         .modalContainer {
-            height: 280px;
+            height: 300px;
         }
 
 
@@ -30,7 +30,7 @@
         }
 
         .archiveModal-header {
-            background: #9C27B0;
+            background-color: forestgreen;
             color: #fff !important
         }
 
@@ -205,32 +205,31 @@
 
                                                             <tbody>
                                                                 <tr>
-                                                                    <td >
+                                                                    <td class="pt-4">
                                                                         <div class="d-flex flex-column"> <span class="heading d-block">Full Name</span> <span class="subheadings">@app.CustomerFullName</span> </div>
                                                                     </td>
-                                                                    <td >
+                                                                    <td class="pt-4">
                                                                         <div class="d-flex flex-column"> <span class="heading d-block">Age</span> <span class="subheadings">@app.CustomerAge</span> </div>
 
                                                                     </td>
-                                                                    <td >
+                                                                    <td class="pt-4">
                                                                         <div class="d-flex flex-column"> <span class="heading d-block">Status</span> <span class="subheadings"><i class="dots"></i>@app.Status </span> </div>
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td >
+                                                                    <td class="pt-4">
                                                                         <div class="d-flex flex-column"> <span class="heading d-block">Date/Time</span> <span class="subheadings">@app.StartDate</span> </div>
 
                                                                     </td>
-                                                                    <td >
+                                                                    <td class="pt-4">
                                                                         <div class="d-flex flex-column"> <span class="heading d-block">Additional Notes</span> <span class="subheadings">@app.AdditionalNotes</span> </div>
-                                                                    </td>
-                                                                    <td> </td>
+                                                                    </td>                                                        
                                                                 </tr>
                                                                 <tr>
-                                                                    <td >
+                                                                    <td class="pt-4">
                                                                         <div class="d-flex flex-column"> <span class="heading d-block">Contact</span> <span class="subheadings">52, Maria Block, Victoria Road, CA USA</span> </div>
                                                                     </td>
-                                                                    <td  colspan="2">
+                                                                    <td  class="pt-4" colspan="2">
                                                                         <div class="d-flex flex-column"> <span class="heading d-block">Direction</span> <span class="d-block subheadings">Get direction by using</span> <span class="d-flex flex-row"> <img src="https://img.icons8.com/color/100/000000/google-maps.png" class="rounded" width="30" /> <img src="https://img.icons8.com/color/100/000000/pittsburgh-map.png" class="rounded" width="30" /> </span> </div>
                                                                     </td>
                                                                 </tr>
@@ -243,7 +242,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-4">
-                                            <div class="p-2 text-center">
+                                            <div class="pt-3 text-center">
                                                 @foreach (var app in Model.ActiveAppointments)
                                                 {
                                                     <div class="container-fluid modalContainer">
@@ -264,7 +263,7 @@
                                                                             <div class="d-flex flex-column"> <span class="heading d-block">Duration</span> <span class="subheadings">@app.ServiceDuration.ToString().Substring(0,5)</span> </div>
                                                                         </td>
                                                                         <td>
-                                                                            <div class="d-flex flex-column"> <span class="heading d-block">Specialist</span> <span class="subheadings">Accupunture</span> </div>
+                                                                            <div class="d-flex flex-column"><form method="post"><button class="btn btn-sm btn-outline-danger" asp-action="Cancel" asp-route-id="@app.Id" asp-route-appServiceId="@Model.AppService.Id">Cancel</button></form> </div>
                                                                         </td>
                                                                     </tr>
                                                                 </tbody>

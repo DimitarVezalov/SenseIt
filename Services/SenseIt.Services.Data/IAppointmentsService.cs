@@ -16,5 +16,7 @@
 
         Task<IEnumerable<T>> GetAllByUserId<T>(string userId);
 
+        Task<bool> CancelAppointment(int? id);
+
     }
 }

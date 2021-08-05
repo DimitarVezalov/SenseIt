@@ -67,5 +67,18 @@
 
             return this.RedirectToAction(nameof(this.Index), new { id = input.ServiceId });
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Cancel(int? id, int appServiceId)
+        {
+            if (id == null)
+            {
+                return this.NotFound();
+            }
+
+            var result = await this.appointmentsService.CancelAppointment(id);
+
+            return this.RedirectToAction(nameof(this.Index), new { id = appServiceId });
+        }
     }
 }
