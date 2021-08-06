@@ -65,8 +65,31 @@
             </div>
             <div class="row">
                 @foreach (var product in Model.Products)
-                {                    
-                    <partial name="_IndividualProductCard" model="product"/>
+                {
+                    <partial name="_IndividualProductCard" model="product" />
+                    <div class="modal fade" id="quantityModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Choose Quantity</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="quantity-form" asp-action="AddToCart">
+                                        <div class="mb-3">
+                                            <label for="quantity" class="col-form-label">Quantity:</label>
+                                            <input type="number" min="1" name="quantity" class="form-control" id="quantity">
+                                        </div>
+                                       
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary" form="quantity-form" asp-action="AddToCart" asp-route-productId="@product.Id">Add To Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 }
 
             </div>
