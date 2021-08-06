@@ -25,6 +25,8 @@
 
         public string Gender { get; set; }
 
+        public bool ExistsInCart { get; set; }
+
         public bool IsAvailable => this.InStockQuantity > 10;
 
         public string Availability => this.IsAvailable

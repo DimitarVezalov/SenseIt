@@ -19,6 +19,8 @@
 
         public decimal Price { get; set; }
 
+        public bool ExistsInCart { get; set; }
+
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<Product, ProductInListViewModel>()

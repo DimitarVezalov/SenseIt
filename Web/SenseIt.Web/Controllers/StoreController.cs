@@ -57,11 +57,33 @@
 
             var productModel = await this.productsService
                 .GetDetails<ProductDetailsViewModel>(id);
+            productModel.ExistsInCart = false;
 
             var relatedProducts = await this.productsService
                 .GetAllByCategory<ProductInListViewModel>(productModel.CategoryName, productModel.Id);
 
             productModel.Products = relatedProducts;
+
+            var shoppingCartList = this.GetShoppingCartList();
+
+            foreach (var item in shoppingCartList)
+            {
+                if (item.ProductId == id)
+                {
+                    productModel.ExistsInCart = true;
+                }
+            }
+
+            foreach (var item in shoppingCartList)
+            {
+                foreach (var prod in productModel.Products)
+                {
+                    if (item.ProductId == prod.Id)
+                    {
+                        prod.ExistsInCart = true;
+                    }
+                }
+            }
 
             return this.View(productModel);
         }
@@ -163,9 +185,18 @@
             return this.View(viewModel);
         }
 
-        [Authorize]
         [HttpPost]
         public IActionResult AddToCart(int id, int quantity)
+        {
+            List<ShoppingCart> shoppingCartList = this.GetShoppingCartList();
+
+            shoppingCartList.Add(new ShoppingCart { ProductId = id, Quantity = quantity });
+            this.HttpContext.Session.Set(GlobalConstants.SessionCart, shoppingCartList);
+
+            return this.RedirectToAction("All");
+        }
+
+        private List<ShoppingCart> GetShoppingCartList()
         {
             List<ShoppingCart> shoppingCartList = new List<ShoppingCart>();
 
@@ -175,11 +206,7 @@
                 shoppingCartList = this.HttpContext.Session.Get<List<ShoppingCart>>(GlobalConstants.SessionCart);
             }
 
-
-            shoppingCartList.Add(new ShoppingCart { ProductId = id, Quantity = quantity });
-            this.HttpContext.Session.Set(GlobalConstants.SessionCart, shoppingCartList);
-
-            return this.RedirectToAction("All");
+            return shoppingCartList;
         }
     }
 }
