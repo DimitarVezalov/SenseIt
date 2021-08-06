@@ -4,6 +4,8 @@
     {
         public const string SystemName = "Sense It";
         public const string MissingCategoryValue = "Undefined";
+        public const string SessionCart = "ShoppingCartSession";
+        public const decimal ShippingFee = 6.90m;
 
         public static class ProductConstants
         {

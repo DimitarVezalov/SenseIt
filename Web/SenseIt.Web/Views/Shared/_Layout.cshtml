@@ -1,6 +1,10 @@
 ﻿@using SenseIt.Common
 @using SenseIt.Data.Models
 @using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Http;
+
+@using SenseIt.Web.Utility;
+@inject IHttpContextAccessor HttpContextAccessor
 @inject SignInManager<ApplicationUser> SignInManager
 <!DOCTYPE html>
 <html lang="en">
@@ -25,9 +29,9 @@
     <link rel="stylesheet" type="text/css" href="~/assets/css/slick-theme.css">
 
     @*<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/jquery.qtip.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css" />
-    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2020.2.513/styles/kendo.default-v2.min.css" />
-    <link href="~/lib/select2/css/select2.css" rel="stylesheet" />*@
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css" />
+        <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2020.2.513/styles/kendo.default-v2.min.css" />
+        <link href="~/lib/select2/css/select2.css" rel="stylesheet" />*@
 
 </head>
 <body>
@@ -56,7 +60,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid ps-5">
             @if (this.SignInManager.IsSignedIn(this.User) &&
-          this.User.IsInRole(GlobalConstants.Role.AdministratorRoleName))
+         this.User.IsInRole(GlobalConstants.Role.AdministratorRoleName))
             {
                 <a class="navbar-brand" asp-area="Administration" asp-controller="Dashboard" asp-action="Index">@this.ViewData["Title"]</a>
             }
@@ -105,6 +109,24 @@ this.User.IsInRole(GlobalConstants.Role.AdministratorRoleName))
                         <li class="nav-item">
                             <a class="nav-link active" href="#">Offers</a>
                         </li>
+                        <li>
+                            @if (HttpContextAccessor.HttpContext.Session.Get<List<ShoppingCart>>(GlobalConstants.SessionCart) != null)
+                            {
+                                <a asp-controller="Cart" asp-action="Index" class="nav-link">
+                                    @{
+                                        var count = HttpContextAccessor.HttpContext.Session.Get<List<ShoppingCart>>(GlobalConstants.SessionCart).Count;
+                                    }
+                                    <i class="fas fa-shopping-cart"></i> &nbsp; (@count)
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="#" class="nav-link">
+                                    <i class="fas fa-shopping-cart"></i> &nbsp; (0)
+                                </a>
+                            }
+                        </li>
+
                     }
                 </ul>
                 <div class="d-flex pe-5">
@@ -226,12 +248,12 @@ this.User.IsInRole(GlobalConstants.Role.AdministratorRoleName))
     <script src="~/assets/js/slick.min.js"></script>
 
     @*<script type="text/javascript" src="~/lib/select2/js/select2.full.min.js"></script>
-    <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/jquery.qtip.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js"></script>
-    <script src="https://kendo.cdn.telerik.com/2020.2.513/js/kendo.all.min.js"></script>
-    <script type="text/javascript" src="~/js/notify.min.js"></script>
-    <script src="~/js/script-custom-calendar.js"></script>*@
+        <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/jquery.qtip.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js"></script>
+        <script src="https://kendo.cdn.telerik.com/2020.2.513/js/kendo.all.min.js"></script>
+        <script type="text/javascript" src="~/js/notify.min.js"></script>
+        <script src="~/js/script-custom-calendar.js"></script>*@
 
     @await this.RenderSectionAsync("Scripts", required: false)
 </body>

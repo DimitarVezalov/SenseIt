@@ -28,6 +28,7 @@
         {
             var products = await this.productsRepository
                 .AllAsNoTracking()
+                .Where(x => !x.Category.IsDeleted)
                 .OrderBy(x => x.Id)
                 .Skip((page - 1) * itemsPerPage)
                 .Take(itemsPerPage)
@@ -46,6 +47,7 @@
 
             var products = await this.productsRepository
                 .AllAsNoTracking()
+                .Where(x => !x.Category.IsDeleted)
                 .Where(p => p.Category.Name == categoryName)
                 .Where(p => p.Id != id)
                 .To<T>()
@@ -58,6 +60,7 @@
         {
             var products = await this.productsRepository
                    .AllAsNoTracking()
+                   .Where(x => !x.Category.IsDeleted)
                    .Where(x => x.Category.Name == category)
                    .OrderBy(x => x.Id)
                    .Skip((page - 1) * itemsPerPage)
@@ -72,6 +75,7 @@
         {
             var products = await this.productsRepository
                    .AllAsNoTracking()
+                   .Where(x => !x.Category.IsDeleted)
                    .Where(x => ((int)x.Gender) == ((int)Enum.Parse<ProductGender>(gender)))
                    .OrderBy(x => x.Id)
                    .Skip((page - 1) * itemsPerPage)
@@ -93,6 +97,7 @@
             {
                 return this.productsRepository
                 .All()
+                .Where(x => !x.Category.IsDeleted)
                 .Count(p => ((int)p.Gender) == ((int)Enum.Parse<ProductGender>(filter)));
             }
 
@@ -102,11 +107,13 @@
             {
                 return this.productsRepository
                 .All()
+                .Where(x => !x.Category.IsDeleted)
                 .Count(p => p.Category.Name == filter);
             }
 
             return this.productsRepository
                 .All()
+                .Where(x => !x.Category.IsDeleted)
                 .Count(p => p.Name.Contains(filter));
         }
 
@@ -135,12 +142,24 @@
         {
             var products = await this.productsRepository
                  .AllAsNoTracking()
+                 .Where(x => !x.Category.IsDeleted)
                  .Where(x => x.Name.Contains(searchTerm))
                  .OrderBy(x => x.Id)
                  .Skip((page - 1) * itemsPerPage)
                  .Take(itemsPerPage)
                  .To<T>()
                  .ToListAsync();
+
+            return products;
+        }
+
+        public async Task<IEnumerable<T>> GetAllByIds<T>(IEnumerable<ShoppingCart> cartProducts)
+        {
+            var products = await this.productsRepository
+                .All()
+                .Where(p => cartProducts.Select(p => p.ProductId).ToList().Contains(p.Id))
+                .To<T>()
+                .ToListAsync();
 
             return products;
         }

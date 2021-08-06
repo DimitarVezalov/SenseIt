@@ -1,5 +1,6 @@
 ﻿namespace SenseIt.Web
 {
+    using System;
     using System.Reflection;
 
     using Microsoft.AspNetCore.Builder;
@@ -58,6 +59,14 @@
 
             services.AddSingleton(this.configuration);
 
+            services.AddHttpContextAccessor();
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(10);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
             // Data repositories
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
@@ -113,6 +122,7 @@
 
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseSession();
 
             app.UseEndpoints(
                 endpoints =>

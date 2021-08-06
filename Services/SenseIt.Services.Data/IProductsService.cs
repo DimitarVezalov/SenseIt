@@ -1,5 +1,6 @@
 ﻿namespace SenseIt.Services.Data
 {
+    using SenseIt.Data.Models;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
@@ -12,6 +13,8 @@
         Task<IEnumerable<T>> GetByCategoryPaging<T>(int page, int itemsPerPage, string category);
 
         Task<IEnumerable<T>> GetBySearchTermPaging<T>(int page, int itemsPerPage, string searchTerm);
+
+        Task<IEnumerable<T>> GetAllByIds<T>(IEnumerable<ShoppingCart> cartProducts);
 
         int GetCount();
 

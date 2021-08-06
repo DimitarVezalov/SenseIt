@@ -1,10 +1,14 @@
 ﻿namespace SenseIt.Web.Controllers
 {
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using SenseIt.Common;
+    using SenseIt.Data.Models;
     using SenseIt.Services.Data;
+    using SenseIt.Web.Utility;
     using SenseIt.Web.ViewModels.Products;
 
     using static SenseIt.Common.GlobalConstants.Pagination;
@@ -128,13 +132,19 @@
 
         public async Task<IActionResult> Search(string keyword, int id = DefaultStartingPage)
         {
+            var productsCount = 0;
+            IEnumerable<ProductInListViewModel> products = null;
+
             if (keyword == null)
             {
-                return this.Error();
+                products = await this.productsService.GetAllPaging<ProductInListViewModel>(id, ProductsPerPage);
+                productsCount = this.productsService.GetCount();
             }
-
-            var products = await this.productsService.GetBySearchTermPaging<ProductInListViewModel>(id, ProductsPerPage, keyword);
-            var productsCount = await this.productsService.GetCount(keyword);
+            else
+            {
+                products = await this.productsService.GetBySearchTermPaging<ProductInListViewModel>(id, ProductsPerPage, keyword);
+                productsCount = await this.productsService.GetCount(keyword);
+            }
 
             var categories = await this.categoriesService.GetProductCategories();
             var genders = this.productsService.GetGenders();
@@ -151,6 +161,25 @@
             };
 
             return this.View(viewModel);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult AddToCart(int id, int quantity)
+        {
+            List<ShoppingCart> shoppingCartList = new List<ShoppingCart>();
+
+            if (this.HttpContext.Session.Get<IEnumerable<ShoppingCart>>(GlobalConstants.SessionCart) != null
+                && this.HttpContext.Session.Get<IEnumerable<ShoppingCart>>(GlobalConstants.SessionCart).Count() > 0)
+            {
+                shoppingCartList = this.HttpContext.Session.Get<List<ShoppingCart>>(GlobalConstants.SessionCart);
+            }
+
+
+            shoppingCartList.Add(new ShoppingCart { ProductId = id, Quantity = quantity });
+            this.HttpContext.Session.Set(GlobalConstants.SessionCart, shoppingCartList);
+
+            return this.RedirectToAction("All");
         }
     }
 }
