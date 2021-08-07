@@ -17,31 +17,34 @@ else
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th scope="col"> </th>
-                                    <th scope="col">Product</th>
-                                    <th scope="col" class="text-center">Quantity</th>
-                                    <th scope="col" class="text-right">Price</th>
-                                    <th> </th>
+                                    <th class="col-3">Image</th>
+                                    <th class="col-3">Product</th>
+                                    <th class="col-1">Price/Item</th>
+                                    <th class="col-2 text-center">Quantity</th>
+                                    <th class="col-2 text-right">Price</th>
+                                    <th class="col-1 text-right">Remove</th>
+                                  
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach (var item in Model.Products)
                                 {
                                     <tr style="background-color: ActiveCaption">
-                                        <td><img src=@item.ProductImageUrl class="img-thumbnail" style="width: 100px; height: 120px;" /> </td>
-                                        <td class="text-dark">@item.ProductName</td>
-                                        <td class="text-dark"><input class="form-control" disabled type="number" value="@item.Quantity" /></td>
-                                        <td class="text-right text-dark">$@((item.Quantity * item.ProductPrice).ToString("F2"))</td>
-                                        <td class="text-right"><a class="btn btn-outline-danger" asp-action="Remove" asp-route-id="@item.Id"><i class="fas fa-trash-alt text-dark"></i> </a> </td>
+                                        <td class="col-3"><img src=@item.ProductImageUrl class="img-thumbnail" style="width: 100px; height: 120px;" /> </td>
+                                        <td class="col-3 text-dark">@item.ProductName</td>
+                                        <td class="col-1 text-dark">$@item.ProductPrice.ToString("F2")</td>
+                                        <td class="col-2 text-dark"><input class="form-control" disabled type="number" value="@item.Quantity" /></td>
+                                        <td class="col-2 text-right text-dark">$@((item.Quantity * item.ProductPrice).ToString("F2"))</td>
+                                        <td class="col-1 text-right"><a class="btn btn-outline-danger" asp-action="Remove" asp-route-id="@item.Id"><i class="fas fa-trash-alt text-dark"></i> </a> </td>
                                     </tr>
                                 }
 
                                 <tr style="background-color: ActiveCaption">
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td>Sub-Total</td>
+                                    <td class="col-3"></td>
+                                    <td class="col-3"></td>
+                                    <td class="col-1"></td>
+                                    <td class="col-2"></td>
+                                    <td class="col-2">Sub-Total</td>
                                     <td class="text-right text-dark">                            
                                         $@Model.TotalSum
                                     </td>
@@ -50,10 +53,12 @@ else
                                     <td></td>
                                     <td></td>
                                     <td></td>
+                                    <td></td>
                                     <td>Shipping</td>
                                     <td class="text-right text-dark">$@GlobalConstants.ShippingFee</td>
                                 </tr>
                                 <tr style="background-color: ActiveCaption">
+                                    <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>

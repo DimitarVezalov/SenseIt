@@ -43,7 +43,7 @@
         public async Task<int> CreateAsync(
             string userId,
             int appServiceId,
-            string startDate,
+            DateTime startDate,
             string customerFullName,
             int customerAge,
             string additionalNotes)
@@ -53,7 +53,7 @@
                 UserId = userId,
                 ServiceId = appServiceId,
                 CreatedOn = DateTime.UtcNow.AddHours(3),
-                StartDate = DateTime.Parse(startDate),
+                StartDate = startDate,
                 CustomerFullName = customerFullName,
                 CustomerAge = customerAge,
                 AdditionalNotes = additionalNotes,

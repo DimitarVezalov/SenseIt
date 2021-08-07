@@ -3,6 +3,8 @@
     using System;
     using System.ComponentModel.DataAnnotations;
 
+    using SenseIt.Web.Infrastructure.Attributes;
+
     public class CreateAppointmentInputModel
     {
         [Required]
@@ -20,7 +22,7 @@
 
         public string UserId { get; set; }
 
-        [Required]
-        public string StartDate { get; set; }
+        [CustomDateTimeAttribute]
+        public DateTime StartDate { get; set; }
     }
 }
