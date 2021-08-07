@@ -88,6 +88,8 @@
             services.AddTransient<IAppServicesService, AppServicesService>();
             services.AddTransient<IReviewsService, ReviewsService>();
             services.AddTransient<IAppointmentsService, AppointmentsService>();
+            services.AddTransient<ICartItemsService, CartItemsService>();
+            services.AddTransient<ICartsService, CartsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

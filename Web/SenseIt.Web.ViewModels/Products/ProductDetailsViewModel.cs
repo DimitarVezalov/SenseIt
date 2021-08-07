@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using AutoMapper;
     using SenseIt.Data.Models;
     using SenseIt.Data.Models.Enumerations;
@@ -35,6 +36,9 @@
         public string CategoryName { get; set; }
 
         public string ImageUrl { get; set; }
+
+        [Range(1, 100, ErrorMessage ="Value should be between 1 and 100")]
+        public int CartQuantity { get; set; }
 
         public IEnumerable<ProductInListViewModel> Products { get; set; }
 

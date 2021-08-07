@@ -1,5 +1,6 @@
 ﻿namespace SenseIt.Data.Models
 {
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
@@ -9,6 +10,11 @@
 
     public class Product : BaseDeletableModel<int>
     {
+        public Product()
+        {
+            this.CartItems = new HashSet<CartItem>();
+        }
+
         [Required]
         [MaxLength(ProductNameMaxLength)]
         public string Name { get; set; }
@@ -34,5 +40,7 @@
         public decimal Price { get; set; }
 
         public int InStockQuantity { get; set; }
+
+        public virtual ICollection<CartItem> CartItems { get; set; }
     }
 }

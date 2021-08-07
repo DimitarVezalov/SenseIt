@@ -1,10 +1,12 @@
 ﻿@using SenseIt.Common
+@using System.Security.Claims;
 @using SenseIt.Data.Models
+@using SenseIt.Services.Data
 @using Microsoft.AspNetCore.Identity
 @using Microsoft.AspNetCore.Http;
 
 @using SenseIt.Web.Utility;
-@inject IHttpContextAccessor HttpContextAccessor
+@inject ICartsService cartsService
 @inject SignInManager<ApplicationUser> SignInManager
 <!DOCTYPE html>
 <html lang="en">
@@ -60,7 +62,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid ps-5">
             @if (this.SignInManager.IsSignedIn(this.User) &&
-         this.User.IsInRole(GlobalConstants.Role.AdministratorRoleName))
+        this.User.IsInRole(GlobalConstants.Role.AdministratorRoleName))
             {
                 <a class="navbar-brand" asp-area="Administration" asp-controller="Dashboard" asp-action="Index">@this.ViewData["Title"]</a>
             }
@@ -110,14 +112,21 @@ this.User.IsInRole(GlobalConstants.Role.AdministratorRoleName))
                             <a class="nav-link active" href="#">Offers</a>
                         </li>
                         <li>
-                            @if (HttpContextAccessor.HttpContext.Session.Get<List<ShoppingCart>>(GlobalConstants.SessionCart) != null)
+                            @if (this.SignInManager.IsSignedIn(this.User))
                             {
-                                <a asp-controller="Cart" asp-action="Index" class="nav-link">
-                                    @{
-                                        var count = HttpContextAccessor.HttpContext.Session.Get<List<ShoppingCart>>(GlobalConstants.SessionCart).Count;
-                                    }
-                                    <i class="fas fa-shopping-cart"></i> &nbsp; (@count)
-                                </a>
+                                var count = await this.cartsService.GetCustomerCartItemsCount(this.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+                                @if (count > 0)
+                                {
+                                    <a asp-controller="Cart" asp-action="Index" class="nav-link">
+                                        <i class="fas fa-shopping-cart"></i> &nbsp; (@count)
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a href="#" class="nav-link">
+                                        <i class="fas fa-shopping-cart"></i> &nbsp; (0)
+                                    </a>
+                                }
                             }
                             else
                             {
@@ -125,6 +134,7 @@ this.User.IsInRole(GlobalConstants.Role.AdministratorRoleName))
                                     <i class="fas fa-shopping-cart"></i> &nbsp; (0)
                                 </a>
                             }
+
                         </li>
 
                     }

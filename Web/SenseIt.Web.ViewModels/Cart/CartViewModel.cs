@@ -3,14 +3,18 @@
     using System.Collections.Generic;
     using System.Linq;
 
+    using SenseIt.Data.Models;
+    using SenseIt.Services.Mapping;
     using SenseIt.Web.ViewModels.Products;
 
-    public class CartViewModel
+    public class CartViewModel : IMapFrom<Cart>
     {
+        public int Id { get; set; }
+
         public string CustomerId { get; set; }
 
-        public IEnumerable<ProductInCartViewModel> Products { get; set; }
+        public IEnumerable<CartItemViewModel> Products { get; set; }
 
-        public decimal TotalSum => this.Products.Sum(x => x.Price * x.Quantity);
+        public decimal TotalSum => this.Products.Sum(x => x.ProductPrice * x.Quantity);
     }
 }
