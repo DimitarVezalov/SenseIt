@@ -17,7 +17,7 @@
 
         public ApplicationUser Customer { get; set; }
 
-        public decimal TotalSum => this.CartItems.Sum(ci => ci.Product.Price * ci.Quantity);
+        public decimal? TotalSum { get; set; }
 
         public virtual ICollection<CartItem> CartItems { get; set; }
     }

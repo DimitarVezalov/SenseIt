@@ -25,11 +25,21 @@
             this.cartItemsService = cartItemsService;
         }
 
-        public async Task<IActionResult> AddToCart(int productId, int quantity)
+        public async Task<IActionResult> AddToCart(int productId, ProductDetailsViewModel input)
         {
-            if (quantity < 1 || quantity > 100)
+            var quantity = 0;
+
+            if (input.CartQuantity == 0)
+            {
+                quantity = 1;
+            }
+            else if (!this.ModelState.IsValid)
             {
                 return this.BadRequest();
+            }
+            else
+            {
+                quantity = input.CartQuantity;
             }
 
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;

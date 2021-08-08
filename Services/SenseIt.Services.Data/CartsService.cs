@@ -39,7 +39,8 @@
             }
             else
             {
-                var created = await this.cartItemsService.Create(productId, cart.Id, quantity);
+                cart.CartItems.Add(new CartItem { ProductId = productId, Quantity = quantity });
+                await this.cartRepo.SaveChangesAsync();
             }
 
         }
