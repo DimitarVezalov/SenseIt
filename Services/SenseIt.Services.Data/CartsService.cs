@@ -88,7 +88,6 @@
                 currentCart = new Cart
                 {
                     CustometId = userId,
-                    TotalSum = 0.0m,
                 };
 
                 await this.cartRepo.AddAsync(currentCart);

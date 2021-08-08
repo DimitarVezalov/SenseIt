@@ -12,7 +12,7 @@
     {
         public Product()
         {
-            this.CartItems = new HashSet<CartItem>();
+            //this.CartItems = new HashSet<CartItem>();
         }
 
         [Required]
@@ -41,6 +41,6 @@
 
         public int InStockQuantity { get; set; }
 
-        public virtual ICollection<CartItem> CartItems { get; set; }
+        //public virtual ICollection<CartItem> CartItems { get; set; }
     }
 }

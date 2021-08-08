@@ -18,6 +18,7 @@ namespace SenseIt.Data.Models
             this.Logins = new HashSet<IdentityUserLogin<string>>();
             this.Reviews = new HashSet<Review>();
             this.Appointments = new HashSet<Appointment>();
+            this.Orders = new HashSet<Order>();
         }
 
         // Audit info
@@ -43,6 +44,8 @@ namespace SenseIt.Data.Models
         public virtual ICollection<Review> Reviews { get; set; }
 
         public virtual ICollection<Appointment> Appointments { get; set; }
+
+        public virtual ICollection<Order> Orders { get; set; }
 
         public static implicit operator Task<object>(ApplicationUser v)
         {

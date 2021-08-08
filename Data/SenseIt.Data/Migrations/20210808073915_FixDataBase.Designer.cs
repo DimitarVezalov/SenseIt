@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SenseIt.Data;
 
 namespace SenseIt.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210808073915_FixDataBase")]
+    partial class FixDataBase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -318,6 +320,9 @@ namespace SenseIt.Data.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<decimal>("TotalSum")
+                        .HasColumnType("decimal(18,2)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CustometId")
@@ -327,43 +332,6 @@ namespace SenseIt.Data.Migrations
                     b.HasIndex("IsDeleted");
 
                     b.ToTable("Carts");
-                });
-
-            modelBuilder.Entity("SenseIt.Data.Models.CartItem", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("CartId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CartId");
-
-                    b.HasIndex("IsDeleted");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("CartItems");
                 });
 
             modelBuilder.Entity("SenseIt.Data.Models.Order", b =>
@@ -751,25 +719,6 @@ namespace SenseIt.Data.Migrations
                     b.Navigation("Customer");
                 });
 
-            modelBuilder.Entity("SenseIt.Data.Models.CartItem", b =>
-                {
-                    b.HasOne("SenseIt.Data.Models.Cart", "Cart")
-                        .WithMany("CartItems")
-                        .HasForeignKey("CartId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("SenseIt.Data.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Cart");
-
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("SenseIt.Data.Models.Order", b =>
                 {
                     b.HasOne("SenseIt.Data.Models.ApplicationUser", "Recipient")
@@ -846,11 +795,6 @@ namespace SenseIt.Data.Migrations
                     b.Navigation("Reviews");
 
                     b.Navigation("Roles");
-                });
-
-            modelBuilder.Entity("SenseIt.Data.Models.Cart", b =>
-                {
-                    b.Navigation("CartItems");
                 });
 
             modelBuilder.Entity("SenseIt.Data.Models.Order", b =>

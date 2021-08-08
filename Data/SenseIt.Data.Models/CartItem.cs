@@ -1,10 +1,11 @@
-﻿namespace SenseIt.Data.Models
+﻿using SenseIt.Data.Common.Models;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text;
+
+namespace SenseIt.Data.Models
 {
-    using System;
-    using System.ComponentModel.DataAnnotations.Schema;
-
-    using SenseIt.Data.Common.Models;
-
     public class CartItem : BaseDeletableModel<string>
     {
         public CartItem()
