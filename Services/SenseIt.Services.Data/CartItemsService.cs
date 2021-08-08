@@ -18,21 +18,21 @@
             this.cartItemRepository = cartItemRepository;
         }
 
-        public async Task<int> Create(int productId, int cartId, int quantity)
-        {
-            var cartItem = new CartItem
-            {
-                ProductId = productId,
-                CartId = cartId,
-                Quantity = quantity,
+        //public async Task<int> Create(int productId, int cartId, int quantity)
+        //{
+        //    var cartItem = new CartItem
+        //    {
+        //        ProductId = productId,
+        //        CartId = cartId,
+        //        Quantity = quantity,
 
-            };
+        //    };
 
-            await this.cartItemRepository.AddAsync(cartItem);
-            var result = await this.cartItemRepository.SaveChangesAsync();
+        //    await this.cartItemRepository.AddAsync(cartItem);
+        //    var result = await this.cartItemRepository.SaveChangesAsync();
 
-            return result;
-        }
+        //    return result;
+        //}
 
         public async Task<bool> Delete(string cartItemId)
         {

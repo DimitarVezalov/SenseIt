@@ -11,5 +11,7 @@
         Task<int> GetCustomerCartItemsCount(string customerId);
 
         Task<bool> RemoveItemFormCart(string cartItemId);
+
+        Task<bool> RemoveAll(string customerId);
     }
 }

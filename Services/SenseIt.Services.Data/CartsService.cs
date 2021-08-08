@@ -1,5 +1,6 @@
 ﻿namespace SenseIt.Services.Data
 {
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -67,6 +68,25 @@
 
             return count;
 
+        }
+
+        public async Task<bool> RemoveAll(string customerId)
+        {
+            if (customerId == null)
+            {
+                return false;
+            }
+
+            var cart = await this.cartRepo
+                .All()
+                .Include(c => c.CartItems)
+                .FirstOrDefaultAsync(c => c.CustometId == customerId);
+
+            cart.CartItems = new HashSet<CartItem>();
+            this.cartRepo.Update(cart);
+            var result = await this.cartRepo.SaveChangesAsync();
+
+            return result > 0;
         }
 
         public async Task<bool> RemoveItemFormCart(string cartItemId)

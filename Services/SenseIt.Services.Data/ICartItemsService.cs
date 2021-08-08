@@ -5,7 +5,7 @@
 
     public interface ICartItemsService
     {
-        Task<int> Create(int productId, int cartId, int quantity);
+        //Task<int> Create(int productId, int cartId, int quantity);
 
         Task<IEnumerable<T>> GetAllByCartId<T>(int cartId);
 

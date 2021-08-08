@@ -25,23 +25,22 @@
             this.cartItemsService = cartItemsService;
         }
 
+        [HttpPost]
         public async Task<IActionResult> AddToCart(int productId, ProductDetailsViewModel input)
         {
-            var quantity = 0;
-
-            if (input.CartQuantity == 0)
-            {
-                quantity = 1;
-            }
-            else if (!this.ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
                 return this.BadRequest();
             }
-            else
-            {
-                quantity = input.CartQuantity;
-            }
 
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            await this.cartsService.AddItemToCart(userId, productId, input.CartQuantity);
+
+            return this.RedirectToAction("All", "Store");
+        }
+
+        public async Task<IActionResult> AddToCart(int productId, int quantity = 1)
+        {
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             await this.cartsService.AddItemToCart(userId, productId, quantity);
 
@@ -68,6 +67,15 @@
             }
 
             var result = await this.cartsService.RemoveItemFormCart(id);
+
+            return this.RedirectToAction(nameof(this.Index));
+        }
+
+        public async Task<IActionResult> RemoveAll()
+        {
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            var result = await this.cartsService.RemoveAll(userId);
 
             return this.RedirectToAction(nameof(this.Index));
         }

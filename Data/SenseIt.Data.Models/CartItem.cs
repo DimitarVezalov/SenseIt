@@ -19,7 +19,7 @@ namespace SenseIt.Data.Models
         public virtual Product Product { get; set; }
 
         [ForeignKey(nameof(Cart))]
-        public int CartId { get; set; }
+        public int? CartId { get; set; }
 
         public virtual Cart Cart { get; set; }
 
