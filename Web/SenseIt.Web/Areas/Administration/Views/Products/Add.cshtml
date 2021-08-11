@@ -11,7 +11,7 @@
     <h2 class="text-center">Create Product</h2>
 </div>
 
-<form method="post">
+<form method="post" enctype="multipart/form-data" asp-action="Add">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="input-group pb-4">
         <span class="input-group-text text-dark  border border-dark">Name</span>
@@ -25,35 +25,30 @@
         <span asp-validation-for="Brand" class="text-danger"></span>
     </div>
 
-    @*<div class="input-group pb-5">
-            <select class="form-select" asp-for="Category">
-                <option selected>Choose...</option>
-                @foreach (var category in categories)
-                {
-                    <option>@category</option>
-                }
-            </select>
-            <label class="input-group-text" for="inputGroupSelect02">Category</label>
+    <div class="input-group pb-4">
+        <select asp-for="Category" class="form-select text-dark border border-dark" asp-items="@categories">
+            <option disabled value="new">Select Category...</option>
+        </select>
+        <label class="input-group-text text-dark border border-dark" for="@categories">Category</label>
+        <span asp-validation-for="Category" class="text-danger"></span>
+        <select asp-for="Gender" class="form-select text-dark border border-dark" asp-items="@genders">
+            <option disabled value="new">Select Gender...</option>
+        </select>
+        <label class="input-group-text text-dark border border-dark" for="@genders">Gender</label>
+        <span asp-validation-for="Gender" class="text-danger"></span>
+    </div>
+
+
+    @*<div class="input-group pb-4">
+            <span class="input-group-text text-dark border border-dark">Image Url</span>
+            <input type="text" asp-for="ImageUrl" class="form-control border border-dark">
+            <span asp-validation-for="ImageUrl" class="text-danger"></span>
         </div>*@
 
-<div class="input-group pb-4">
-    <select asp-for="Category" class="form-select text-dark border border-dark" asp-items="@categories">
-        <option disabled value="new">Select Category...</option>
-    </select>
-    <label class="input-group-text text-dark border border-dark" for="@categories">Category</label>
-    <span asp-validation-for="Category" class="text-danger"></span>
-    <select asp-for="Gender" class="form-select text-dark border border-dark" asp-items="@genders">
-        <option disabled value="new">Select Gender...</option>
-    </select>
-    <label class="input-group-text text-dark border border-dark" for="@genders">Gender</label>
-    <span asp-validation-for="Gender" class="text-danger"></span>
-</div>
-
-
     <div class="input-group pb-4">
-        <span class="input-group-text text-dark border border-dark">Image Url</span>
-        <input type="text" asp-for="ImageUrl" class="form-control border border-dark">
-        <span asp-validation-for="ImageUrl" class="text-danger"></span>
+        <span class="input-group-text text-dark border border-dark">Image</span>
+        <input type="file" name="files" multiple class="form-control border border-dark">
+        <label class="custom-file-label" for="files">Choose file</label>
     </div>
 
     <div class="input-group pb-4">

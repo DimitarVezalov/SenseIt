@@ -2,7 +2,7 @@
 {
     using System;
     using System.Reflection;
-
+    using CloudinaryDotNet;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -67,6 +67,15 @@
                 options.Cookie.IsEssential = true;
             });
 
+            Account account = new Account(
+                            this.configuration["Cloudinary:my_cloud_name"],
+                            this.configuration["Cloudinary:my_api_key"],
+                            this.configuration["Cloudinary:my_api_secret"]);
+
+            Cloudinary cloudinary = new Cloudinary(account);
+
+            services.AddSingleton(cloudinary);
+
             // Data repositories
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
@@ -90,6 +99,8 @@
             services.AddTransient<IAppointmentsService, AppointmentsService>();
             services.AddTransient<ICartItemsService, CartItemsService>();
             services.AddTransient<ICartsService, CartsService>();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

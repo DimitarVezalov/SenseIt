@@ -1,7 +1,10 @@
 ﻿namespace SenseIt.Web.Areas.Administration.Controllers
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
-
+    using CloudinaryDotNet;
+    using CloudinaryDotNet.Actions;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using SenseIt.Services.Data.Admin;
     using SenseIt.Web.ViewModels.Admin.Product;
@@ -10,11 +13,16 @@
     {
         private readonly IAdminProductsService adminProductsService;
         private readonly IAdminProductCategoriesService adminCategoriesService;
+        private readonly Cloudinary cloudinary;
 
-        public ProductsController(IAdminProductsService adminProductsService, IAdminProductCategoriesService adminCategoriesService)
+        public ProductsController(
+            IAdminProductsService adminProductsService,
+            IAdminProductCategoriesService adminCategoriesService,
+            Cloudinary cloudinary)
         {
             this.adminProductsService = adminProductsService;
             this.adminCategoriesService = adminCategoriesService;
+            this.cloudinary = cloudinary;
         }
 
         public IActionResult Index()
@@ -42,12 +50,20 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(CreateProductInputModel input)
+        public async Task<IActionResult> Add(ICollection<IFormFile> files, CreateProductInputModel input)
         {
+            ;
+
             if (!this.ModelState.IsValid)
             {
                 return this.RedirectToAction(nameof(this.Add));
             }
+
+            var uploadParams = new ImageUploadParams()
+            {
+                File = new FileDescription(@"C:\Users\vezy1326\Desktop\warning.png")
+            };
+            var uploadResult = await this.cloudinary.UploadAsync(uploadParams);
 
             await this.adminProductsService.CreateAsync(input.Category, input.Name, input.ImageUrl,
                 input.Description, input.Brand, input.Gender, input.InStockQuantity, input.Price);
