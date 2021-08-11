@@ -73,6 +73,8 @@
         {
             public const int ContentMinLength = 5;
             public const int ContentMaxLength = 1000;
+
+            public const string ContentErrorMessage = "Your review should be at least 5 and no more than 1000 characters long;";
         }
 
         public static class AppointmentConstants

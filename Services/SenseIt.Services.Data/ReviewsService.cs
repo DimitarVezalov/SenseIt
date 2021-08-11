@@ -44,6 +44,7 @@
             var reviews = await this.reviewRepository
                 .AllAsNoTracking()
                 .Where(r => r.AppServiceId == appServiceId)
+                .OrderByDescending(r => r.CreatedOn)
                 .To<T>()
                 .ToListAsync();
 

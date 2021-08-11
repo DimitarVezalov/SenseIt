@@ -30,9 +30,6 @@
             var products = await this.productsService.GetAllPaging<ProductInListViewModel>(id, ProductsPerPage);
             var productsCount = this.productsService.GetCount();
 
-            //var shoppingCartList = this.GetShoppingCartList();
-            //this.SetExistsInCart(products, shoppingCartList);
-
             var categories = await this.categoriesService.GetProductCategories();
             var genders = this.productsService.GetGenders();
 
@@ -66,18 +63,6 @@
 
             productModel.Products = relatedProducts;
 
-            //var shoppingCartList = this.GetShoppingCartList();
-
-            //foreach (var item in shoppingCartList)
-            //{
-            //    if (item.ProductId == id)
-            //    {
-            //        productModel.ExistsInCart = true;
-            //    }
-            //}
-
-            //this.SetExistsInCart(relatedProducts, shoppingCartList);
-
             return this.View(productModel);
         }
 
@@ -91,9 +76,6 @@
 
             var products = await this.productsService.GetByGenderPaging<ProductInListViewModel>(id, ProductsPerPage, gender);
             var productsCount = await this.productsService.GetCount(gender);
-
-            //var shoppingCartList = this.GetShoppingCartList();
-            //this.SetExistsInCart(products, shoppingCartList);
 
             var categories = await this.categoriesService.GetProductCategories();
             var genders = this.productsService.GetGenders();
@@ -126,9 +108,6 @@
 
             var products = await this.productsService.GetByCategoryPaging<ProductInListViewModel>(id, ProductsPerPage, category);
             var productsCount = await this.productsService.GetCount(category);
-
-            //var shoppingCartList = this.GetShoppingCartList();
-            //this.SetExistsInCart(products, shoppingCartList);
 
             var categories = await this.categoriesService.GetProductCategories();
             var genders = this.productsService.GetGenders();
@@ -167,9 +146,6 @@
                 productsCount = await this.productsService.GetCount(keyword);
             }
 
-            //var shoppingCartList = this.GetShoppingCartList();
-            //this.SetExistsInCart(products, shoppingCartList);
-
             var categories = await this.categoriesService.GetProductCategories();
             var genders = this.productsService.GetGenders();
 
@@ -186,47 +162,5 @@
 
             return this.View(viewModel);
         }
-
-
-        //public IActionResult AddToCart(int id, int? quantity = 1)
-        //{
-        //    List<ShoppingCart> shoppingCartList = this.GetShoppingCartList();
-
-        //    if (!shoppingCartList.Select(x => x.ProductId).Contains(id))
-        //    {
-        //        shoppingCartList.Add(new ShoppingCart { ProductId = id, Quantity = quantity ?? 1 });
-        //    }
-
-        //    this.HttpContext.Session.Set(GlobalConstants.SessionCart, shoppingCartList);
-
-        //    return this.RedirectToAction("All");
-        //}
-
-        //private List<ShoppingCart> GetShoppingCartList()
-        //{
-        //    List<ShoppingCart> shoppingCartList = new List<ShoppingCart>();
-
-        //    if (this.HttpContext.Session.Get<IEnumerable<ShoppingCart>>(GlobalConstants.SessionCart) != null
-        //        && this.HttpContext.Session.Get<IEnumerable<ShoppingCart>>(GlobalConstants.SessionCart).Count() > 0)
-        //    {
-        //        shoppingCartList = this.HttpContext.Session.Get<List<ShoppingCart>>(GlobalConstants.SessionCart);
-        //    }
-
-        //    return shoppingCartList;
-        //}
-
-        //private void SetExistsInCart(IEnumerable<ProductInListViewModel> products, List<ShoppingCart> shoppingCartList)
-        //{
-        //    foreach (var item in shoppingCartList)
-        //    {
-        //        foreach (var prod in products)
-        //        {
-        //            if (item.ProductId == prod.Id)
-        //            {
-        //                prod.ExistsInCart = true;
-        //            }
-        //        }
-        //    }
-        //}
     }
 }

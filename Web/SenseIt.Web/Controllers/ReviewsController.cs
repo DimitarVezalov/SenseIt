@@ -47,16 +47,16 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(int? id, int rating, CreateReviewInputModel input)
+        public async Task<IActionResult> Add(int? id, int rating, string content)
         {
-            if (id == null || !this.ModelState.IsValid)
+            if (id == null || (rating < 1 || rating > 5) || content == null || (content.Length < 5 || content.Length > 1000))
             {
                 return this.Error();
             }
 
             var userId = this.userManager.GetUserId(this.User);
 
-            var result = await this.reviewsService.CreateAsync(id, userId, input.Content, input.Rating);
+            var result = await this.reviewsService.CreateAsync(id, userId, content, rating);
 
             return this.RedirectToAction(nameof(this.ServiceReviews), new { id });
         }

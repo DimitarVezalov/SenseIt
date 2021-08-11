@@ -16,8 +16,8 @@
         public int AppServiceId { get; set; }
 
         [Required]
-        [MinLength(ContentMinLength)]
-        [MaxLength(ContentMaxLength)]
+        [MinLength(ContentMinLength, ErrorMessage = ContentErrorMessage)]
+        [MaxLength(ContentMaxLength, ErrorMessage = ContentErrorMessage)]
         public string Content { get; set; }
 
         [Range(1, 5)]
