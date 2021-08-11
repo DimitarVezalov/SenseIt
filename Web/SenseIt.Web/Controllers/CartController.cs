@@ -26,11 +26,11 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddToCart(int productId, ProductDetailsViewModel input)
+        public async Task<IActionResult> AddToCart(int? productId, ProductDetailsViewModel input)
         {
-            if (!this.ModelState.IsValid)
+            if (!this.ModelState.IsValid || productId == null)
             {
-                return this.BadRequest();
+                return this.Error();
             }
 
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
@@ -63,7 +63,7 @@
         {
             if (id == null)
             {
-                return this.NotFound();
+                return this.Error();
             }
 
             var result = await this.cartsService.RemoveItemFormCart(id);

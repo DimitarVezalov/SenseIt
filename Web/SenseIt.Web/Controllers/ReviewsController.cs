@@ -32,7 +32,7 @@
         {
             if (id == null)
             {
-                return this.NotFound();
+                return this.Error();
             }
 
             var modelAppService = await this.appServicesService.GetAppServiceById<AppServiceInListViewModel>(id);
@@ -47,9 +47,9 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(int id, int rating, CreateReviewInputModel input)
+        public async Task<IActionResult> Add(int? id, int rating, CreateReviewInputModel input)
         {
-            if (!this.ModelState.IsValid)
+            if (id == null || !this.ModelState.IsValid)
             {
                 return this.Error();
             }
@@ -66,7 +66,7 @@
         {
             if (id == null)
             {
-                return this.NotFound();
+                return this.Error();
             }
 
             var viewModel = await this.appServicesService

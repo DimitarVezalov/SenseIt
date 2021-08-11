@@ -32,6 +32,11 @@
 
         public async Task<IActionResult> ByCategory(int? id)
         {
+            if (id == null)
+            {
+                return this.Error();
+            }
+
             var appServices = await this.appServicesService.GetAllByCategory<AppServiceInListViewModel>(id);
 
             var viewModel = new AllAppServicesVIewModel { AppServices = appServices };

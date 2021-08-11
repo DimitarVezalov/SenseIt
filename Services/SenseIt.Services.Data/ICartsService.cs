@@ -4,7 +4,7 @@
 
     public interface ICartsService
     {
-        Task AddItemToCart(string userId, int productId, int quantity);
+        Task AddItemToCart(string userId, int? productId, int quantity);
 
         Task<T> GetCustomerCart<T>(string customerId);
 

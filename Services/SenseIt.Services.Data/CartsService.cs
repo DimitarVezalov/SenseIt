@@ -25,9 +25,14 @@
             this.cartItemsService = cartItemsService;
         }
 
-        public async Task AddItemToCart(string userId, int productId, int quantity)
+        public async Task AddItemToCart(string userId, int? productId, int quantity)
         {
-            var cart = await this.InitializeCart(userId);
+            await this.InitializeCart(userId);
+
+            var cart = await this.cartRepo
+                .All()
+                .Where(c => c.CustometId == userId)
+                .FirstOrDefaultAsync();
 
             if (cart.CartItems.Any(ci => ci.ProductId == productId))
             {
@@ -40,7 +45,7 @@
             }
             else
             {
-                cart.CartItems.Add(new CartItem { ProductId = productId, Quantity = quantity });
+                cart.CartItems.Add(new CartItem { ProductId = (int)productId, Quantity = quantity });
                 await this.cartRepo.SaveChangesAsync();
             }
 
@@ -48,6 +53,8 @@
 
         public async Task<T> GetCustomerCart<T>(string customerId)
         {
+            await this.InitializeCart(customerId);
+
             var currentCart = await this.cartRepo
                 .All()
                 .Include(c => c.CartItems)
@@ -96,13 +103,13 @@
             return result;
         }
 
-        private async Task<Cart> InitializeCart(string userId)
+        private async Task InitializeCart(string userId)
         {
-            var currentCart = this.cartRepo
+            var currentCart = await this.cartRepo
                 .All()
                 .Include(c => c.CartItems)
                 .Where(c => c.CustometId == userId)
-                .FirstOrDefault();
+                .FirstOrDefaultAsync();
 
             if (currentCart == null)
             {
@@ -114,8 +121,6 @@
                 await this.cartRepo.AddAsync(currentCart);
                 var result = await this.cartRepo.SaveChangesAsync();
             }
-
-            return currentCart;
         }
     }
 }

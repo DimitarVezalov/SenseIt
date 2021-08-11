@@ -18,11 +18,11 @@
             this.reviewRepository = reviewRepository;
         }
 
-        public async Task<int> CreateAsync(int appServiceId, string postedById, string content, int rating)
+        public async Task<int> CreateAsync(int? appServiceId, string postedById, string content, int rating)
         {
             var review = new Review
             {
-                AppServiceId = appServiceId,
+                AppServiceId = (int)appServiceId,
                 PostedById = postedById,
                 Content = content,
                 Rating = rating,

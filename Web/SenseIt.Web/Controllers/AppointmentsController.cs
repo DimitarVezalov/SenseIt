@@ -27,8 +27,13 @@
             this.userManager = userManager;
         }
 
-        public async Task<IActionResult> Index(int id)
+        public async Task<IActionResult> Index(int? id)
         {
+            if (id == null)
+            {
+                return this.Error();
+            }
+
             var appService = await this.appServicesService
                 .GetAppServiceById<AppointmentAppServiceViewModel>(id);
 
@@ -69,11 +74,11 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Cancel(int? id, int appServiceId)
+        public async Task<IActionResult> Cancel(int? id, int? appServiceId)
         {
-            if (id == null)
+            if (id == null || appServiceId == null)
             {
-                return this.NotFound();
+                return this.Error();
             }
 
             var result = await this.appointmentsService.CancelAppointment(id);
