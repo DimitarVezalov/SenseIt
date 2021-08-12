@@ -37,10 +37,12 @@
     <li>TinyMCE</li>
     <li>Sweetallert2</li>
     <hr>
-    <ul>
+   <li>
+        <ul>
         To Be Added
         <li>SendGrid Or MailJet</li>
         <li>Testing</li>
     </ul>
+    </li>
 </ul>
 
