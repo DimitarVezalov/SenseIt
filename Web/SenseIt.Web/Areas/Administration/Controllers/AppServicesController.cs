@@ -10,6 +10,8 @@
     using SenseIt.Web.Utility;
     using SenseIt.Web.ViewModels.Admin.AppServices;
 
+    using static SenseIt.Common.GlobalConstants;
+
     public class AppServicesController : AdministrationController
     {
         private readonly IAdminAppServicesService adminAppServicesService;
@@ -33,7 +35,8 @@
 
         public async Task<IActionResult> All()
         {
-            var services = await this.adminAppServicesService.GetAllAppServicesAsync<AdminAppServiceListingViewModel>();
+            var services = await this.adminAppServicesService
+                .GetAllAppServicesAsync<AdminAppServiceListingViewModel>();
 
             return this.View(services);
         }
@@ -58,7 +61,8 @@
                 return this.RedirectToAction(nameof(this.Add));
             }
 
-            var imageUrl = await CloudinaryHelper.Upload(this.cloudinary, files);
+            var imageUrl = await CloudinaryHelper
+                .Upload(this.cloudinary, files, CloudinaryConstants.ServicesFolderName);
 
             var result = await this.adminAppServicesService
                 .CreateAsync(input.Name, input.Description, input.Duration, input.Category, imageUrl, input.Price);
@@ -73,7 +77,8 @@
                 return this.BadRequest();
             }
 
-            var service = await this.adminAppServicesService.GetDetailsModel<AppServiceDetailsModel>(id);
+            var service = await this.adminAppServicesService
+                .GetDetailsModel<AppServiceDetailsModel>(id);
 
             if (service == null)
             {
@@ -110,7 +115,10 @@
                 return this.RedirectToAction($"{nameof(this.Edit)}/{id}");
             }
 
-            var imageUrl = files.Any() ? await CloudinaryHelper.Upload(this.cloudinary, files) : null;
+            var imageUrl = files.Any() ?
+                await CloudinaryHelper
+                .Upload(this.cloudinary, files, CloudinaryConstants.ServicesFolderName)
+                : null;
 
             var result = await this.adminAppServicesService
                 .Update(id, input.Name, input.Description, imageUrl, input.Category, input.Duration, input.Price);

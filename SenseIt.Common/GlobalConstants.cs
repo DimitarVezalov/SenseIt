@@ -89,5 +89,13 @@
             public const int SuccessCode = 1;
             public const int ErrorCode = 0;
         }
+
+        public static class CloudinaryConstants
+        {
+            public const string ProductsFolderName = "SenseIt/Products";
+            public const string ServicesFolderName = "SenseIt/Services";
+            public const string ServiceCategoriesFolderName = "SenseIt/ServiceCategories";
+
+        }
     }
 }

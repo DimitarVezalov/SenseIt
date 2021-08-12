@@ -11,6 +11,9 @@
     using SenseIt.Web.Utility;
     using SenseIt.Web.ViewModels.Admin.Product;
 
+    using static SenseIt.Common.GlobalConstants;
+
+
     public class ProductsController : AdministrationController
     {
         private readonly IAdminProductsService adminProductsService;
@@ -34,7 +37,8 @@
 
         public async Task<IActionResult> All()
         {
-            var products = await this.adminProductsService.GetAllProductsAsync<AdminProductsListingViewModel>();
+            var products = await this.adminProductsService
+                .GetAllProductsAsync<AdminProductsListingViewModel>();
 
             return this.View(products);
         }
@@ -59,7 +63,8 @@
                 return this.RedirectToAction(nameof(this.Add));
             }
 
-            var imageUrl = await CloudinaryHelper.Upload(this.cloudinary, files);
+            var imageUrl = await CloudinaryHelper
+                .Upload(this.cloudinary, files, CloudinaryConstants.ProductsFolderName);
 
             await this.adminProductsService.CreateAsync(input.Category, input.Name, imageUrl,
                 input.Description, input.Brand, input.Gender, input.InStockQuantity, input.Price);
@@ -110,7 +115,8 @@
                 return this.NotFound();
             }
 
-            var model = await this.adminProductsService.GetDetailsModel<AdminProductDetailsViewModel>(id);
+            var model = await this.adminProductsService
+                .GetDetailsModel<AdminProductDetailsViewModel>(id);
 
             return this.View(model);
         }
@@ -125,7 +131,9 @@
             var categoris = await this.adminCategoriesService.GetCategoryNames();
             var genders = this.adminProductsService.GetGendersList();
 
-            var product = await this.adminProductsService.GetProductById<AdminProductUpdateFormModel>(id);
+            var product = await this.adminProductsService
+                .GetProductById<AdminProductUpdateFormModel>(id);
+
             product.Categories = categoris;
             product.Genders = genders;
 
@@ -145,7 +153,10 @@
                 return this.RedirectToAction($"{nameof(this.Edit)}/{id}");
             }
 
-            var imageUrl = files.Any() ? await CloudinaryHelper.Upload(this.cloudinary, files) : null;
+            var imageUrl = files.Any() ? 
+                await CloudinaryHelper
+                .Upload(this.cloudinary, files, CloudinaryConstants.ProductsFolderName)
+                : null;
 
             var isUpdated = await this.adminProductsService.Update(id, input.Name, input.Description,
                 input.CategoryName, imageUrl, input.Brand, input.Gender, input.Price);

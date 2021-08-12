@@ -35,7 +35,8 @@ namespace SenseIt.Web.Areas.Administration.Controllers
 
         public async Task<IActionResult> All()
         {
-            var categories = await this.productCategoriesService.GetCategoriesList<ProductCategoriesListingViewModel>();
+            var categories = await this.productCategoriesService
+                .GetCategoriesList<ProductCategoriesListingViewModel>();
 
             return this.View(categories);
         }
@@ -47,7 +48,8 @@ namespace SenseIt.Web.Areas.Administration.Controllers
                 return this.NotFound();
             }
 
-            var model = await this.productCategoriesService.GetEditModel<ProductCategoryAddEditModel>(id);
+            var model = await this.productCategoriesService
+                .GetEditModel<ProductCategoryAddEditModel>(id);
 
             return this.View(model);
         }

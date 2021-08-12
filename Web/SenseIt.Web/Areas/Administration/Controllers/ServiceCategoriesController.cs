@@ -10,6 +10,7 @@
     using SenseIt.Web.Utility;
     using SenseIt.Web.ViewModels.Admin.Categories.AppServiceCategory;
 
+    using static SenseIt.Common.GlobalConstants;
 
     public class ServiceCategoriesController : AdministrationController
     {
@@ -37,7 +38,8 @@
                 return this.RedirectToAction(nameof(this.Add));
             }
 
-            var imageUrl = await CloudinaryHelper.Upload(this.cloudinary, files);
+            var imageUrl = await CloudinaryHelper
+                .Upload(this.cloudinary, files, CloudinaryConstants.ServiceCategoriesFolderName);
 
             var result = await this.serviceCategoriesService.CreateAsync(input.Name, input.Description, imageUrl);
 
@@ -76,7 +78,10 @@
                 return this.RedirectToAction($"{nameof(this.Edit)}/{id}");
             }
 
-            var imageUrl = files.Any() ? await CloudinaryHelper.Upload(this.cloudinary, files) : null;
+            var imageUrl = files.Any() ?
+                await CloudinaryHelper
+                .Upload(this.cloudinary, files, CloudinaryConstants.ServiceCategoriesFolderName)
+                : null;
 
             var result = await this.serviceCategoriesService.Edit(id, input.Name, input.Description, imageUrl);
 

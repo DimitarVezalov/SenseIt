@@ -10,7 +10,7 @@
 
     public class CloudinaryHelper
     {
-        public static async Task<string> Upload(Cloudinary cloudinary, ICollection<IFormFile> files)
+        public static async Task<string> Upload(Cloudinary cloudinary, ICollection<IFormFile> files, string folder)
         {
             var imageUrl = "";
 
@@ -28,6 +28,7 @@
                 {
                     var uploadParams = new ImageUploadParams()
                     {
+                        Folder = folder,
                         File = new FileDescription(file.FileName, destinationStream),
                     };
 
