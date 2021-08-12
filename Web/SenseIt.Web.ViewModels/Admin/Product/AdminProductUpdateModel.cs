@@ -35,7 +35,6 @@
         [Required]
         public string CategoryName { get; set; }
 
-        [Required]
         public string ImageUrl { get; set; }
 
         [Range(0.1, 1000.00)]

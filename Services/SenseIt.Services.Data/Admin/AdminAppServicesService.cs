@@ -28,9 +28,9 @@
         public async Task<int> CreateAsync(
             string name,
             string description,
+            string duration,
             string category,
             string imageUrl,
-            string duration,
             decimal price)
         {
             var categoryId = await this.categoriesService.GetCategoryIdByName(category);
@@ -92,7 +92,7 @@
                 .AllWithDeleted()
                 .FirstOrDefault(s => s.Id == id);
 
-            appService.ImageUrl = imageUrl;
+            appService.ImageUrl = imageUrl == null ? appService.ImageUrl : imageUrl;
             appService.Name = name;
             appService.Description = description;
             appService.Price = price;

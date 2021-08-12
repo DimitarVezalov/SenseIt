@@ -1,19 +1,27 @@
 ﻿namespace SenseIt.Web.Areas.Administration.Controllers
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
-
+    using CloudinaryDotNet;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using SenseIt.Services.Data.Admin;
+    using SenseIt.Web.Utility;
     using SenseIt.Web.ViewModels.Admin.Categories.AppServiceCategory;
 
 
     public class ServiceCategoriesController : AdministrationController
     {
         private readonly IAdminServiceCategoriesService serviceCategoriesService;
+        private readonly Cloudinary cloudinary;
 
-        public ServiceCategoriesController(IAdminServiceCategoriesService serviceCategoriesService)
+        public ServiceCategoriesController(
+            IAdminServiceCategoriesService serviceCategoriesService,
+            Cloudinary cloudinary)
         {
             this.serviceCategoriesService = serviceCategoriesService;
+            this.cloudinary = cloudinary;
         }
 
         public IActionResult Add()
@@ -22,14 +30,16 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(AppServiceCategoryAddEditModel input)
+        public async Task<IActionResult> Add(ICollection<IFormFile> files, AppServiceCategoryAddEditModel input)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.RedirectToAction(nameof(this.Add));
             }
 
-            var result = await this.serviceCategoriesService.CreateAsync(input.Name, input.Description, input.ImageUrl);
+            var imageUrl = await CloudinaryHelper.Upload(this.cloudinary, files);
+
+            var result = await this.serviceCategoriesService.CreateAsync(input.Name, input.Description, imageUrl);
 
             return this.RedirectToAction(nameof(this.All));
         }
@@ -54,7 +64,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int? id, AppServiceCategoryAddEditModel input)
+        public async Task<IActionResult> Edit(int? id, ICollection<IFormFile> files, AppServiceCategoryAddEditModel input)
         {
             if (id == null)
             {
@@ -66,7 +76,9 @@
                 return this.RedirectToAction($"{nameof(this.Edit)}/{id}");
             }
 
-            var result = await this.serviceCategoriesService.Edit(id, input.Name, input.Description, input.ImageUrl);
+            var imageUrl = files.Any() ? await CloudinaryHelper.Upload(this.cloudinary, files) : null;
+
+            var result = await this.serviceCategoriesService.Edit(id, input.Name, input.Description, imageUrl);
 
             return this.RedirectToAction(nameof(this.All));
         }

@@ -1,22 +1,29 @@
 ﻿namespace SenseIt.Web.Areas.Administration.Controllers
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
-
+    using CloudinaryDotNet;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using SenseIt.Services.Data.Admin;
+    using SenseIt.Web.Utility;
     using SenseIt.Web.ViewModels.Admin.AppServices;
 
     public class AppServicesController : AdministrationController
     {
         private readonly IAdminAppServicesService adminAppServicesService;
         private readonly IAdminServiceCategoriesService categoriesService;
+        private readonly Cloudinary cloudinary;
 
         public AppServicesController(
             IAdminAppServicesService adminAppServicesService,
-            IAdminServiceCategoriesService categoriesService)
+            IAdminServiceCategoriesService categoriesService,
+            Cloudinary cloudinary)
         {
             this.adminAppServicesService = adminAppServicesService;
             this.categoriesService = categoriesService;
+            this.cloudinary = cloudinary;
         }
 
         public IActionResult Index()
@@ -44,15 +51,17 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(CreateAppServiceInputModel input)
+        public async Task<IActionResult> Add(ICollection<IFormFile> files, CreateAppServiceInputModel input)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.RedirectToAction(nameof(this.Add));
             }
 
+            var imageUrl = await CloudinaryHelper.Upload(this.cloudinary, files);
+
             var result = await this.adminAppServicesService
-                .CreateAsync(input.Name, input.Description, input.Duration, input.Category, input.ImageUrl, input.Price);
+                .CreateAsync(input.Name, input.Description, input.Duration, input.Category, imageUrl, input.Price);
 
             return this.RedirectToAction(nameof(this.All));
         }
@@ -89,7 +98,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int? id, EditAppServiceInputModel input)
+        public async Task<IActionResult> Edit(int? id, ICollection<IFormFile> files, EditAppServiceInputModel input)
         {
             if (id == null)
             {
@@ -101,8 +110,10 @@
                 return this.RedirectToAction($"{nameof(this.Edit)}/{id}");
             }
 
+            var imageUrl = files.Any() ? await CloudinaryHelper.Upload(this.cloudinary, files) : null;
+
             var result = await this.adminAppServicesService
-                .Update(id, input.Name, input.Description, input.ImageUrl, input.Category, input.Duration, input.Price);
+                .Update(id, input.Name, input.Description, imageUrl, input.Category, input.Duration, input.Price);
 
             return this.RedirectToAction(nameof(this.All));
         }

@@ -168,7 +168,7 @@
 
 
     <script src="https://cdn.tiny.cloud/1/xvkwiavb02ht7zusxc1g7vo34xetij95ggytl1jcevvrichm/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        @*<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>*@
 
 </body>
 
@@ -244,17 +244,39 @@
 
             let contentLength = getContentLength();
 
-            if ((contentLength < 5 || contentLength > 1000) || selectedRating < 1) {
+            if ((contentLength < 5 || contentLength > 1000) && selectedRating < 1) {
 
                 Swal.fire(
                     'Error!',
-                    'Your input is not valid!',
+                    'Write your review and chose your rating!',
                     'error'
                 )
 
                 return false;
 
             }
+            else if ((contentLength < 5 || contentLength > 1000) && selectedRating > 0) {
+
+                Swal.fire(
+                    'Error!',
+                    'Write your review!',
+                    'error'
+                )
+
+                return false;
+            }
+            else if ((contentLength >= 5 && contentLength <= 1000) && selectedRating < 1) {
+
+                Swal.fire(
+                    'Error!',
+                    'Choose your rating!',
+                    'error'
+                )
+
+                return false;
+            }
+
+            return true;
         }
 
 

@@ -3,27 +3,43 @@
 @{
     this.ViewData["Title"] = "Admin dashboard";
 }
-<title>@this.ViewData["Title"]</title>
-<h2 class="text-center mt-3">Add New Category</h2>
-<div class="mb-4">
-    <hr />
-</div>
 
-<form method="post" class="form-control border-light">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <div class="input-group mb-3">
-        <input type="text" placeholder="Name" aria-label="Name" class="form-control" asp-for="Name">
-        <span asp-validation-for="Name" class="text-danger"></span>
-    </div>
-    <div class="input-group mb-3">
-        <textarea type="text" rows="4" placeholder="Description" aria-label="Description" class="form-control" asp-for="Description"></textarea>
-        <span asp-validation-for="Description" class="text-danger"></span>
-    </div>
-    <div class="input-group mb-3">
-        <input type="text" placeholder="ImageUrl" aria-label="ImageUrl" class="form-control" asp-for="ImageUrl">
-        <span asp-validation-for="ImageUrl" class="text-danger"></span>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>@this.ViewData["Title"]</title>
+
+</head>
+<body>
+
+    <h2 class="text-center mt-3">Add New Category</h2>
+    <div class="mb-4">
+        <hr />
     </div>
 
-    <button class="btn btn-outline-success" type="submit" id="button-addon2">Submit</button>
+    <form method="post" enctype="multipart/form-data" class="form-control border-light">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="input-group mb-3">
+            <span class="input-group-text text-dark border border-dark">Name</span>
+            <input type="text" placeholder="Name" aria-label="Name" class="form-control border border-dark" asp-for="Name">
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text text-dark border border-dark">Description</span>
+            <textarea type="text" rows="4" placeholder="Description" aria-label="Description" class="form-control border border-dark" asp-for="Description"></textarea>
+            <span asp-validation-for="Description" class="text-danger "></span>
+        </div>
+        <div class="input-group pb-4">
+            <span class="input-group-text text-dark border border-dark">Image</span>
+            <input type="file" name="files" multiple id="uploadBox" class="form-control border border-dark">
+            <label class="custom-file-label" for="files"></label>
+        </div>
+        <div class="row">
+            <button class="btn btn-outline-success" type="submit" onclick="return validateUpload()" id="button-addon2">Submit</button>
+        </div>
+    </form>
 
-</form>
+    <script src="~/js/sweetallert/sweet-allert-validation.js"></script>
+</body>
+</html>
+
+

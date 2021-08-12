@@ -126,7 +126,7 @@
 
             product.Name = name;
             product.Description = description;
-            product.ImageUrl = imageUrl;
+            product.ImageUrl = imageUrl == null ? product.ImageUrl : imageUrl;
             product.Price = price;
             product.Brand = brand;
             product.CategoryId = categoryId;

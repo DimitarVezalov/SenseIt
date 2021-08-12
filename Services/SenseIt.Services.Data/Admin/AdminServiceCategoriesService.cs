@@ -48,7 +48,7 @@
 
             category.Name = name;
             category.Description = description;
-            category.ImageUrl = imageUrl;
+            category.ImageUrl = imageUrl == null ? category.ImageUrl : imageUrl;
 
             this.categoryRepository.Update(category);
             var result = await this.categoryRepository.SaveChangesAsync();

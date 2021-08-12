@@ -1,12 +1,14 @@
 ﻿namespace SenseIt.Web.Areas.Administration.Controllers
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
     using CloudinaryDotNet;
     using CloudinaryDotNet.Actions;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using SenseIt.Services.Data.Admin;
+    using SenseIt.Web.Utility;
     using SenseIt.Web.ViewModels.Admin.Product;
 
     public class ProductsController : AdministrationController
@@ -52,20 +54,14 @@
         [HttpPost]
         public async Task<IActionResult> Add(ICollection<IFormFile> files, CreateProductInputModel input)
         {
-            ;
-
             if (!this.ModelState.IsValid)
             {
                 return this.RedirectToAction(nameof(this.Add));
             }
 
-            var uploadParams = new ImageUploadParams()
-            {
-                File = new FileDescription(@"C:\Users\vezy1326\Desktop\warning.png")
-            };
-            var uploadResult = await this.cloudinary.UploadAsync(uploadParams);
+            var imageUrl = await CloudinaryHelper.Upload(this.cloudinary, files);
 
-            await this.adminProductsService.CreateAsync(input.Category, input.Name, input.ImageUrl,
+            await this.adminProductsService.CreateAsync(input.Category, input.Name, imageUrl,
                 input.Description, input.Brand, input.Gender, input.InStockQuantity, input.Price);
 
             return this.RedirectToAction(nameof(this.All));
@@ -137,7 +133,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(AdminProductUpdateModel input, int? id)
+        public async Task<IActionResult> Edit(ICollection<IFormFile> files, AdminProductUpdateModel input, int? id)
         {
             if (id == null)
             {
@@ -149,8 +145,10 @@
                 return this.RedirectToAction($"{nameof(this.Edit)}/{id}");
             }
 
+            var imageUrl = files.Any() ? await CloudinaryHelper.Upload(this.cloudinary, files) : null;
+
             var isUpdated = await this.adminProductsService.Update(id, input.Name, input.Description,
-                input.CategoryName, input.ImageUrl, input.Brand, input.Gender, input.Price);
+                input.CategoryName, imageUrl, input.Brand, input.Gender, input.Price);
 
             return this.RedirectToAction(nameof(this.All));
         }

@@ -38,6 +38,7 @@
         public decimal Price { get; set; }
 
         public virtual ICollection<Review> Reviews { get; set; }
+
         public virtual ICollection<Appointment> Appointments { get; set; }
     }
 }

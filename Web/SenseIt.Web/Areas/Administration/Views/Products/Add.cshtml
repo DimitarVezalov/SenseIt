@@ -6,73 +6,84 @@
     var genders = this.Model.Genders.Select(x => new SelectListItem(x, x));
 }
 
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
 
-<div>
-    <h2 class="text-center">Create Product</h2>
-</div>
-
-<form method="post" enctype="multipart/form-data" asp-action="Add">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <div class="input-group pb-4">
-        <span class="input-group-text text-dark  border border-dark">Name</span>
-        <input type="text" asp-for="Name" class="form-control border border-dark">
-        <span asp-validation-for="Name" class="text-danger"></span>
+</head>
+<body>
+    <div>
+        <h2 class="text-center">Create Product</h2>
     </div>
 
-    <div class="input-group pb-4">
-        <span class="input-group-text text-dark  border border-dark">Brand</span>
-        <input type="text" asp-for="Brand" class="form-control border border-dark">
-        <span asp-validation-for="Brand" class="text-danger"></span>
-    </div>
-
-    <div class="input-group pb-4">
-        <select asp-for="Category" class="form-select text-dark border border-dark" asp-items="@categories">
-            <option disabled value="new">Select Category...</option>
-        </select>
-        <label class="input-group-text text-dark border border-dark" for="@categories">Category</label>
-        <span asp-validation-for="Category" class="text-danger"></span>
-        <select asp-for="Gender" class="form-select text-dark border border-dark" asp-items="@genders">
-            <option disabled value="new">Select Gender...</option>
-        </select>
-        <label class="input-group-text text-dark border border-dark" for="@genders">Gender</label>
-        <span asp-validation-for="Gender" class="text-danger"></span>
-    </div>
-
-
-    @*<div class="input-group pb-4">
-            <span class="input-group-text text-dark border border-dark">Image Url</span>
-            <input type="text" asp-for="ImageUrl" class="form-control border border-dark">
-            <span asp-validation-for="ImageUrl" class="text-danger"></span>
-        </div>*@
-
-    <div class="input-group pb-4">
-        <span class="input-group-text text-dark border border-dark">Image</span>
-        <input type="file" name="files" multiple class="form-control border border-dark">
-        <label class="custom-file-label" for="files">Choose file</label>
-    </div>
-
-    <div class="input-group pb-4">
-        <span class="input-group-text text-dark border border-dark">$</span>
-        <input type="number" asp-for="Price" class="form-control border border-dark">
-        <span asp-validation-for="Price" class="text-danger"></span>
-        <span class="input-group-text text-dark border border-dark">Qty</span>
-        <input type="number" asp-for="InStockQuantity" class="form-control border border-dark">
-        <span asp-validation-for="InStockQuantity" class="text-danger"></span>
-    </div>
-
-    <div class="input-group pb-4">
-        <span class="input-group-text text-dark  border border-dark">Description</span>
-        <textarea rows="4" asp-for="Description" class="form-control border border-dark"></textarea>
-        <span asp-validation-for="Description" class="text-danger"></span>
-    </div>
-
-    <div class="row">
-        <div class="col-6">
-            <input type="submit" class="btn btn-outline-info form-control" value="Create" />
+    <form method="post" enctype="multipart/form-data" asp-action="Add">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="input-group pb-4">
+            <span class="input-group-text text-dark  border border-dark">Name</span>
+            <input type="text" asp-for="Name" class="form-control border border-dark">
+            <span asp-validation-for="Name" class="text-danger"></span>
         </div>
-        <div class="col-6">
-            <a asp-action="All" class="btn btn-outline-dark form-control">Back to List</a>
+
+        <div class="input-group pb-4">
+            <span class="input-group-text text-dark  border border-dark">Brand</span>
+            <input type="text" asp-for="Brand" class="form-control border border-dark">
+            <span asp-validation-for="Brand" class="text-danger"></span>
         </div>
-    </div>
-</form>
+
+        <div class="input-group pb-4">
+            <select asp-for="Category" class="form-select text-dark border border-dark" asp-items="@categories">
+                <option disabled value="new">Select Category...</option>
+            </select>
+            <label class="input-group-text text-dark border border-dark" for="@categories">Category</label>
+            <span asp-validation-for="Category" class="text-danger"></span>
+            <select asp-for="Gender" class="form-select text-dark border border-dark" asp-items="@genders">
+                <option disabled value="new">Select Gender...</option>
+            </select>
+            <label class="input-group-text text-dark border border-dark" for="@genders">Gender</label>
+            <span asp-validation-for="Gender" class="text-danger"></span>
+        </div>
+
+
+        @*<div class="input-group pb-4">
+                <span class="input-group-text text-dark border border-dark">Image Url</span>
+                <input type="text" asp-for="ImageUrl" class="form-control border border-dark">
+                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+            </div>*@
+
+        <div class="input-group pb-4">
+            <span class="input-group-text text-dark border border-dark">Image</span>
+            <input type="file" name="files" multiple id="uploadBox" class="form-control border border-dark">
+            <label class="custom-file-label" for="files">Choose file</label>
+        </div>
+
+        <div class="input-group pb-4">
+            <span class="input-group-text text-dark border border-dark">$</span>
+            <input type="number" asp-for="Price" class="form-control border border-dark">
+            <span asp-validation-for="Price" class="text-danger"></span>
+            <span class="input-group-text text-dark border border-dark">Qty</span>
+            <input type="number" asp-for="InStockQuantity" class="form-control border border-dark">
+            <span asp-validation-for="InStockQuantity" class="text-danger"></span>
+        </div>
+
+        <div class="input-group pb-4">
+            <span class="input-group-text text-dark  border border-dark">Description</span>
+            <textarea rows="4" asp-for="Description" class="form-control border border-dark"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        <div class="row">
+            <div class="col-6">
+                <input type="submit" onclick="return validateUpload()" class="btn btn-outline-info form-control" value="Create" />
+            </div>
+            <div class="col-6">
+                <a asp-action="All" class="btn btn-outline-dark form-control">Back to List</a>
+            </div>
+        </div>
+    </form>
+
+
+    <script src="~/js/sweetallert/sweet-allert-validation.js"></script>
+</body>
+</html>
+
 

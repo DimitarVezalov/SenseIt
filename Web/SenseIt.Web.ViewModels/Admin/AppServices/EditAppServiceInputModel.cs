@@ -22,7 +22,6 @@
 
         public IEnumerable<string> Categories { get; set; }
 
-        [Required]
         public string ImageUrl { get; set; }
 
         [Range(0.1, 1000.00)]

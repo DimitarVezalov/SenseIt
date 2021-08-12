@@ -6,67 +6,66 @@
     var categories = this.Model.Categories.Select(c => new SelectListItem(c, c));
 }
 
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>@this.ViewData["Title"]</title>
+</head>
+<body>
 
-<div>
-    <h2 class="text-center">Create Service</h2>
-</div>
-
-<form method="post">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <div class="input-group pb-5">
-        <span class="input-group-text">Name</span>
-        <input type="text" asp-for="Name" class="form-control">
-        <span asp-validation-for="Name" class="text-danger"></span>
+    <div>
+        <h2 class="text-center">Create Service</h2>
     </div>
 
-    @*<div class="input-group pb-5">
-            <select class="form-select" asp-for="Category">
-                <option selected>Choose...</option>
-                @foreach (var category in categories)
-                {
-                    <option>@category</option>
-                }
+    <form method="post" enctype="multipart/form-data" asp-action="Add">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="input-group pb-5">
+            <span class="input-group-text">Name</span>
+            <input type="text" asp-for="Name" class="form-control">
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="input-group pb-5">
+            <select asp-for="Category" class="form-select" asp-items="@categories">
+                <option disabled value="new">Select Category...</option>
             </select>
-            <label class="input-group-text" for="inputGroupSelect02">Category</label>
-        </div>*@
-
-    <div class="input-group pb-5">
-        <select asp-for="Category" class="form-select" asp-items="@categories">
-            <option disabled value="new">Select Category...</option>
-        </select>
-        <label class="input-group-text" for="@categories">Category</label>
-        <span asp-validation-for="Category" class="text-danger"></span>
-    </div>
-
-    <div class="input-group pb-5">
-        <span class="input-group-text">Image Url</span>
-        <input type="text" asp-for="ImageUrl" class="form-control">
-        <span asp-validation-for="ImageUrl" class="text-danger"></span>
-    </div>
-
-    <div class="input-group pb-5">
-        <span class="input-group-text">$</span>
-        <input type="number" asp-for="Price" class="form-control">
-        <span asp-validation-for="Price" class="text-danger"></span>
-        <span class="input-group-text">Duration</span>
-        <input type="text" placeholder="HH:MM" aria-label="HH:MM" asp-for="Duration" class="form-control">
-        <span asp-validation-for="Duration" class="text-danger"></span>
-    </div>
-
-    <div class="input-group pb-5">
-        <span class="input-group-text">Description</span>
-        <textarea rows="4" asp-for="Description" class="form-control"></textarea>
-        <span asp-validation-for="Description" class="text-danger"></span>
-    </div>
-
-    <div class="row">
-        <div class="col-6">
-            <input type="submit" class="btn btn-lg btn-info form-control" value="Create" />
+            <label class="input-group-text" for="@categories">Category</label>
+            <span asp-validation-for="Category" class="text-danger"></span>
         </div>
-        <div class="col-6">
-            <a asp-action="All" class="btn btn-lg btn-secondary form-control">Back to List</a>
+
+        <div class="input-group pb-4">
+            <span class="input-group-text text-dark border border-dark">Image</span>
+            <input type="file" name="files" multiple id="uploadBox" class="form-control border border-dark">
+            <label class="custom-file-label" for="files"></label>
         </div>
-    </div>
-</form>
+
+        <div class="input-group pb-5">
+            <span class="input-group-text">$</span>
+            <input type="number" asp-for="Price" class="form-control">
+            <span asp-validation-for="Price" class="text-danger"></span>
+            <span class="input-group-text">Duration</span>
+            <input type="text" placeholder="HH:MM" aria-label="HH:MM" asp-for="Duration" class="form-control">
+            <span asp-validation-for="Duration" class="text-danger"></span>
+        </div>
+
+        <div class="input-group pb-5">
+            <span class="input-group-text">Description</span>
+            <textarea rows="4" asp-for="Description" class="form-control"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        <div class="row">
+            <div class="col-6">
+                <input type="submit" onclick="return validateUpload()" class="btn btn-lg btn-info form-control" value="Create" />
+            </div>
+            <div class="col-6">
+                <a asp-action="All" class="btn btn-lg btn-secondary form-control">Back to List</a>
+            </div>
+        </div>
+    </form>
+
+    <script src="~/js/sweetallert/sweet-allert-validation.js"></script>
+</body>
+</html>
+
 
 

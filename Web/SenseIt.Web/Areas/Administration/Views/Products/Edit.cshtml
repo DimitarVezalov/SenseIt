@@ -12,7 +12,7 @@
         <div class="col">
             <div class="pb-4 pt-5">
             </div>
-            <form method="post">
+            <form method="post" enctype="multipart/form-data" asp-action="Edit">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="input-group pb-5">
                     <span class="input-group-text text-dark border border-dark">Name</span>
@@ -40,10 +40,10 @@
                     <span asp-validation-for="Gender" class="text-danger"></span>
                 </div>
 
-                <div class="input-group pb-5">
-                    <span class="input-group-text text-dark  border border-dark">Image Ur</span>
-                    <input type="text" asp-for="ImageUrl" class="form-control border border-dark">
-                    <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                <div class="input-group pb-4">
+                    <span class="input-group-text text-dark border border-dark">Image</span>
+                    <input type="file" name="files" multiple asp-for="ImageUrl" class="form-control border border-dark">
+                    <label class="custom-file-label" for="files">Choose file</label>
                 </div>
 
                 <div class="input-group pb-5">
