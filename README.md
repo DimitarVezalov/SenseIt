@@ -14,7 +14,7 @@
         <li>The Registered Users can take benefit of the real functionality of the application witch includes:
             <ul>
                 <li>Selecting and ordering products from the application Store.</li>
-                <li>Book Appointment for the services that the studio provides.
+                <li>Book Appointment for the services which the studio provides.
                     Manage the booked appointments and receive a conformation email
                     for the current booking.
                 </li>
