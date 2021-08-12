@@ -28,7 +28,7 @@
                 {
                     var uploadParams = new ImageUploadParams()
                     {
-                        Folder = folder,
+                        Folder = folderName,
                         File = new FileDescription(file.FileName, destinationStream),
                     };
 
