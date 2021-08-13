@@ -36,11 +36,11 @@
     <li>Cloudinary</li>
     <li>TinyMCE</li>
     <li>Sweetallert2</li>
+    <li>SendGrid</li> 
     <hr>
    <li>
         <ul>
         To Be Added
-        <li>SendGrid Or MailJet</li>
         <li>Testing</li>
     </ul>
     </li>
