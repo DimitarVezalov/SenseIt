@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq;
+    using System.Security.Claims;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
@@ -79,6 +80,29 @@
             viewModel.OverallRating = modelReviews.Any() ? (int)Math.Round(modelReviews.Average(r => r.Rating)) : 0;
 
             return this.View(viewModel);
+        }
+
+        public async Task<IActionResult> AllByUser()
+        {
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            var reviews = await this.reviewsService
+                .GetAllByUserId<UserReviewsViewModel>(userId);
+
+            return this.View(reviews);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return this.Error();
+            }
+
+            var result = await this.reviewsService.Delete(id);
+
+            return this.RedirectToAction(nameof(this.AllByUser));
         }
     }
 }

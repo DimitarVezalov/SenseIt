@@ -34,6 +34,23 @@
             return result;
         }
 
+        public async Task<bool> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return false;
+            }
+
+            var review = await this.reviewRepository
+                .All()
+                .FirstOrDefaultAsync(r => r.Id == id);
+
+            this.reviewRepository.HardDelete(review);
+            var result = await this.reviewRepository.SaveChangesAsync();
+
+            return result > 0;
+        }
+
         public async Task<IEnumerable<T>> GetAllByAppService<T>(int? appServiceId)
         {
             if (appServiceId == null)
@@ -44,6 +61,18 @@
             var reviews = await this.reviewRepository
                 .AllAsNoTracking()
                 .Where(r => r.AppServiceId == appServiceId)
+                .OrderByDescending(r => r.CreatedOn)
+                .To<T>()
+                .ToListAsync();
+
+            return reviews;
+        }
+
+        public async Task<IEnumerable<T>> GetAllByUserId<T>(string userId)
+        {
+            var reviews = await this.reviewRepository
+                .AllAsNoTracking()
+                .Where(r => r.PostedById == userId)
                 .OrderByDescending(r => r.CreatedOn)
                 .To<T>()
                 .ToListAsync();

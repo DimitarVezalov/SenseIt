@@ -83,7 +83,7 @@
 
             // Application services
             // Admin services
-            services.AddTransient<IEmailSender, NullMessageSender>();
+            services.AddTransient<IEmailSender>(x => new SendGridEmailSender(this.configuration["SendGrid:my_api_key"]));
             services.AddTransient<IAdminProductsService, AdminProductsService>();
             services.AddTransient<IAdminAppServicesService, AdminAppServicesService>();
             services.AddTransient<IAdminProductCategoriesService, AdminProductCategoriesService>();

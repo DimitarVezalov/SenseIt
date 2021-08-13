@@ -29,7 +29,7 @@
                 .All()
                 .FirstOrDefault(a => a.Id == id);
 
-            this.appointmentRepository.Delete(appointment);
+            this.appointmentRepository.HardDelete(appointment);
             var result = await this.appointmentRepository.SaveChangesAsync();
 
             if (result == 0)
@@ -61,7 +61,7 @@
 
             await this.appointmentRepository.AddAsync(appointment);
             var result = await this.appointmentRepository.SaveChangesAsync();
-            return result;
+            return appointment.Id;
         }
 
         public async Task<IEnumerable<T>> GetAllByUserId<T>(string userId)
@@ -74,6 +74,17 @@
                 .ToListAsync();
 
             return appointments;
+        }
+
+        public async Task<T> GetAppointmentById<T>(int? id)
+        {
+            var appointment = await this.appointmentRepository
+                .All()
+                .Where(a => a.Id == id)
+                .To<T>()
+                .FirstOrDefaultAsync();
+
+            return appointment;
         }
     }
 }
