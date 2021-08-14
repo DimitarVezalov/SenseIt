@@ -34,16 +34,16 @@
             return result;
         }
 
-        public async Task<bool> Delete(int? id)
+        public async Task<bool> Delete(int id)
         {
-            if (id == null)
-            {
-                return false;
-            }
-
             var review = await this.reviewRepository
                 .All()
                 .FirstOrDefaultAsync(r => r.Id == id);
+
+            if (review == null)
+            {
+                return false;
+            }
 
             this.reviewRepository.HardDelete(review);
             var result = await this.reviewRepository.SaveChangesAsync();

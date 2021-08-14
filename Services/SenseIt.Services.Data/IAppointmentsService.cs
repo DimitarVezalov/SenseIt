@@ -14,10 +14,13 @@
             int customerAge,
             string additionalNotes);
 
-        Task<IEnumerable<T>> GetAllByUserId<T>(string userId);
+        Task<IEnumerable<T>> GetAllInModal<T>(string userId);
 
         Task<bool> CancelAppointment(int? id);
 
         Task<T> GetAppointmentById<T>(int? id);
+
+        Task<IEnumerable<T>> GetAllActiveByUser<T>(string userId);
+
     }
 }

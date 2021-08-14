@@ -18,7 +18,7 @@
                 <div class="col-md-8">
                     <div class="card-body">
                         <h5 class="card-title">@review.AppServiceName</h5>
-                        <p class="card-text">@review.Content</p>
+                        <p class="card-text">@Html.Raw(review.Content)</p>
                         <div style="position: absolute; bottom: 0; right: 0;">
                             <i class="list-inline-item text-info fas fa-user-edit"><span class="text-secondary"> @review.PostedBy</span></i>
                             <i class="far fa-calendar-alt"><span class="text-secondary"> @review.PostedOn</span></i>
@@ -31,9 +31,9 @@
                             {
                                 <i class="far fa-star"></i>
                             }
-                        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            <i class="fas fa-trash-alt text-dark"></i>
-                        </button>
+                            <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@review.Id">
+                                <i class="fas fa-trash-alt text-dark"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -51,10 +51,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                        <form asp-action="Delete" method="post">
-                            <input type="hidden" name="id" value="@review.Id" />
-                            <button type="submit" class="btn btn-danger" asp-action="Delete" >Delete</button>
-                        </form>
+                       
                     </div>
                 </div>
             </div>

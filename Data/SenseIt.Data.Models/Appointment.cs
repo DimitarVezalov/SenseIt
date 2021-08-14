@@ -5,6 +5,7 @@
     using System.ComponentModel.DataAnnotations.Schema;
 
     using SenseIt.Data.Common.Models;
+    using SenseIt.Data.Models.Enumerations;
 
     public class Appointment : BaseDeletableModel<int>
     {

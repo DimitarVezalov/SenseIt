@@ -18,15 +18,18 @@
         private readonly IReviewsService reviewsService;
         private readonly IAppServicesService appServicesService;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly IUsersService usersService;
 
         public ReviewsController(
             IReviewsService reviewsService,
             IAppServicesService appServicesService,
-            UserManager<ApplicationUser> userManager)
+            UserManager<ApplicationUser> userManager,
+            IUsersService usersService)
         {
             this.reviewsService = reviewsService;
             this.appServicesService = appServicesService;
             this.userManager = userManager;
+            this.usersService = usersService;
         }
 
         public async Task<IActionResult> Add(int? id)
@@ -82,7 +85,7 @@
             return this.View(viewModel);
         }
 
-        public async Task<IActionResult> AllByUser()
+        public async Task<IActionResult> All()
         {
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
@@ -92,17 +95,25 @@
             return this.View(reviews);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id == null)
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var customerId = await this.usersService.GetUserIdByReview(id);
+
+            if (userId != customerId)
             {
                 return this.Error();
             }
 
             var result = await this.reviewsService.Delete(id);
 
-            return this.RedirectToAction(nameof(this.AllByUser));
+            if (!result)
+            {
+                return this.Error();
+            }
+
+            return this.RedirectToAction(nameof(this.All));
         }
     }
 }

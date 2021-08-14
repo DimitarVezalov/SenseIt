@@ -14,6 +14,9 @@
     using SenseIt.Web.ViewModels.Appointments;
     using SenseIt.Web.ViewModels.AppServices;
 
+    using SenseIt.Common;
+    using System.Security.Claims;
+
     [Authorize]
     public class AppointmentsController : BaseController
     {
@@ -47,7 +50,7 @@
             var user = await this.userManager.GetUserAsync(this.User);
 
             var activeApointments = await this.appointmentsService
-                .GetAllByUserId<AppointmentInModalDetailsVIewModel>(user.Id);
+                .GetAllInModal<AppointmentInModalDetailsVIewModel>(user.Id);
 
             var model = new AppointmentIndexViewModel
             {
@@ -93,9 +96,32 @@
                 appointment.ServiceDuration,
                 appointment.StartDate);
 
-            await this.emailSender.SendEmailAsync("wopopo13@gmail.com", "Sense It", "geveye5549@asmm5.com", $"{appointment.ServiceName}", content);
+            await this.emailSender.SendEmailAsync("wopopo13@gmail.com", GlobalConstants.SystemName, "geveye5549@asmm5.com", appointment.ServiceName, content);
 
             return this.RedirectToAction(nameof(this.Index), new { id = input.ServiceId });
+        }
+
+        public async Task<IActionResult> AllActive()
+        {
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            var appointments = await this.appointmentsService
+                .GetAllActiveByUser<UserAppointmentsListViewModel>(userId);
+
+            return this.View(appointments);
+        }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            var appointment = await this.appointmentsService
+                .GetAppointmentById<UserAppointmentViewModel>(id);
+
+            if (appointment == null)
+            {
+                return this.Error();
+            }
+
+            return this.View(appointment);
         }
 
         [HttpPost]

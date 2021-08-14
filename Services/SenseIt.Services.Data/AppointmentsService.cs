@@ -52,7 +52,7 @@
             {
                 UserId = userId,
                 ServiceId = appServiceId,
-                CreatedOn = DateTime.UtcNow.AddHours(3),
+                CreatedOn = DateTime.UtcNow,
                 StartDate = startDate,
                 CustomerFullName = customerFullName,
                 CustomerAge = customerAge,
@@ -64,12 +64,24 @@
             return appointment.Id;
         }
 
-        public async Task<IEnumerable<T>> GetAllByUserId<T>(string userId)
+        public async Task<IEnumerable<T>> GetAllActiveByUser<T>(string userId)
+        {
+            var appointments = await this.appointmentRepository
+                .AllAsNoTracking()
+                .Where(a => a.UserId == userId)
+                .Where(a => a.StartDate > DateTime.UtcNow)
+                .To<T>()
+                .ToListAsync();
+
+            return appointments;
+        }
+
+        public async Task<IEnumerable<T>> GetAllInModal<T>(string userId)
         {
             var appointments = await this.appointmentRepository
                 .All()
                 .Where(a => a.UserId == userId)
-                .Where(a => a.StartDate > DateTime.UtcNow.AddHours(3))
+                .Where(a => a.StartDate > DateTime.UtcNow)
                 .To<T>()
                 .ToListAsync();
 

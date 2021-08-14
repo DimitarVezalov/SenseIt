@@ -1,0 +1,67 @@
+﻿@model SenseIt.Web.ViewModels.Appointments.UserAppointmentViewModel
+@{    
+    this.ViewData["Title"] = "Sense It";
+}
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>@this.ViewData["Title"]</title>
+
+    <style>
+        .arrow-right {
+            position: absolute; /* or absolute */
+            top: 50%;
+            right: 45%;
+        }
+
+        .arrow-left {
+            position: absolute; /* or absolute */
+            top: 50%;
+            left: 45%;
+        }
+    </style>
+</head>
+<body>
+    <div class="card m-3">
+        <div class="row">
+            <div class="col-5 m-3">
+                <h3 class="text-center text-success">Service Details</h3>
+                <div class="card">
+                    <img src="@Model.ServiceImageUrl" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">@Model.ServiceName</h5>
+                        <p class="card-text">@Model.ServiceDescription</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>Duration: </strong><span class="text-muted">@Model.ServiceDurationAsText</span></li>
+                        <li class="list-group-item"><strong>$ </strong><span class="text-muted">@Model.ServicePrice</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-1 m-3">
+                <span><i class="fas fa-angle-double-left fa-2x arrow-left"></i><i class="fas fa-angle-double-right fa-2x arrow-right"></i></span>
+            </div>
+            <div class="col-5 m-3">
+                <h3 class="text-center text-success">Customer Details</h3>
+
+                <div class="card">
+
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">An item</li>
+                        <li class="list-group-item">A second item</li>
+                        <li class="list-group-item">A third item</li>
+                    </ul>
+                    <div class="card-body">
+                        <a href="#" class="card-link">Card link</a>
+                        <a href="#" class="card-link">Another link</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -11,6 +11,6 @@
 
         Task<IEnumerable<T>> GetAllByUserId<T>(string userId);
 
-        Task<bool> Delete(int? id);
+        Task<bool> Delete(int id);
     }
 }

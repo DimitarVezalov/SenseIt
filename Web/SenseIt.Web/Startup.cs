@@ -99,6 +99,7 @@
             services.AddTransient<IAppointmentsService, AppointmentsService>();
             services.AddTransient<ICartItemsService, CartItemsService>();
             services.AddTransient<ICartsService, CartsService>();
+            services.AddTransient<IUsersService, UsersService>();
 
 
         }
