@@ -24,20 +24,23 @@
         private readonly IAppServicesService appServicesService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IEmailSender emailSender;
+        private readonly IUsersService usersService;
 
         public AppointmentsController(
             IAppointmentsService appointmentsService,
             IAppServicesService appServicesService,
             UserManager<ApplicationUser> userManager,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IUsersService usersService)
         {
             this.appointmentsService = appointmentsService;
             this.appServicesService = appServicesService;
             this.userManager = userManager;
             this.emailSender = emailSender;
+            this.usersService = usersService;
         }
 
-        public async Task<IActionResult> Index(int? id)
+        public async Task<IActionResult> Booking(int? id)
         {
             if (id == null)
             {
@@ -63,8 +66,7 @@
         }
 
         [HttpPost]
-        [ActionName("Book")]
-        public async Task<IActionResult> BookAppointment(CreateAppointmentInputModel input)
+        public async Task<IActionResult> Booking(CreateAppointmentInputModel input)
         {
             if (!this.ModelState.IsValid)
             {
@@ -98,7 +100,7 @@
 
             await this.emailSender.SendEmailAsync("wopopo13@gmail.com", GlobalConstants.SystemName, "geveye5549@asmm5.com", appointment.ServiceName, content);
 
-            return this.RedirectToAction(nameof(this.Index), new { id = input.ServiceId });
+            return this.RedirectToAction(nameof(this.Booking), new { id = input.ServiceId });
         }
 
         public async Task<IActionResult> AllActive()
@@ -113,6 +115,15 @@
 
         public async Task<IActionResult> Details(int id)
         {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var customerId = await this.usersService.GetUserIdByAppointment(id);
+
+            if (userId != customerId)
+            {
+                return this.Error();
+            }
+
             var appointment = await this.appointmentsService
                 .GetAppointmentById<UserAppointmentViewModel>(id);
 
@@ -125,16 +136,20 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Cancel(int? id, int? appServiceId)
+        public async Task<IActionResult> Cancel(int id)
         {
-            if (id == null || appServiceId == null)
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var customerId = await this.usersService.GetUserIdByAppointment(id);
+
+            if (userId != customerId)
             {
                 return this.Error();
             }
 
             var result = await this.appointmentsService.CancelAppointment(id);
 
-            return this.RedirectToAction(nameof(this.Index), new { id = appServiceId });
+            return this.RedirectToAction(nameof(this.AllActive));
         }
     }
 }

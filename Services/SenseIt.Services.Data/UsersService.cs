@@ -15,6 +15,17 @@ namespace SenseIt.Services.Data
             this.usersRepository = usersRepository;
         }
 
+        public async Task<string> GetUserIdByAppointment(int appointmentId)
+        {
+            var userId = await this.usersRepository
+                .All()
+                .Where(u => u.Appointments.Any(r => r.Id == appointmentId))
+                .Select(u => u.Id)
+                .FirstOrDefaultAsync();
+
+            return userId;
+        }
+
         public async Task<string> GetUserIdByReview(int reviewId)
         {
             var userId = await this.usersRepository

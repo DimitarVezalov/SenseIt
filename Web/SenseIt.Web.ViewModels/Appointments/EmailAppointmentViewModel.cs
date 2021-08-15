@@ -3,6 +3,7 @@ using SenseIt.Data.Models;
 using SenseIt.Services.Mapping;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 
 namespace SenseIt.Web.ViewModels.Appointments
@@ -27,7 +28,7 @@ namespace SenseIt.Web.ViewModels.Appointments
                 .ForMember(x => x.ServiceDuration, opt =>
                 opt.MapFrom(y => y.Service.Duration.ToString().Substring(0, 5)))
                 .ForMember(x => x.StartDate, opt =>
-                opt.MapFrom(y => y.StartDate.ToString().Substring(0, 16)));
+                opt.MapFrom(y => y.StartDate.ToString("dd/MM/yyyy hh:mm", CultureInfo.InvariantCulture)));
         }
     }
 }

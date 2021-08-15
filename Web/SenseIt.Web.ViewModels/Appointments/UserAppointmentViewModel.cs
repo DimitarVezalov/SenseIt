@@ -1,6 +1,7 @@
 ﻿namespace SenseIt.Web.ViewModels.Appointments
 {
     using System;
+    using System.Globalization;
     using AutoMapper;
     using SenseIt.Data.Models;
     using SenseIt.Services.Mapping;
@@ -27,6 +28,8 @@
 
         public string ServicePrice { get; set; }
 
+        public string ServiceCategoryName { get; set; }
+
         public string ServiceDurationAsText => this.GetDurationText();
 
         public void CreateMappings(IProfileExpression configuration)
@@ -35,7 +38,7 @@
                 .ForMember(x => x.AdditionalNotes, opt =>
                 opt.MapFrom(y => y.AdditionalNotes != null ? y.AdditionalNotes : "None"))
                 .ForMember(x => x.StartDate, opt =>
-                opt.MapFrom(y => y.StartDate.ToString().Substring(0, 16)))
+                opt.MapFrom(y => y.StartDate.ToString("dd/MM/yyyy hh:mm", CultureInfo.InvariantCulture)))
                 .ForMember(x => x.ServiceDuratrion, opt =>
                 opt.MapFrom(y => y.Service.Duration.ToString().Substring(0, 5)))
                 .ForMember(x => x.ServicePrice, opt =>

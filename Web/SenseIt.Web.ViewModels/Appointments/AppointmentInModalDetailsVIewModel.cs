@@ -1,7 +1,7 @@
 ﻿namespace SenseIt.Web.ViewModels.Appointments
 {
     using System;
-
+    using System.Globalization;
     using AutoMapper;
     using SenseIt.Data.Models;
     using SenseIt.Services.Mapping;
@@ -38,7 +38,7 @@
         {
             configuration.CreateMap<Appointment, AppointmentInModalDetailsVIewModel>()
                 .ForMember(x => x.StartDate, opt =>
-                opt.MapFrom(y => y.StartDate.ToString().Substring(0, 16)))
+                opt.MapFrom(y => y.StartDate.ToString("dd/MM/yyyy hh:mm", CultureInfo.InvariantCulture)))
                 .ForMember(x => x.Status, opt =>
                 opt.MapFrom(y => y.StartDate > DateTime.UtcNow ? "Active" : "Not Active"));
         }
