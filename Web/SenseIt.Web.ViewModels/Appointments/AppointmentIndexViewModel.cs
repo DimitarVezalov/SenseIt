@@ -10,6 +10,10 @@
 
         public string Username { get; set; }
 
+        public int LastBookedPastDays { get; set; }
+
+        public bool HasAppointments { get; set; }
+
         public IEnumerable<AppointmentInModalDetailsVIewModel> ActiveAppointments { get; set; }
 
         public CreateAppointmentInputModel Appointment { get; set; }

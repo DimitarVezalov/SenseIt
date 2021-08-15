@@ -52,6 +52,12 @@
 
             var user = await this.userManager.GetUserAsync(this.User);
 
+            var lastAppointmentDate = await this.appointmentsService
+                .GetLastAppointmentStartDate(user.Id);
+
+            var days = (DateTime.UtcNow - lastAppointmentDate).Days;
+            var hasAppointments = await this.usersService.HasAppointments(user.Id);
+
             var activeApointments = await this.appointmentsService
                 .GetAllInModal<AppointmentInModalDetailsVIewModel>(user.Id);
 
@@ -60,6 +66,8 @@
                 AppService = appService,
                 Username = user.UserName,
                 ActiveAppointments = activeApointments,
+                LastBookedPastDays = days,
+                HasAppointments = hasAppointments,
             };
 
             return this.View(model);
@@ -67,7 +75,7 @@
 
         [HttpPost]
         public async Task<IActionResult> Booking(CreateAppointmentInputModel input)
-        {
+            {
             if (!this.ModelState.IsValid)
             {
                 return this.Error();

@@ -1,8 +1,19 @@
 ﻿@model SenseIt.Web.ViewModels.Appointments.AppointmentIndexViewModel;
 
 @{
-    var currentDate = DateTime.UtcNow;
-    this.ViewData["Title"] = "Sense It";
+    string pastDaysString = null;
+
+    if (Model.HasAppointments)
+    {
+        pastDaysString = Model.LastBookedPastDays > 1 ? $"{Model.LastBookedPastDays} days ago"
+        : Model.LastBookedPastDays > 0 ? $"{Model.LastBookedPastDays} day ago" : "Today";
+        this.ViewData["Title"] = "Sense It";
+    }
+    else
+    {
+        pastDaysString = "You don't have any appointments yet.";
+    }
+
 }
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -178,7 +189,7 @@
                                             <input type="hidden" name="ServiceId" value="@Model.AppService.Id" />
                                             <div class="modal-footer">
                                                 <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                                                <button class="btn btn-outline-success" onclick="validateInput();" asp-controller="Appointments" asp-action="Booking">Confirm Appointment</button>
+                                                <button class="btn btn-outline-success" onclick="return validateInput();" asp-controller="Appointments" asp-action="Booking">Confirm Appointment</button>
                                             </div>
                                         </form>
                                     </div>
@@ -188,8 +199,8 @@
                         </div>
 
                     </div>
-                    <div class="card-footer text-muted">
-                        2 days ago
+                    <div class="card-footer">
+                        <p class="text-muted"><strong>Last Booked Appointment - </strong>@pastDaysString</p>
                     </div>
                 </div>
 
@@ -354,10 +365,8 @@
                     'Error!',
                     'Please choose a valid date!',
                     'error'
-
-                     return false;
                 )
-               
+                return false;
 
             } else {
                 return true;

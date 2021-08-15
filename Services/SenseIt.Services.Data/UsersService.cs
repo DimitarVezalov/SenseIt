@@ -36,5 +36,16 @@ namespace SenseIt.Services.Data
 
             return userId;
         }
+
+        public async Task<bool> HasAppointments(string userId)
+        {
+            var hasAppointments = await this.usersRepository
+                .All()
+                .Where(u => u.Id == userId)
+                .Select(u => u.Appointments.Any())
+                .FirstOrDefaultAsync();
+
+            return hasAppointments;
+        }
     }
 }

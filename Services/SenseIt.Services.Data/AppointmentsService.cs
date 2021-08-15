@@ -98,5 +98,17 @@
 
             return appointment;
         }
+
+        public async Task<DateTime> GetLastAppointmentStartDate(string id)
+        {
+            var date = await this.appointmentRepository
+                .All()
+                .Where(a => a.UserId == id)
+                .OrderByDescending(a => a.CreatedOn)
+                .Select(a => a.CreatedOn)
+                .FirstOrDefaultAsync();
+
+            return date;
+        }
     }
 }

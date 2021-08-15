@@ -22,5 +22,6 @@
 
         Task<IEnumerable<T>> GetAllActiveByUser<T>(string userId);
 
+        Task<DateTime> GetLastAppointmentStartDate(string id);
     }
 }
