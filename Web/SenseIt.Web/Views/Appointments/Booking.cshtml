@@ -67,6 +67,7 @@
     </style>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="~/lib/datetimepicker/jquery.datetimepicker.css" />
 </head>
 <body>
     <h2 class="text-center text-success m-3">Book Service Appointment</h2>
@@ -164,24 +165,20 @@
 
                                             <div class="mb-3">
                                                 <label class="col-form-label">Date And Time:</label>
-                                                <input type="datetime-local" asp-for="Appointment.StartDate" value="2021-08-15 11:35" class="form-control" name="StartDate" />
+                                                <input type="datetime-local" asp-for="Appointment.StartDate" value="2021-08-15 11:35" class="form-control" name="StartDate" id="startDate" />
                                                 <span asp-validation-for="Appointment.StartDate" class="text-danger"></span>
                                             </div>
 
-
-
-
-
                                             <div class="mb-3">
                                                 <label class="col-form-label">Additional Notes: <small>(optional)</small></label>
-                                                <textarea asp-for="Appointment.AdditionalNotes" class="form-control" name="AdditionalNotes"></textarea>
+                                                <textarea asp-for="Appointment.AdditionalNotes" class="form-control" name="AdditionalNotes" ></textarea>
                                                 <span asp-validation-for="Appointment.AdditionalNotes" class="text-danger"></span>
 
                                             </div>
                                             <input type="hidden" name="ServiceId" value="@Model.AppService.Id" />
                                             <div class="modal-footer">
                                                 <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                                                <button class="btn btn-outline-success" asp-controller="Appointments" asp-action="Book">Confirm Appointment</button>
+                                                <button class="btn btn-outline-success" onclick="validateInput();" asp-controller="Appointments" asp-action="Booking">Confirm Appointment</button>
                                             </div>
                                         </form>
                                     </div>
@@ -312,15 +309,63 @@
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="~/lib/datetimepicker/jquery.datetimepicker.js"></script>
+    <script>
+        $('#demo').datetimepicker({
+            inline: true,
+        });
+    </script>
 
- 
 </body>
 
 </html>
 
 @section Scripts{
 
-    
+    <script>
+
+              
+
+        function getChosenDateString() {
+            var datePicked = $('#startDate').val();
+            return datePicked;
+        }
+
+        function validateInput() {
+            var dateString = getChosenDateString();
+
+            if (dateString == "") {
+
+                Swal.fire(
+                    'Error!',
+                    'Please choose a valid date!',
+                    'error'
+                )
+                return false;
+            }
+
+            var datePicked = Date.parse(dateString);
+            var currentDate = Date.now();
+
+            if (datePicked < currentDate) {
+
+                Swal.fire(
+                    'Error!',
+                    'Please choose a valid date!',
+                    'error'
+
+                     return false;
+                )
+               
+
+            } else {
+                return true;
+            }
+
+            
+        }
+    </script>
 
 }
 
