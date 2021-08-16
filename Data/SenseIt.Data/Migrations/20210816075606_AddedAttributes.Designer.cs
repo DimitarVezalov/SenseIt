@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SenseIt.Data;
 
 namespace SenseIt.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210816075606_AddedAttributes")]
+    partial class AddedAttributes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -155,9 +157,6 @@ namespace SenseIt.Data.Migrations
                     b.Property<int>("TownId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("ZipCode")
                         .IsRequired()
                         .HasMaxLength(15)
@@ -168,8 +167,6 @@ namespace SenseIt.Data.Migrations
                     b.HasIndex("IsDeleted");
 
                     b.HasIndex("TownId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Addresses");
                 });
@@ -357,7 +354,7 @@ namespace SenseIt.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("CustomerId")
+                    b.Property<string>("CustometId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime?>("DeletedOn")
@@ -374,9 +371,9 @@ namespace SenseIt.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerId")
+                    b.HasIndex("CustometId")
                         .IsUnique()
-                        .HasFilter("[CustomerId] IS NOT NULL");
+                        .HasFilter("[CustometId] IS NOT NULL");
 
                     b.HasIndex("IsDeleted");
 
@@ -813,18 +810,12 @@ namespace SenseIt.Data.Migrations
             modelBuilder.Entity("SenseIt.Data.Models.Address", b =>
                 {
                     b.HasOne("SenseIt.Data.Models.Town", "Town")
-                        .WithMany("Addresses")
+                        .WithMany()
                         .HasForeignKey("TownId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("SenseIt.Data.Models.ApplicationUser", "User")
-                        .WithMany("Addresses")
-                        .HasForeignKey("UserId");
-
                     b.Navigation("Town");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("SenseIt.Data.Models.Appointment", b =>
@@ -848,7 +839,7 @@ namespace SenseIt.Data.Migrations
                 {
                     b.HasOne("SenseIt.Data.Models.ApplicationUser", "Customer")
                         .WithOne("Cart")
-                        .HasForeignKey("SenseIt.Data.Models.Cart", "CustomerId");
+                        .HasForeignKey("SenseIt.Data.Models.Cart", "CustometId");
 
                     b.Navigation("Customer");
                 });
@@ -934,8 +925,6 @@ namespace SenseIt.Data.Migrations
 
             modelBuilder.Entity("SenseIt.Data.Models.ApplicationUser", b =>
                 {
-                    b.Navigation("Addresses");
-
                     b.Navigation("Appointments");
 
                     b.Navigation("Cart");
@@ -976,11 +965,6 @@ namespace SenseIt.Data.Migrations
             modelBuilder.Entity("SenseIt.Data.Models.ServiceCategory", b =>
                 {
                     b.Navigation("Services");
-                });
-
-            modelBuilder.Entity("SenseIt.Data.Models.Town", b =>
-                {
-                    b.Navigation("Addresses");
                 });
 #pragma warning restore 612, 618
         }
