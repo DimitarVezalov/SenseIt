@@ -13,7 +13,7 @@
         }
 
         [ForeignKey(nameof(Customer))]
-        public string CustometId { get; set; }
+        public string CustomerId { get; set; }
 
         public ApplicationUser Customer { get; set; }
 

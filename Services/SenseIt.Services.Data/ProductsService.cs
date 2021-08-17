@@ -152,16 +152,5 @@
 
             return products;
         }
-
-        public async Task<IEnumerable<T>> GetAllByIds<T>(IEnumerable<ShoppingCart> cartProducts)
-        {
-            var products = await this.productsRepository
-                .All()
-                .Where(p => cartProducts.Select(p => p.ProductId).ToList().Contains(p.Id))
-                .To<T>()
-                .ToListAsync();
-
-            return products;
-        }
     }
 }

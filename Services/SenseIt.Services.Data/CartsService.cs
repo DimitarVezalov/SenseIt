@@ -31,7 +31,7 @@
 
             var cart = await this.cartRepo
                 .All()
-                .Where(c => c.CustometId == userId)
+                .Where(c => c.CustomerId == userId)
                 .FirstOrDefaultAsync();
 
             if (cart.CartItems.Any(ci => ci.ProductId == productId))
@@ -58,7 +58,7 @@
             var currentCart = await this.cartRepo
                 .All()
                 .Include(c => c.CartItems)
-                .Where(c => c.CustometId == customerId)
+                .Where(c => c.CustomerId == customerId)
                 .To<T>()
                 .FirstOrDefaultAsync();
 
@@ -69,7 +69,7 @@
         {
             var count = await this.cartRepo
                 .All()
-                .Where(c => c.CustometId == customerId)
+                .Where(c => c.CustomerId == customerId)
                 .Select(c => c.CartItems.Count())
                 .FirstOrDefaultAsync();
 
@@ -87,7 +87,7 @@
             var cart = await this.cartRepo
                 .All()
                 .Include(c => c.CartItems)
-                .FirstOrDefaultAsync(c => c.CustometId == customerId);
+                .FirstOrDefaultAsync(c => c.CustomerId == customerId);
 
             cart.CartItems = new HashSet<CartItem>();
             this.cartRepo.Update(cart);
@@ -108,14 +108,14 @@
             var currentCart = await this.cartRepo
                 .All()
                 .Include(c => c.CartItems)
-                .Where(c => c.CustometId == userId)
+                .Where(c => c.CustomerId == userId)
                 .FirstOrDefaultAsync();
 
             if (currentCart == null)
             {
                 currentCart = new Cart
                 {
-                    CustometId = userId,
+                    CustomerId = userId,
                 };
 
                 await this.cartRepo.AddAsync(currentCart);

@@ -19,6 +19,7 @@ namespace SenseIt.Data.Models
             this.Reviews = new HashSet<Review>();
             this.Appointments = new HashSet<Appointment>();
             this.Orders = new HashSet<Order>();
+            this.Addresses = new HashSet<Address>();
         }
 
         // Audit info
@@ -44,6 +45,8 @@ namespace SenseIt.Data.Models
         public virtual ICollection<Review> Reviews { get; set; }
 
         public virtual ICollection<Appointment> Appointments { get; set; }
+
+        public virtual ICollection<Address> Addresses { get; set; }
 
         public virtual ICollection<Order> Orders { get; set; }
 

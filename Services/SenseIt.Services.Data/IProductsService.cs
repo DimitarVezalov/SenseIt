@@ -14,8 +14,6 @@
 
         Task<IEnumerable<T>> GetBySearchTermPaging<T>(int page, int itemsPerPage, string searchTerm);
 
-        Task<IEnumerable<T>> GetAllByIds<T>(IEnumerable<ShoppingCart> cartProducts);
-
         int GetCount();
 
         Task<int> GetCount(string filter);
