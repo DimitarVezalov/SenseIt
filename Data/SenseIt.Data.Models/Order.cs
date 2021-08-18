@@ -18,7 +18,10 @@
 
         public ApplicationUser Recipient { get; set; }
 
-        public string DeliveryAddress { get; set; }
+        [ForeignKey(nameof(DeliveryAddress))]
+        public int DeliveryAddressId { get; set; }
+
+        public Address DeliveryAddress { get; set; }
 
         public OrderStatus OrderStatus { get; set; }
 

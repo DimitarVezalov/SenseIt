@@ -1,5 +1,6 @@
 ﻿namespace SenseIt.Data.Models
 {
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
@@ -7,6 +8,11 @@
 
     public class Address : BaseDeletableModel<int>
     {
+        public Address()
+        {
+            this.Orders = new HashSet<Order>();
+        }
+
         [Required]
         [MaxLength(50)]
         public string Street { get; set; }
@@ -28,5 +34,7 @@
         public int TownId { get; set; }
 
         public virtual Town Town { get; set; }
+
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SenseIt.Data;
 
 namespace SenseIt.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210817070855_AddedFirstNameLastName")]
+    partial class AddedFirstNameLastName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -443,8 +445,8 @@ namespace SenseIt.Data.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("DeliveryAddressId")
-                        .HasColumnType("int");
+                    b.Property<string>("DeliveryAddress")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -462,8 +464,6 @@ namespace SenseIt.Data.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("DeliveryAddressId");
 
                     b.HasIndex("IsDeleted");
 
@@ -885,17 +885,9 @@ namespace SenseIt.Data.Migrations
 
             modelBuilder.Entity("SenseIt.Data.Models.Order", b =>
                 {
-                    b.HasOne("SenseIt.Data.Models.Address", "DeliveryAddress")
-                        .WithMany()
-                        .HasForeignKey("DeliveryAddressId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("SenseIt.Data.Models.ApplicationUser", "Recipient")
                         .WithMany("Orders")
                         .HasForeignKey("RecipientId");
-
-                    b.Navigation("DeliveryAddress");
 
                     b.Navigation("Recipient");
                 });

@@ -3,6 +3,7 @@ namespace SenseIt.Data.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Identity;
@@ -24,6 +25,14 @@ namespace SenseIt.Data.Models
 
         // Audit info
         public DateTime CreatedOn { get; set; }
+
+        [Required]
+        [MaxLength(30)]
+        public string FirstName { get; set; }
+
+        [Required]
+        [MaxLength(50)]
+        public string LastName { get; set; }
 
         public DateTime? ModifiedOn { get; set; }
 
