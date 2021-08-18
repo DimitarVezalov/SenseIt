@@ -20,16 +20,16 @@
             this.townsService = townsService;
         }
 
-        public async Task<int> GetAddressId(string town, string street, string number, string zipCode)
+        public async Task<int> GetAddressId(string userId, string town, string street, string number, string zipCode)
         {
             var townId = await this.townsService.GetTownId(town);
 
             var isInDatabase = this.addressRepository.AllAsNoTracking()
-                .Any(a => a.Street == street && a.Number == number && a.ZipCode == zipCode);
+                .Any(a => a.UserId == userId && a.Street == street && a.Number == number && a.ZipCode == zipCode);
 
             if (!isInDatabase)
             {
-                await this.CreateAddress(townId, street, number, zipCode);
+                await this.CreateAddress(userId, townId, street, number, zipCode);
             }
 
             var addressId = await this.addressRepository
@@ -41,7 +41,7 @@
             return addressId;
         }
 
-        private async Task CreateAddress(int townId, string street, string number, string zipCode)
+        private async Task CreateAddress(string userId, int townId, string street, string number, string zipCode)
         {
             var address = new Address
             {
@@ -49,6 +49,7 @@
                 Street = street,
                 Number = number,
                 ZipCode = zipCode,
+                UserId = userId,
             };
 
             await this.addressRepository.AddAsync(address);

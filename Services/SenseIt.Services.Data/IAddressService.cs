@@ -7,6 +7,6 @@ namespace SenseIt.Services.Data
 {
     public interface IAddressService
     {
-        Task<int> GetAddressId(string town, string street, string number, string zipCode);
+        Task<int> GetAddressId(string userId ,string town, string street, string number, string zipCode);
     }
 }

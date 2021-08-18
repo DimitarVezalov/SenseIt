@@ -4,11 +4,12 @@
     using System.ComponentModel.DataAnnotations.Schema;
 
     using SenseIt.Data.Common.Models;
+    using static SenseIt.Common.GlobalConstants.ProductConstants;
 
     public class OrderItem : BaseDeletableModel<int>
     {
         [Required]
-        [MaxLength(30)]
+        [MaxLength(ProductNameMaxLength)]
         public string Name { get; set; }
 
         [ForeignKey(nameof(Order))]

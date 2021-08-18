@@ -1,0 +1,67 @@
+﻿@model SenseIt.Web.ViewModels.Orders.OrderDetailsViewModel
+@using static SenseIt.Common.GlobalConstants;
+@{ 
+    this.ViewData["Title"] = "Sense It";
+    var counter = 1;
+}
+
+<div class="container-fluid m-3">
+    <h2 class="text-success text-center">Your Order Is Completed</h2>
+    <p class="text-dark text-center">Thank You For Purchasing Products From Our Store, We Will Send The Order As Soon As We
+    Prepare Everything!</p>
+</div>
+<div class="card">
+    <table class="table" style="background-color: ActiveCaption">
+        <thead>
+            <tr>
+                <th class="col-2">#</th>
+                <th class="col-6">Product</th>
+                <th class="col-2">Quantity</th>
+                <th class="col-2">Price</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model.OrderItems)
+            {
+                <tr>
+                    <th>@counter</th>
+                    <td>@item.Name</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.Price</td>
+                </tr>
+
+                counter++;
+            }
+            <tr>
+                <td></td>
+                <td></td>
+                <td>Sub Total:</td>
+                <td>@Model.TotalSum</td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td></td>
+                <td>Shipping:</td>
+                <td class="text-right text-dark">$@ShippingFee</td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td></td>
+                <td><strong>Total: </strong></td>
+                <td class="text-right text-dark"><strong>$@((Model.TotalSum + ShippingFee).ToString("F2"))</strong></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="row">
+        <div class="col">
+            <a class="btn btn-success" asp-controller="Store" asp-action="All">Continue Shopping</a>
+        </div>
+        <div class="col text-end">
+            <a class="btn btn-info" asp-controller="Orders" asp-action="All">Your Orders</a>
+        </div>
+    </div>
+
+</div>

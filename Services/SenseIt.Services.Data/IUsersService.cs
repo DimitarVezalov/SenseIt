@@ -8,6 +8,12 @@ namespace SenseIt.Services.Data
 
         Task<string> GetUserIdByAppointment(int appointmentId);
 
+        Task<string> GetUserIdByOrder(int orderId);
+
         Task<bool> HasAppointments(string userId);
+
+        Task<int> SetPhoneNumber(string userId, string number);
+
+        Task<bool> IsCartEmpty(string userId);
     }
 }

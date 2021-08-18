@@ -1,0 +1,73 @@
+﻿@using SenseIt.Web.ViewModels.Orders;
+@model IEnumerable<OrderInListViewModel>
+
+@{
+    this.ViewData["Title"] = "Orders";
+}
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+
+    <style>
+        .dots {
+            height: 10px;
+            width: 10px;
+            background-color: green;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 5px
+        }
+    </style>
+</head>
+<body>
+    <div class="m-4">
+            <h2 class="text-success text-center">Your Orders</h2>   
+    </div>
+    <div class="container-fluid">
+        <table class="table">
+            <tr>
+                <th class="col-2">Order Id</th>
+                <th class="col-2"></th> 
+                <th class="col-3">Date</th>
+                <th class="col-2"></th>
+                <th class="col-2">Products Count</th>
+                <th class="col-1">Details</th>
+            </tr>
+            @foreach (var order in Model)
+            {
+
+            <tr>
+                <td>@order.Id</td>
+                <td>
+                    <i class="fas fa-angle-double-right text-success"></i><i class="fas fa-angle-double-right text-success"></i>
+                </td>
+                <td>@order.CreatedOn</td>
+                <td>
+                    <i class="fas fa-angle-double-right text-success"></i><i class="fas fa-angle-double-right text-success"></i>
+                </td>
+                <td>@order.OrderItemsCount</td>
+                <td><a class="btn btn-outline-info" asp-action="Details" asp-route-id="@order.Id"><i class="fas fa-info-circle"></i></a></td>
+            </tr>
+
+                @*<div class="row row-cols-auto">
+                        <div class="col-md-4">
+                            <h4>@item.StartDate</h4>
+                        </div>
+                        <div class="col-md-4">
+                            <i class="fas fa-angle-double-right text-success"></i><i class="fas fa-angle-double-right text-success"></i>
+                        </div>
+                        <div class="col-md-4">
+                            <h4>@item.ServiceName</h4>
+                        </div>
+                    </div>*@
+            }
+        </table>
+    </div>
+</body>
+</html>
+
+
+
+
+

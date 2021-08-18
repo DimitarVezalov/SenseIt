@@ -26,6 +26,17 @@ namespace SenseIt.Services.Data
             return userId;
         }
 
+        public async Task<string> GetUserIdByOrder(int orderId)
+        {
+            var userId = await this.usersRepository
+              .All()
+              .Where(u => u.Orders.Any(r => r.Id == orderId))
+              .Select(u => u.Id)
+              .FirstOrDefaultAsync();
+
+            return userId;
+        }
+
         public async Task<string> GetUserIdByReview(int reviewId)
         {
             var userId = await this.usersRepository
@@ -46,6 +57,32 @@ namespace SenseIt.Services.Data
                 .FirstOrDefaultAsync();
 
             return hasAppointments;
+        }
+
+        public async Task<bool> IsCartEmpty(string userId)
+        {
+            var isEmpty = await this.usersRepository
+                .All()
+                .Include(u => u.Cart)
+                .Where(u => u.Id == userId)
+                .Select(u => u.Cart.CartItems.Any())
+                .FirstOrDefaultAsync();
+
+            return isEmpty;
+        }
+
+        public async Task<int> SetPhoneNumber(string userId, string number)
+        {
+            var user = await this.usersRepository
+                .All()
+                .FirstOrDefaultAsync(u => u.Id == userId);
+
+            user.PhoneNumber = number;
+
+            this.usersRepository.Update(user);
+            var result = await this.usersRepository.SaveChangesAsync();
+
+            return result;
         }
     }
 }

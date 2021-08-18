@@ -5,6 +5,7 @@
     using SenseIt.Data.Models;
     using SenseIt.Data.Models.Enumerations;
     using SenseIt.Services.Mapping;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -26,7 +27,7 @@
 
         public async Task<int> CreateOrder(string userId, string town, string street, string number, string zipCode)
         {
-            var addressId = await this.addressService.GetAddressId(town, street, number, zipCode);
+            var addressId = await this.addressService.GetAddressId(userId, town, street, number, zipCode);
 
             var order = new Order
             {
@@ -55,6 +56,17 @@
             var result = await this.ordersRepository.SaveChangesAsync();
 
             return order.Id;
+        }
+
+        public async Task<IEnumerable<T>> GetAllByUser<T>(string userId)
+        {
+            var orders = await this.ordersRepository
+                .AllAsNoTracking()
+                .Where(o => o.RecipientId == userId)
+                .To<T>()
+                .ToListAsync();
+
+            return orders;
         }
 
         public async Task<T> GetById<T>(int orderId)
