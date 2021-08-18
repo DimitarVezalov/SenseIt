@@ -1,13 +1,11 @@
-﻿using AutoMapper;
-using SenseIt.Data.Models;
-using SenseIt.Services.Mapping;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
-
-namespace SenseIt.Web.ViewModels.Appointments
+﻿namespace SenseIt.Web.ViewModels.Appointments
 {
+    using System.Globalization;
+
+    using AutoMapper;
+    using SenseIt.Data.Models;
+    using SenseIt.Services.Mapping;
+
     public class EmailAppointmentViewModel : IMapFrom<Appointment>, IHaveCustomMappings
     {
         public int Id { get; set; }

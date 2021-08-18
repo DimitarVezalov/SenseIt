@@ -1,5 +1,110 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@model SenseIt.Web.ViewModels.Orders.OrderFullDetailsViewModel
+@using static SenseIt.Common.GlobalConstants;
+@{ 
+    this.ViewData["Title"] = "Sense It";
 }
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <style>
+        .dots-grey {
+            height: 10px;
+            width: 10px;
+            background-color: darkslategrey;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 5px
+        }
+
+        .dots-orange {
+            height: 10px;
+            width: 10px;
+            background-color: orange;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 5px
+        }
+
+        .dots-green {
+            height: 10px;
+            width: 10px;
+            background-color: green;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 5px
+        }
+    </style>
+</head>
+<body>
+    <div class="m-3">
+        <h2 class="text-center text-success">Order Details</h2>
+    </div>
+
+    <div class="card">
+        <div class="row m-3">
+            <div class="col-10">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <h5 class="card-title">Name: <span class="text-muted">@Model.RecipientFullName</span></h5>
+                            </div>
+                            <div class="col text-end">
+                                @if (Model.OrderStatus == "Pending")
+                                {
+                                    <h5 class="card-title">Status: <i class="dots-grey"></i><span class="text-muted">@Model.OrderStatus</span></h5>
+                                }
+                                else if (Model.OrderStatus == "Shipped")
+                                {
+                                    <h5 class="card-title">Status: <i class="dots-orange"></i><span class="text-muted">@Model.OrderStatus</span></h5>
+                                }
+                                else if (Model.OrderStatus == "Delivered")
+                                {
+                                    <h5 class="card-title">Status: <i class="dots-green"></i><span class="text-muted">@Model.OrderStatus</span></h5>
+                                }
+                            </div>
+                        </div>
+
+                        <br />
+                        <h5 class="card-title">Phone Number: <span class="text-muted">@Model.RecipientPhoneNumber</span></h5>
+                        <br />
+
+                        <ul class="list-inline">
+                            <li>
+                                <h5 class="card-title">Delivery Address:</h5>
+                            </li>
+                            <li class="list-inline-item">
+                                <span class="card-title text-dark">Town: <span class="text-muted">@Model.DeliveryAddressTownName</span></span>
+                            </li>
+                            <li class="list-inline-item">
+                                <span class="card-title text-dark">Street: <span class="text-muted">@Model.DeliveryAddressStreet</span></span>
+                            </li>
+                            <li class="list-inline-item">
+                                <span class="card-title text-dark">Number: <span class="text-muted">@Model.DeliveryAddressNumber</span></span>
+                            </li>
+                            <li class="list-inline-item">
+                                <span class="card-title text-dark">Zip: <span class="text-muted">@Model.DeliveryAddressZipCode</span></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <ul class="list-group list-group-flush">                        
+                       @foreach (var item in Model.OrderItems)
+	                    {
+                        <li class="list-group-item"><img src=@item.ImageUrl class="img-thumbnail" alt="image" style="width:100px; height:100px;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @item.Name &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; x @item.Quantity &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $ @item.Price</li>
+	                    }
+                    </ul>
+                    <div class="card-body">
+                        <div class="text-end">
+                            <h5 class="card-title">Total Sum: <span class="text-muted">$@(Model.TotalSum + ShippingFee)</span></h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <a asp-action="MyOrders" class="btn btn-info">Back To My Orders</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

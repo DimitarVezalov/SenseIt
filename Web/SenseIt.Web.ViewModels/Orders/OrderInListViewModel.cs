@@ -1,8 +1,9 @@
 ﻿namespace SenseIt.Web.ViewModels.Orders
 {
+    using System;
+
     using SenseIt.Data.Models;
     using SenseIt.Services.Mapping;
-    using System;
 
     public class OrderInListViewModel : IMapFrom<Order>
     {

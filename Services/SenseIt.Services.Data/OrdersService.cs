@@ -1,13 +1,14 @@
 ﻿namespace SenseIt.Services.Data
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
     using Microsoft.EntityFrameworkCore;
     using SenseIt.Data.Common.Repositories;
     using SenseIt.Data.Models;
     using SenseIt.Data.Models.Enumerations;
     using SenseIt.Services.Mapping;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
 
     public class OrdersService : IOrdersService
     {
@@ -46,6 +47,7 @@
                         Name = item.Product.Name,
                         Quantity = item.Quantity,
                         Price = item.Product.Price,
+                        ImageUrl = item.Product.ImageUrl,
                         OrderId = order.Id,
                     });
             }
@@ -63,6 +65,7 @@
             var orders = await this.ordersRepository
                 .AllAsNoTracking()
                 .Where(o => o.RecipientId == userId)
+                .OrderByDescending(o => o.CreatedOn)
                 .To<T>()
                 .ToListAsync();
 

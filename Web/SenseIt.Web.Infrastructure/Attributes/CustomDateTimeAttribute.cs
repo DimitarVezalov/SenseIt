@@ -8,7 +8,6 @@
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             value = (DateTime)value;
-            // This assumes inclusivity, i.e. exactly six years ago is okay
             if (DateTime.Now.CompareTo(value) <= 0 && DateTime.Now.AddYears(1).CompareTo(value) >= 0)
             {
                 return ValidationResult.Success;

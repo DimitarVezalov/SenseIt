@@ -10,7 +10,7 @@
     using SenseIt.Data.Models;
     using SenseIt.Data.Models.Enumerations;
     using SenseIt.Services.Mapping;
-    using static SenseIt.Common.GlobalConstants;
+
     using static SenseIt.Common.GlobalConstants.ProductConstants;
 
     public class AdminProductsService : IAdminProductsService

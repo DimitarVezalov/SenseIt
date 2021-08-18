@@ -15,6 +15,8 @@
         [ForeignKey(nameof(Order))]
         public int OrderId { get; set; }
 
+        public string ImageUrl { get; set; }
+
         public Order Order { get; set; }
 
         public decimal Price { get; set; }

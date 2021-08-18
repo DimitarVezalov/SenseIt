@@ -1,9 +1,11 @@
 ﻿namespace SenseIt.Web.Controllers
 {
+    using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Mvc;
+
     using SenseIt.Services.Data;
     using SenseIt.Web.ViewModels.AppServices;
-    using System.Threading.Tasks;
 
     public class AppServicesController : BaseController
     {

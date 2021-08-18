@@ -4,6 +4,7 @@
     using System.Security.Claims;
     using System.Text;
     using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using SenseIt.Common;
@@ -88,10 +89,10 @@
                 return this.Error();
             }
 
-            var orders = await this.ordersService
-                .GetAllByUser<OrderInListViewModel>(userId);
+            var order = await this.ordersService
+                .GetById<OrderFullDetailsViewModel>(id);
 
-            return this.View(orders);
+            return this.View(order);
         }
     }
 }

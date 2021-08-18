@@ -5,7 +5,6 @@
 
     using SenseIt.Data.Models;
     using SenseIt.Services.Mapping;
-    using SenseIt.Web.ViewModels.Products;
 
     public class CartViewModel : IMapFrom<Cart>
     {

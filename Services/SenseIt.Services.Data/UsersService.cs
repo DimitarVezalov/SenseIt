@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SenseIt.Data.Common.Repositories;
-using SenseIt.Data.Models;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace SenseIt.Services.Data
+﻿namespace SenseIt.Services.Data
 {
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    using Microsoft.EntityFrameworkCore;
+    using SenseIt.Data.Common.Repositories;
+    using SenseIt.Data.Models;
+
     public class UsersService : IUsersService
     {
         private readonly IDeletableEntityRepository<ApplicationUser> usersRepository;

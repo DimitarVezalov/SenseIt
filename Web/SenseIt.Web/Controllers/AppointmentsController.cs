@@ -1,21 +1,19 @@
 ﻿namespace SenseIt.Web.Controllers
 {
     using System;
-    using System.Text;
+    using System.Security.Claims;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using SenseIt.Common;
     using SenseIt.Data.Models;
     using SenseIt.Services.Data;
     using SenseIt.Services.Messaging;
     using SenseIt.Web.Utility;
     using SenseIt.Web.ViewModels.Appointments;
     using SenseIt.Web.ViewModels.AppServices;
-
-    using SenseIt.Common;
-    using System.Security.Claims;
 
     [Authorize]
     public class AppointmentsController : BaseController
@@ -98,15 +96,20 @@
 
             var html = EmailSenderHelper.PrepareAppointmentHtml();
             var content = string.Format(
-                html,
-                appUser.UserName,
-                appointment.ServiceImageUrl,
-                appointment.CustomerFullName,
-                appointment.ServiceName,
-                appointment.ServiceDuration,
-                appointment.StartDate);
+                                        html,
+                                        appUser.UserName,
+                                        appointment.ServiceImageUrl,
+                                        appointment.CustomerFullName,
+                                        appointment.ServiceName,
+                                        appointment.ServiceDuration,
+                                        appointment.StartDate);
 
-            await this.emailSender.SendEmailAsync("wopopo13@gmail.com", GlobalConstants.SystemName, "geveye5549@asmm5.com", appointment.ServiceName, content);
+            await this.emailSender.SendEmailAsync(
+                                                    "wopopo13@gmail.com",
+                                                    GlobalConstants.SystemName,
+                                                    "geveye5549@asmm5.com",
+                                                    appointment.ServiceName,
+                                                    content);
 
             return this.RedirectToAction(nameof(this.Booking), new { id = input.ServiceId });
         }

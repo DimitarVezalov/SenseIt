@@ -35,8 +35,6 @@
                     var result = await cloudinary.UploadAsync(uploadParams);
 
                     imageUrl = result.Uri.AbsoluteUri;
-
-                    ;
                 }
             }
 

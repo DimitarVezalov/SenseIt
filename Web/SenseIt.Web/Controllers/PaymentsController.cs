@@ -1,17 +1,14 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using SenseIt.Data.Models;
-using SenseIt.Services.Data;
-using SenseIt.Web.ViewModels.Payments;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-
-namespace SenseIt.Web.Controllers
+﻿namespace SenseIt.Web.Controllers
 {
+    using System.Threading.Tasks;
+
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
+    using SenseIt.Data.Models;
+    using SenseIt.Services.Data;
+    using SenseIt.Web.ViewModels.Payments;
+
     [Authorize]
     public class PaymentsController : BaseController
     {

@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
-
-namespace SenseIt.Services.Data
+﻿namespace SenseIt.Services.Data
 {
+    using System.Threading.Tasks;
+
     public interface IUsersService
     {
         Task<string> GetUserIdByReview(int reviewId);

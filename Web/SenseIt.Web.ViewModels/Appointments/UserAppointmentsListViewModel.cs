@@ -2,6 +2,7 @@
 {
     using System;
     using System.Globalization;
+
     using SenseIt.Data.Models;
     using SenseIt.Services.Mapping;
 

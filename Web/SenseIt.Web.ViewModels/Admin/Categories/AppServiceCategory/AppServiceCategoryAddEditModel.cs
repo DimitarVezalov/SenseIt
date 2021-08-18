@@ -1,8 +1,9 @@
 ﻿namespace SenseIt.Web.ViewModels.Admin.Categories.AppServiceCategory
 {
+    using System.ComponentModel.DataAnnotations;
+
     using SenseIt.Data.Models;
     using SenseIt.Services.Mapping;
-    using System.ComponentModel.DataAnnotations;
 
     using static SenseIt.Common.GlobalConstants;
 

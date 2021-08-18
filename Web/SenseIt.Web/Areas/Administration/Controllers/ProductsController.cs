@@ -3,8 +3,8 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+
     using CloudinaryDotNet;
-    using CloudinaryDotNet.Actions;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using SenseIt.Services.Data.Admin;
@@ -12,7 +12,6 @@
     using SenseIt.Web.ViewModels.Admin.Product;
 
     using static SenseIt.Common.GlobalConstants;
-
 
     public class ProductsController : AdministrationController
     {

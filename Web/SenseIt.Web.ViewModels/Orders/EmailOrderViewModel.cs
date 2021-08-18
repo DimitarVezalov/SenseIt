@@ -9,7 +9,7 @@
     using SenseIt.Web.ViewModels.OrderItems;
 
     public class EmailOrderViewModel : IMapFrom<Order>, IHaveCustomMappings
-    { 
+    {
         public int Id { get; set; }
 
         public string RecipientFullName { get; set; }

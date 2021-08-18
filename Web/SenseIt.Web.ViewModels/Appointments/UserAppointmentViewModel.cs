@@ -1,7 +1,7 @@
 ﻿namespace SenseIt.Web.ViewModels.Appointments
 {
-    using System;
     using System.Globalization;
+
     using AutoMapper;
     using SenseIt.Data.Models;
     using SenseIt.Services.Mapping;

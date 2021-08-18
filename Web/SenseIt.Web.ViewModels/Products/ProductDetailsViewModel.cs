@@ -3,9 +3,9 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+
     using AutoMapper;
     using SenseIt.Data.Models;
-    using SenseIt.Data.Models.Enumerations;
     using SenseIt.Services.Mapping;
 
     using static SenseIt.Common.GlobalConstants.ProductConstants;
