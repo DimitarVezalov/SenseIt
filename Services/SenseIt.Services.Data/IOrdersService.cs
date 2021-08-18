@@ -4,6 +4,8 @@ namespace SenseIt.Services.Data
 {
     public interface IOrdersService
     {
-        Task<int> CreateOrder();
+        Task<int> CreateOrder(string userId, string town, string street, string number, string zipCode);
+
+        Task<T> GetById<T>(int orderId);
     }
 }

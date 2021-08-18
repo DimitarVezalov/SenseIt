@@ -4,7 +4,7 @@
 
     public static class EmailSenderHelper
     {
-        public static string PrepareHtml()
+        public static string PrepareAppointmentHtml()
         {
             var htmlSb = new StringBuilder();
             htmlSb.AppendLine("<h1 class=\"text-center text-danger\">Dear {0}</h1>");

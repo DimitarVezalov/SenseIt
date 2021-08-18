@@ -100,6 +100,9 @@
             services.AddTransient<ICartItemsService, CartItemsService>();
             services.AddTransient<ICartsService, CartsService>();
             services.AddTransient<IUsersService, UsersService>();
+            services.AddTransient<ITownsService, TownsService>();
+            services.AddTransient<IAddressService, AddressService>();
+            services.AddTransient<IOrdersService, OrdersService>();
 
 
         }

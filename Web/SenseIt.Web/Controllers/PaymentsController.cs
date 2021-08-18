@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SenseIt.Data.Models;
+using SenseIt.Services.Data;
 using SenseIt.Web.ViewModels.Payments;
 using System;
 using System.Collections.Generic;
@@ -13,10 +14,14 @@ namespace SenseIt.Web.Controllers
     public class PaymentsController : BaseController
     {
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly IOrdersService ordersService;
 
-        public PaymentsController(UserManager<ApplicationUser> userManager)
+        public PaymentsController(
+            UserManager<ApplicationUser> userManager,
+            IOrdersService ordersService)
         {
             this.userManager = userManager;
+            this.ordersService = ordersService;
         }
 
         public async Task<IActionResult> Checkout()
@@ -39,9 +44,19 @@ namespace SenseIt.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Checkout(PaymentDetailsFormModel input)
+        public async Task<IActionResult> Checkout(PaymentDetailsFormModel input)
         {
-            
+            if (!this.ModelState.IsValid)
+            {
+                return this.Error();
+            }
+
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var orderId = await this.ordersService
+                .CreateOrder(userId, input.Town, input.Street, input.Number, input.ZipCode);
+
+            return this.RedirectToAction("Index", "Orders", new { id = orderId});
         }
     }
 }

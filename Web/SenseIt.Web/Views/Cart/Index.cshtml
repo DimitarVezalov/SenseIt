@@ -42,13 +42,13 @@ else
                                 <tr style="background-color: ActiveCaption">
                                     <td class="col-2"></td>
                                     <td class="col-3"></td>
+                                    <td class="col-2 text-right text-dark"><button type="submit" style="width:150px;" class="btn btn-danger" asp-action="RemoveAll">Remove All</button></td>
                                     <td class="col-1"></td>
                                     <td class="col-2"></td>
                                     <td class="col-2"></td>
-                                    <td class="col-2 text-right text-dark"><button type="submit" style="width:150px;" class="btn btn-danger" asp-action="RemoveAll">Remove All</button></td>
                                 </tr>
 
-                                <tr style="background-color: ActiveCaption">
+                                @*<tr style="background-color: ActiveCaption">
                                     <td class="col-3"></td>
                                     <td class="col-3"></td>
                                     <td class="col-1"></td>
@@ -73,7 +73,7 @@ else
                                     <td></td>
                                     <td><strong>Total</strong></td>
                                     <td class="text-right text-dark"><strong>$@((Model.TotalSum + GlobalConstants.ShippingFee).ToString("F2"))</strong></td>
-                                </tr>
+                                </tr>*@
                             </tbody>
                         </table>
                     </div>

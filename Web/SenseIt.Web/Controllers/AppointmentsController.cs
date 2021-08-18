@@ -96,7 +96,7 @@
 
             var appUser = await this.userManager.GetUserAsync(this.User);
 
-            var html = EmailSenderHelper.PrepareHtml();
+            var html = EmailSenderHelper.PrepareAppointmentHtml();
             var content = string.Format(
                 html,
                 appUser.UserName,

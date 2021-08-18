@@ -58,6 +58,17 @@
             return cartItems;
         }
 
+        public async Task<IEnumerable<CartItem>> GetAllByUserId(string userId)
+        {
+            var items = await this.cartItemRepository
+                .All()
+                .Include(ci => ci.Product)
+                .Where(ci => ci.Cart.Customer.Id == userId)
+                .ToListAsync();
+
+            return items;
+        }
+
         public async Task<int> Update(string itemToUpdateId, int quantity)
         {
             var itemToUpdate = await this.cartItemRepository
