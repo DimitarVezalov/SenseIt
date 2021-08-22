@@ -1,4 +1,4 @@
-<h2>Sense It</h2>
+<h2>Sense It - https://senseitapp.azurewebsites.net</h2>
 <br>
 <h4><p><h3>Sense It</h3></p> is ASP.NET Core App for the final project at SoftUni C# Web Module.</h4>
 <br>
