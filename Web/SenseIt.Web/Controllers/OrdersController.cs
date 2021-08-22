@@ -52,13 +52,13 @@
                 emailModel.RecipientFullName,
                 emailModel.Id,
                 productsSb.ToString().TrimEnd(),
-                emailModel.TotalSum.ToString("F2"),
+                (emailModel.TotalSum + GlobalConstants.ShippingFee).ToString("F2"),
                 emailModel.CreatedOn.ToString("dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture));
 
             await this.emailSender.SendEmailAsync(
                                                     "wopopo13@gmail.com",
                                                     GlobalConstants.SystemName,
-                                                    "geveye5549@asmm5.com",
+                                                    "jixole6248@ampswipe.com",
                                                     emailModel.Id.ToString(),
                                                     content);
 

@@ -41,7 +41,7 @@ namespace SenseIt.Data.Models
 
         public DateTime? DeletedOn { get; set; }
 
-        public int CartId { get; set; }
+        public int? CartId { get; set; }
 
         public Cart Cart { get; set; }
 

@@ -30,6 +30,8 @@
                     CreatedOn = DateTime.UtcNow,
                     EmailConfirmed = true,
                     UserName = adminUsename,
+                    FirstName = Admin.AdminFirstName,
+                    LastName = Admin.AdminLastName,
                 };
 
                 var result = await userManager.CreateAsync(user, adminPassword);

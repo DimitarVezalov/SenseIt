@@ -107,7 +107,7 @@
             await this.emailSender.SendEmailAsync(
                                                     "wopopo13@gmail.com",
                                                     GlobalConstants.SystemName,
-                                                    "geveye5549@asmm5.com",
+                                                    "jixole6248@ampswipe.com",
                                                     appointment.ServiceName,
                                                     content);
 

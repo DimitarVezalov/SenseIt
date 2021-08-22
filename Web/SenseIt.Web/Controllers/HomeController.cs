@@ -36,7 +36,7 @@
         [HttpPost]
         public IActionResult Contact(ContactEmailFormModel input)
         {
-            this.emailSender.SendEmailAsync(input.Email, input.Name, "geveye5549@asmm5.com", input.Subject, input.Message);
+            this.emailSender.SendEmailAsync(input.Email, input.Name, "jixole6248@ampswipe.com", input.Subject, input.Message);
             return this.View();
         }
     }

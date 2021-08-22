@@ -53,6 +53,8 @@
             public const string AdminEmail = "Admin1@gmail.com";
             public const string AdminPassword = "Admin1";
             public const string AdminUsername = "Admin";
+            public const string AdminFirstName = "Admin";
+            public const string AdminLastName = "Adminov";
 
             public const string AdminDashboardIndex = "/Administration/Dashboard/Index";
         }

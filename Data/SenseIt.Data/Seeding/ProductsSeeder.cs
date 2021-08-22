@@ -16,14 +16,29 @@
                 return;
             }
 
-            var products = new List<(string Name, string Description, string ImageUrl, decimal Price, int CategoryId)>
+            var products = new List<(string Name, string Description, string ImageUrl, string Brand, decimal Price, int CategoryId)>
             {
-                ("Hair Shampoo", "Very good", "https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1567015848-tresemme-1567015842.jpg?crop=1xw:1xh;center,top&resize=768:*", 20.99m, 1),
-                ("Body Lotion", "Nice and Smooth", "https://images.bloomingdalesassets.com/is/image/BLM/products/4/optimized/10666204_fpx.tif?op_sharpen=1&wid=700&fit=fit,1&$filtersm$", 10.99m, 2),
-                ("Nail Polish", "Beautiful Color", "https://static.beautytocare.com/media/catalog/product/cache/global/image/650x650/85e4522595efc69f496374d01ef2bf13/o/p/opi-nail-lacquer-opi-by-popular-vote-15ml.jpg", 15.99m, 3),
-                ("Pedicure Nail Brush", "Cleanyyy...", "https://alexnld.com/wp-content/uploads/2019/11/TBD0173463001D.jpg", 7.99m, 4),
-                ("Pedicure Nail Brush", "Cleanyyy...", "https://alexnld.com/wp-content/uploads/2019/11/TBD0173463001D.jpg", 7.99m, 4),
-                ("Pedicure Nail Brush", "Cleanyyy...", "https://alexnld.com/wp-content/uploads/2019/11/TBD0173463001D.jpg", 7.99m, 4),
+                ("Hair Shampoo", "Very good", "http://res.cloudinary.com/dru4l6z8l/image/upload/v1628764843/l2yxwkur8s5xyavcasgr.jpg", "L'oreal", 20.99m, 1),
+                ("Body Lotion", "Nice and Smooth body lotion perfect for dry skin.", "http://res.cloudinary.com/dru4l6z8l/image/upload/v1629626238/SenseIt/Products/vg83rgt4xh1jndvtibpc.jpg", "Dove", 10.99m, 2),
+                ("Nail Polish", "Beautiful Color", "http://res.cloudinary.com/dru4l6z8l/image/upload/v1629626513/SenseIt/Products/fuezfu5gnl9g2rlp3cro.jpg", "Opi", 15.99m, 3),
+                ("Kaeso Pedicure Kit", @"Contents:
+1x Citrus Squeeze Foot Soak 195ml
+1x Mandarin Spritz Hygiene Spray 195ml
+1x Tea Tree & Ginger Breeze Invigorating Foot Spray 195ml
+1x Lime & Ginger Tingle Foot Scrub 250ml
+1x Peppermint & Blueberry Twist Foot Mask 250ml
+1x Mandarin & Mint Foot Yoghurt Foot & Leg Lotion 250ml", "http://res.cloudinary.com/dru4l6z8l/image/upload/v1628762956/ynazqrdp00ydrsaz2m2r.jpg", "Kaeso", 35.00m, 4),
+
+                ("Hair Shampoo", "Very good", "http://res.cloudinary.com/dru4l6z8l/image/upload/v1628764843/l2yxwkur8s5xyavcasgr.jpg", "L'oreal", 20.99m, 1),
+                ("Body Lotion", "Nice and Smooth body lotion perfect for dry skin.", "http://res.cloudinary.com/dru4l6z8l/image/upload/v1629626238/SenseIt/Products/vg83rgt4xh1jndvtibpc.jpg", "Dove", 10.99m, 2),
+                ("Nail Polish", "Beautiful Color", "http://res.cloudinary.com/dru4l6z8l/image/upload/v1629626513/SenseIt/Products/fuezfu5gnl9g2rlp3cro.jpg", "Opi", 15.99m, 3),
+                ("Kaeso Pedicure Kit", @"Contents:
+1x Citrus Squeeze Foot Soak 195ml
+1x Mandarin Spritz Hygiene Spray 195ml
+1x Tea Tree & Ginger Breeze Invigorating Foot Spray 195ml
+1x Lime & Ginger Tingle Foot Scrub 250ml
+1x Peppermint & Blueberry Twist Foot Mask 250ml
+1x Mandarin & Mint Foot Yoghurt Foot & Leg Lotion 250ml", "http://res.cloudinary.com/dru4l6z8l/image/upload/v1628762956/ynazqrdp00ydrsaz2m2r.jpg", "Kaeso", 35.00m, 4),
             };
 
             foreach (var product in products)
@@ -35,6 +50,7 @@
                     Price = product.Price,
                     ImageUrl = product.ImageUrl,
                     CategoryId = product.CategoryId,
+                    Brand = product.Brand,
                 };
 
                 await dbContext.Products.AddAsync(dbProduct);
